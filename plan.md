@@ -30,34 +30,33 @@ Session Duration (in time).
 Clicks on specific elements (e.g., Click_filter_option, Click_product).
 Failure Rate (sessions that did not complete the intention).
 Average Spend ($).
-Phase 3: LLM Agent Integration and Automated Interaction
-This phase corresponds to your "Integrate Claude Computer Use" step but is broken down into the core components of the AGENTA/B architecture.
+Phase 3: LLM Agent Integration & Agentic Automation (Revised)
+This phase is now significantly streamlined. You are no longer building the interaction modules; you are configuring and orchestrating the agent.
 
-Task 3.1: Develop the Environment Parsing Module
-Details: An LLM cannot "see" a webpage. This module's job is to translate the live webpage's HTML/DOM into a simplified, structured format (like JSON) that the LLM can understand.
-Action: Write a script using a tool like Selenium or Playwright with BeautifulSoup or ChromeDriver's JavaScript execution to:
-Extract all interactable elements (buttons, links, input fields, filters).
-Assign a unique ID to each element (e.g., button_1, product_5).
-Extract key text content (product titles, prices, descriptions).
-Package this into a clean JSON object representing the current state of the page.
-Task 3.2: Configure the LLM Agent (The "Claude" Decision-Making Module)
-Details: This is the brain of the operation. For each step in the simulation, you will make an API call to Claude.
-Action: Construct a detailed prompt for the Claude API that includes:
-System Prompt: "You are a helpful assistant simulating a user on a website. Your goal is to act according to the provided persona and complete the user's intention."
-Persona Information: Inject the full text of the persona (e.g., "You are Marcus...").
-User Intention: Inject the specific goal (e.g., "Your goal is to find a running jacket...").
-Current Page State: Provide the JSON output from the Environment Parsing Module.
-Action History: List the sequence of actions already taken in the session.
-Available Actions: Explicitly list the actions the agent can take (e.g., search("text"), click("element_id"), purchase(), stop()).
-Expected Output: The LLM's response should be a single, structured command, like {"action": "click", "element": "product_5"}.
-Task 3.3: Build the Action Execution Module
-Details: This module takes the LLM's chosen action and executes it in the live web browser.
-Action: Write a function that parses the LLM's JSON output and uses Selenium/Playwright to perform the corresponding browser command (e.g., driver.find_element(By.ID, 'product_5').click()).
-Crucial Feature: Implement fault detection and recovery logic as described in the paper. If an element isn't found, retry, scroll it into view, or re-parse the page.
-Task 3.4: Run the Full Simulation Loop
-Details: Combine the above modules into a loop that runs for each of your virtual users until their intention is met or a failure condition (e.g., too many steps) is reached. Log every single action, page state, and LLM rationale.
-Phase 4: Analysis & Validation of Testing Results
-This is your "Validate Testing Results" step, made concrete.
+Task 3.1: Set Up the Claude Computer-Use Agentic Framework
+Details: This is your new starting point for implementation. You need an "Agent Runner" environment that allows Claude to control a web browser. This involves using an official Anthropic SDK or a compatible open-source framework (e.g., Open Interpreter configured to use Claude's API).
+Action:
+Choose Your Tool: Research and select the framework that will connect Claude's API to your operating system's controls.
+Environment Setup: Create a dedicated, controlled environment (like a virtual machine or Docker container) where the agent will run.
+Grant Permissions: Configure the necessary permissions for the agentic framework to take screenshots, control the mouse, and use the keyboard.
+Browser Instance: Prepare a clean, automated browser instance (e.g., a specific Chrome profile) for the agent to use.
+Task 3.2: Design the Agent's Operational Prompt
+Details: Your prompt is now less about structured data and more about providing context, goals, and guiding the agent's reasoning process. The model will receive a screenshot/accessibility tree of the screen directly from the framework.
+Action: Construct a master prompt template for the Claude API call that includes:
+System Role: "You are an expert UX tester. Your task is to role-play a specific user persona and complete a given task on a website. You will be given a screenshot of the current page. Think step-by-step about your observation, reasoning, and the next action you will take. Then, output the single command to execute."
+Persona Information: Inject the full text of the persona.
+User Intention: Inject the specific, high-level goal.
+Action History: Maintain a running list of the high-level actions the agent has already taken.
+Key Difference: You are no longer providing a JSON of the page. The agent "sees" the screen for itself. Your prompt guides its interpretation of what it sees.
+Task 3.3: Execute and Monitor the Simulation Loop
+Details: This task replaces both the "Parser" and "Executor" modules from the previous plan. The loop is now orchestrated by your chosen Agent Runner.
+The New Loop:
+Observe: The Agent Runner captures the current screen state (e.g., a screenshot).
+Decide: The runner calls the Claude API with the screenshot and your operational prompt.
+Act: Claude returns a specific computer-use command (e.g., click(label="Add to Cart"), type("waterproof running jacket", into="Search Bar")).
+Execute: The Agent Runner executes this command directly on the OS.
+Log: This is critical. Log every step: the screenshot provided to the model, the full prompt, the agent's entire thought process (if available), the final command executed, and the time taken.
+Repeat: The loop continues until the agent outputs a stop() command upon completing its intention or a failure condition is met.
 
 Task 4.1: Aggregate and Analyze Data
 Details: Process the detailed logs from your simulation run.
