@@ -13,6 +13,43 @@ Status: ✅ Complete
 Phase 2: Experiment Design & Configuration (New & Critical Prerequisite)
 Before any integration, you must formally design the experiment.
 
+Phase 2: Environment & Tech Stack Setup
+Status: 🔲 To-Do
+Outcome: A fully configured and reproducible technical environment ready to run the automated tests.
+Task 2.1: Establish the Controlled Execution Environment
+Details: Create an isolated sandbox to ensure every test run is identical and free from outside interference.
+Tech Stack:
+Virtualization: VirtualBox (local, free) or a cloud-based AWS EC2/Google Compute Engine VM.
+Action:
+Install the virtualization software.
+Create a base virtual machine with a standard OS (e.g., Ubuntu 22.04 or Windows 10).
+Install all necessary software (Python, browser, etc.) and create a "Golden Image" snapshot. This snapshot will be reverted to before every single test run to guarantee a clean state.
+Task 2.2: Configure the Test OS and Browser
+Details: Standardize the interface the agent will interact with to eliminate variables.
+Tech Stack:
+Operating System: The chosen OS inside the VM.
+Web Browser: Google Chrome.
+Action:
+Create a script that launches Google Chrome.
+This script must enforce a fixed window size (e.g., 1920x1080).
+The browser must be launched in a clean state (e.g., using --incognito or by clearing profiles) to ensure no cache, cookies, or history from previous runs can influence the test.
+Task 2.3: Initialize the Python Project & Install Dependencies
+Details: Prepare the coding environment with all required libraries.
+Tech Stack:
+Language: Python (3.9+)
+Action:
+Create a new project directory.
+Set up a Python virtual environment (python -m venv venv).
+Install all necessary packages via pip:
+Generated bash
+pip install anthropic         # Official Claude API SDK
+pip install open-interpreter  # The agentic framework
+pip install pandas            # For data analysis
+pip install matplotlib seaborn# For data visualization
+pip install scipy statsmodels # For statistical testing
+Use code with caution.
+Bash
+
 Task 2.1: Define the A/B Test Hypothesis
 Details: State clearly what you are testing and what you expect to happen. This is the central question your test will answer.
 Example Hypothesis: "The redesigned, single-page checkout process (Treatment) will lead to a 15% higher purchase completion rate compared to the current multi-page checkout process (Control)."
