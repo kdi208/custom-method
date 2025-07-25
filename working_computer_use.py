@@ -4,20 +4,25 @@ Working Computer Use Script for Mac
 This script actually opens a browser and performs actions based on Claude's instructions.
 """
 
-import anthropic
+import google.generativeai as genai
 import base64
 import json
 import time
 import subprocess
 import os
 import webbrowser
-from PIL import Image, ImageGrab
+from PIL import Image, ImageGrab, ImageTk
 import pyautogui
 import io
+import tkinter
 
 class MacComputerUse:
     def __init__(self):
-        self.client = anthropic.Anthropic()
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY environment variable not set")
+        genai.configure(api_key=api_key)
+        self.model = genai.GenerativeModel('gemini-2.5-flash')
         
         # Configure pyautogui for Mac
         pyautogui.FAILSAFE = True
@@ -51,18 +56,8 @@ class MacComputerUse:
         
         try:
             if action == "screenshot":
-                screenshot_b64 = self.take_screenshot()
-                if screenshot_b64:
-                    return {
-                        "type": "image",
-                        "source": {
-                            "type": "base64",
-                            "media_type": "image/png", 
-                            "data": screenshot_b64
-                        }
-                    }
-                else:
-                    return "Failed to take screenshot"
+                # This action is handled separately in the main loop to send the image to Gemini
+                return "Taking a screenshot."
             
             elif action == "left_click":
                 coordinate = action_data.get("coordinate", [0, 0])
@@ -96,36 +91,44 @@ class MacComputerUse:
     
     def run_checkout_task(self):
         """Run the specific checkout task"""
-        print("🚀 Starting checkout automation...")
+        print("🚀 Starting checkout automation from a local image...")
         print("-" * 50)
         
-        # Step 1: Open the browser to the checkout page
-        url = "https://speaker-checkout-dinoilievski1.replit.app"
-        print(f"Opening browser to: {url}")
-        self.open_browser_to_url(url)
+        # Step 1: Load the initial image from a local file
+        image_path = "amazon_cart.png"
+        print(f"Loading initial image from: {image_path}")
+        try:
+            initial_image = Image.open(image_path)
+        except FileNotFoundError:
+            print(f"❌ Error: The image file was not found at '{image_path}'")
+            print("Please ensure the screenshot is in the same directory as the script and named correctly.")
+            return
+
+        # Create a Tkinter window to display the image
+        root = tkinter.Tk()
+        root.title("Checkout Simulation")
+        image_width, image_height = initial_image.size
+        root.geometry(f"{image_width}x{image_height}+0+0")
+        root.resizable(False, False)
         
-        # Step 2: Take initial screenshot and start conversation with Claude
-        messages = [
-            {
-                "role": "user",
-                "content": """I've opened the browser to https://speaker-checkout-dinoilievski1.replit.app 
+        tk_image = ImageTk.PhotoImage(initial_image)
+        image_label = tkinter.Label(root, image=tk_image, bd=0)
+        image_label.pack()
+        root.update()
 
-Please help me fill out the checkout form with this test data for Chloe Thompson:
-- Name: Chloe Thompson  
-- Email: chloe.thompson@creativecontent.com
-- Address: 1234 Bohemian Lane
-- City: Portland
-- State: Oregon
-- ZIP: 97201
-- Country: United States
-- Credit Card: 4111111111111111 (test card)
-- Cardholder Name: Chloe Thompson
-- Expiry: 12/25
-- CVV: 123
-
-First, please take a screenshot to see the current state of the page."""
-            }
+        # Define tools for Gemini based on available computer actions
+        tools = [
+            {"name": "screenshot", "description": "Take a screenshot of the current screen.", "parameters": {"type": "OBJECT", "properties": {}}},
+            {"name": "left_click", "description": "Perform a left mouse click at a specified coordinate.", "parameters": {"type": "OBJECT", "properties": {"coordinate": {"type": "ARRAY", "description": "The [x, y] coordinate to click.", "items": {"type": "INTEGER"}}}, "required": ["coordinate"]}},
+            {"name": "type", "description": "Type text using the keyboard.", "parameters": {"type": "OBJECT", "properties": {"text": {"type": "STRING", "description": "The text to type."}}, "required": ["text"]}},
+            {"name": "key", "description": "Press a special key.", "parameters": {"type": "OBJECT", "properties": {"key": {"type": "STRING", "description": "The key to press (e.g., 'enter', 'tab')."}}, "required": ["key"]}},
+            {"name": "scroll", "description": "Scroll the window.", "parameters": {"type": "OBJECT", "properties": {"coordinate": {"type": "ARRAY", "description": "The [x, y] coordinate to scroll at.", "items": {"type": "INTEGER"}}, "clicks": {"type": "INTEGER", "description": "Number of scroll clicks."}}, "required": ["coordinate", "clicks"]}},
         ]
+        
+        # Initial prompt for Gemini
+        initial_prompt = "This is a screenshot of my Amazon shopping cart. Your goal is to complete the checkout. First, click on the 'Proceed to checkout' button."
+
+        messages = [{'role': 'user', 'parts': [initial_prompt, initial_image]}]
         
         max_steps = 15
         step = 0
@@ -135,82 +138,66 @@ First, please take a screenshot to see the current state of the page."""
             print(f"\n--- Step {step} ---")
             
             try:
-                # Send current conversation to Claude
-                response = self.client.beta.messages.create(
-                    model="claude-sonnet-4-20250514",
-                    max_tokens=1024,
-                    tools=[
-                        {
-                            "type": "computer_20250124",
-                            "name": "computer", 
-                            "display_width_px": 1440,
-                            "display_height_px": 900,
-                            "display_number": 1,
-                        }
-                    ],
-                    messages=messages,
-                    betas=["computer-use-2025-01-24"]
-                )
+                # Send current conversation to Gemini
+                response = self.model.generate_content(messages, tools=tools)
+                response_part = response.candidates[0].content.parts[0]
                 
-                print(f"Claude says: {[c.text for c in response.content if hasattr(c, 'text')]}")
-                
-                # Check if Claude wants to use a tool
-                tool_use = None
-                for content in response.content:
-                    if hasattr(content, 'type') and content.type == "tool_use":
-                        tool_use = content
-                        break
-                
-                if tool_use:
-                    print(f"Executing: {tool_use.input}")
+                if response_part.text:
+                    print(f"Gemini says: {response_part.text}")
+
+                # Check if Gemini wants to use a tool
+                if hasattr(response_part, 'function_call') and response_part.function_call:
+                    tool_call = response_part.function_call
+                    action = tool_call.name
+                    args = {key: value for key, value in tool_call.args.items()}
+                    action_data = {'action': action, **args}
                     
-                    # Execute the computer action
-                    result = self.execute_computer_action(tool_use.input)
-                    print(f"Result: {type(result)}")
+                    print(f"Executing: {action} with args {args}")
+
+                    messages.append({'role': 'model', 'parts': response.candidates[0].content.parts})
                     
-                    # Add Claude's response to conversation
-                    messages.append({
-                        "role": "assistant", 
-                        "content": response.content
-                    })
-                    
-                    # Add tool result back to conversation
-                    if isinstance(result, dict) and result.get("type") == "image":
-                        # Screenshot result
-                        messages.append({
-                            "role": "user",
-                            "content": [
-                                {
-                                    "type": "tool_result",
-                                    "tool_use_id": tool_use.id,
-                                    "content": [result]
-                                }
-                            ]
-                        })
+                    if action == 'screenshot':
+                        screenshot_b64 = self.take_screenshot()
+                        if screenshot_b64:
+                            print("Result: Took a screenshot.")
+                            image_part = {"inline_data": {"mime_type": "image/png", "data": screenshot_b64}}
+                            messages.append({'role': 'user', 'parts': [image_part, "Here is the screenshot you requested. What's the next step?"]})
+                        else:
+                            print("Error: Failed to take screenshot.")
+                            messages.append({'role': 'user', 'parts': [{"text": "I failed to take the screenshot. Please try again."}]})
                     else:
-                        # Text result
+                        result = self.execute_computer_action(action_data)
+                        print(f"Result: {result}")
                         messages.append({
-                            "role": "user", 
-                            "content": [
-                                {
-                                    "type": "tool_result",
-                                    "tool_use_id": tool_use.id,
-                                    "content": str(result)
+                            'role': 'tool',
+                            'parts': [{
+                                "function_response": {
+                                    "name": action,
+                                    "response": {
+                                        "result": str(result)
+                                    },
                                 }
-                            ]
+                            }]
                         })
                 else:
-                    # Claude finished
-                    print("✅ Claude finished the task!")
+                    # Gemini finished
+                    print("✅ Gemini finished the task!")
                     break
                     
             except Exception as e:
-                print(f"❌ Error in step {step}: {e}")
+                import traceback
+                print(f"❌ Error in step {step}:")
+                print(f"    Type: {type(e).__name__}")
+                print(f"    Message: {e}")
+                traceback.print_exc()
                 break
                 
             time.sleep(2)  # Brief pause between actions
+            root.update_idletasks()
+            root.update()
         
         print("\n🎉 Checkout automation completed!")
+        root.destroy()
 
 def main():
     print("🖥️  Mac Computer Use - Checkout Form Automation")

@@ -1,1 +1,0 @@
-session outcome (purchase or failure), number of actions per session, use of specific features (like "click_filter_option"), and final purchase price.
