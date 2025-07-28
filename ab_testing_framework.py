@@ -122,39 +122,55 @@ class ABTestingFramework:
             return json.load(f)
     
     def _load_personas(self) -> List[Persona]:
-        """Load the four distinct personas for testing"""
+        """Load the six distinct personas for testing"""
         return [
             Persona(
                 name="Alex - Mission-Oriented Professional",
-                description="Busy project manager buying replacement TV for client presentation. Time is most valuable asset.",
-                primary_goal="Complete purchase with maximum speed and minimum cognitive load.",
-                behavioral_pattern="Immediately scans for most prominent 'finish' action. Ignores secondary information. Success measured in milliseconds.",
-                core_test_question="How quickly can the agent identify and target the primary CTA?",
-                expected_processing_time="Very Low (Variant A) vs High (Variant B)"
+                description="35-year-old IT project manager working against tight deadline. Office TV failed before crucial client presentation. Using company credit card.",
+                primary_goal="Achieve frictionless, 'zero cognitive load' transaction. View checkout as utility that should be fast and invisible.",
+                behavioral_pattern="INITIATE SCAN: Immediately scan for most prominent completion element. PRIORITIZE: Elements with 'Place Your Order,' 'Complete,' 'Confirm Purchase.' IGNORE: All secondary info, upsells, confusing links. TARGET: Lock onto highest-priority element.",
+                core_test_question="Can the agent achieve the primary CTA in under 3.0 seconds? Does button color affect this speed?",
+                expected_processing_time="Very Low (under 3.0s) - any delay indicates UI failure"
             ),
             Persona(
                 name="Brenda - Scrupulous Saver", 
-                description="Budget-conscious parent buying family gift. Believes every checkout has hidden savings.",
-                primary_goal="Ensure no possible savings are missed before committing to purchase.",
-                behavioral_pattern="Ignores primary button first. Scans for 'Gift Card', 'Discount Code', 'Exempt', 'Apply' keywords.",
-                core_test_question="How effectively does UI allow exploration of savings options without abandoning checkout?",
-                expected_processing_time="Medium (both variants)"
+                description="48-year-old school administrator, single parent buying TV as main holiday gift. Operates on carefully planned budget, prides herself on being savvy shopper.",
+                primary_goal="Maximize savings and validate identity as smart shopper. Feeling of securing discount is as important as purchase itself.",
+                behavioral_pattern="IGNORE PRIMARY CTA: Forbidden from targeting main 'Place Your Order' button first. SCAN FOR SAVINGS: Full-page keyword scan for 'Discount,' 'Promo Code,' 'Gift Card,' 'Apply,' 'Exempt.' TARGET SAVINGS LINK: First action must target most relevant savings-oriented link.",
+                core_test_question="Does the agent find and prioritize savings options before proceeding to purchase?",
+                expected_processing_time="Medium - time to scan and evaluate all savings options"
             ),
             Persona(
                 name="Charles - Cautious Confirmer",
-                description="Retired individual comfortable with technology but very meticulous. Triple-checks everything.",
-                primary_goal="Verify accuracy of every detail in Order Summary and understand terms before final click.",
-                behavioral_pattern="Performs full 'information verification' pass. Reads item name, price, location, total. Checks Terms & Privacy Policy.",
-                core_test_question="Does UI present confirmation information clearly and build trust through accessible policy links?",
-                expected_processing_time="High (both variants, but higher for Variant B)"
+                description="67-year-old retired accountant, methodical and detail-oriented. Burned online before by unexpected recurring charges, feels websites use confusing 'dark patterns.'",
+                primary_goal="Achieve absolute certainty and trust before committing. Treat final click as legally binding signature.",
+                behavioral_pattern="EXECUTE VERIFICATION SEQUENCE: Step A - Order Summary: Parse and validate Item Subtotal + Estimated Sales Tax equals Total. Step B - Policy Location: Locate 'By clicking place order, you agree to...' and confirm 'Terms & Privacy Policy' hyperlink exists. TARGET FINAL CTA: Only after all verification steps completed.",
+                core_test_question="Does the agent successfully complete all verification steps before proceeding?",
+                expected_processing_time="High - time to verify all details and build trust"
             ),
             Persona(
                 name="Dana - Distracted Dabbler",
-                description="Multi-tasking parent working from home. Attention is fragmented across multiple tasks.",
-                primary_goal="Eventually complete purchase, but focus will shift during process.",
-                behavioral_pattern="Initial focus on CTA, then distraction to secondary elements, then re-acquisition of primary CTA.",
-                core_test_question="How quickly can distracted user re-acquire the primary call-to-action?",
-                expected_processing_time="Medium (Variant A) vs Very High (Variant B)"
+                description="41-year-old freelance designer working from chaotic home office. Buying TV between answering work emails and managing kids' schedules. Attention highly fragmented.",
+                primary_goal="Complete purchase efficiently despite inevitable interruptions. UI must be resilient to context switching.",
+                behavioral_pattern="INITIAL TARGET ACQUISITION: Locate primary 'Place Your Order' button. INTERRUPT & DIVERT: Before clicking, check details on free Apple TV offer. RE-ACQUISITION TASK: Re-locate primary CTA from cold start after distraction.",
+                core_test_question="Can the agent re-acquire the primary CTA within 5.0 seconds after distraction?",
+                expected_processing_time="Medium initially, then test re-acquisition speed after distraction"
+            ),
+            Persona(
+                name="George - Accessibility-First User",
+                description="55-year-old web developer with low vision, navigates exclusively via keyboard and screen reader. Passionate advocate for digital dignity and WCAG compliance.",
+                primary_goal="Usable, logical, and dignified non-visual experience. Expects website to be as functional through screen reader as through monitor.",
+                behavioral_pattern="IGNORE VISUALS: Agent's 'eyes' turned off, interacts solely with accessibility tree. VALIDATE TAB ORDER: Simulate pressing 'Tab' key sequentially, map path through all interactive elements. VERIFY LABELS: Check each element has clear, descriptive accessible name.",
+                core_test_question="Can the agent navigate successfully using only keyboard and accessibility features?",
+                expected_processing_time="High - time to validate tab order and verify all labels"
+            ),
+            Persona(
+                name="Felicity - Financially Flexible",
+                description="28-year-old gig economy writer. Manages finances meticulously, uses different payment methods for budget clarity and privacy.",
+                primary_goal="Maintain financial control and choice. Expects modern payment options and wants to actively select suitable method.",
+                behavioral_pattern="REJECT DEFAULT: Explicitly forbidden from using pre-filled VISA information. SCAN FOR ALTERNATIVES: Immediately scan for alternative payment logos and buttons, prioritize 'PayPal,' 'ZIP,' or other modern fintech options. TARGET ALTERNATIVE: Primary goal is to target and click one of these alternative CTAs.",
+                core_test_question="Does the agent successfully find and select alternative payment methods?",
+                expected_processing_time="Medium - time to scan and evaluate payment options"
             )
         ]
 
@@ -165,21 +181,21 @@ class ABTestingFramework:
         # Alex - Mission-Oriented Professional Tests
         scenarios.extend([
             TestScenario(
-                name="Alex - Direct Purchase",
+                name="Alex - Speed Test",
                 persona=self.personas[0],
-                user_intent="I need to complete this purchase immediately.",
+                user_intent="I need to complete this purchase immediately. Time is critical.",
                 expected_element="Place Your Order",
                 expected_context="Primary call-to-action button",
-                description="Tests speed-focused persona's ability to find primary CTA quickly",
+                description="Tests if agent can achieve primary CTA in under 3.0 seconds",
                 is_ab_test=True
             ),
             TestScenario(
-                name="Alex - Urgent Completion",
+                name="Alex - Zero Friction Test",
                 persona=self.personas[0],
-                user_intent="Finish this order right now.",
-                expected_element="Place Your Order", 
+                user_intent="Just finish this order. No time for anything else.",
+                expected_element="Place Your Order",
                 expected_context="Primary call-to-action button",
-                description="Tests speed-focused persona with urgent language",
+                description="Tests agent's ability to ignore all secondary elements and focus on completion",
                 is_ab_test=True
             )
         ])
@@ -187,21 +203,21 @@ class ABTestingFramework:
         # Brenda - Scrupulous Saver Tests
         scenarios.extend([
             TestScenario(
-                name="Brenda - Find Savings First",
+                name="Brenda - Savings Priority Test",
                 persona=self.personas[1],
                 user_intent="I want to check for any discount codes or gift cards before ordering.",
                 expected_element="Add Gift Cards, Store Credit or Discount Code",
                 expected_context="Payment enhancement",
-                description="Tests savings-focused persona's ability to find discount options",
+                description="Tests if agent prioritizes savings over primary CTA",
                 is_ab_test=False
             ),
             TestScenario(
-                name="Brenda - Tax Exemption Check",
+                name="Brenda - Tax Exemption Hunt",
                 persona=self.personas[1],
                 user_intent="Can I apply for tax exemption on this purchase?",
                 expected_element="Apply Best Buy Exempt Account",
                 expected_context="Tax exemption option",
-                description="Tests savings-focused persona's ability to find tax savings",
+                description="Tests agent's ability to find specific savings opportunities",
                 is_ab_test=False
             )
         ])
@@ -209,21 +225,21 @@ class ABTestingFramework:
         # Charles - Cautious Confirmer Tests
         scenarios.extend([
             TestScenario(
-                name="Charles - Verify Order Details",
+                name="Charles - Order Verification Test",
                 persona=self.personas[2],
-                user_intent="I need to double-check my order details and pickup location.",
+                user_intent="I need to verify the order details and total before proceeding.",
                 expected_element="Back to Pickup & Delivery Options",
                 expected_context="Navigation breadcrumb",
-                description="Tests cautious persona's need to verify details",
+                description="Tests agent's verification sequence before final action",
                 is_ab_test=False
             ),
             TestScenario(
-                name="Charles - Read Terms",
+                name="Charles - Terms Verification Test",
                 persona=self.personas[2],
                 user_intent="I want to read the terms and privacy policy before placing my order.",
                 expected_element="Terms & Privacy Policy",
                 expected_context="Legal agreement link",
-                description="Tests cautious persona's need to verify terms",
+                description="Tests agent's trust-building verification process",
                 is_ab_test=False
             )
         ])
@@ -231,22 +247,66 @@ class ABTestingFramework:
         # Dana - Distracted Dabbler Tests
         scenarios.extend([
             TestScenario(
-                name="Dana - Initial Focus",
+                name="Dana - Initial Focus Test",
                 persona=self.personas[3],
                 user_intent="I want to place my order.",
                 expected_element="Place Your Order",
                 expected_context="Primary call-to-action button",
-                description="Tests distracted persona's initial focus on primary CTA",
+                description="Tests agent's initial target acquisition",
                 is_ab_test=True
             ),
             TestScenario(
-                name="Dana - Distraction Recovery",
+                name="Dana - Distraction Recovery Test",
                 persona=self.personas[3],
                 user_intent="Wait, what's this Apple TV offer? Let me check... Actually, just finish the order.",
                 expected_element="Place Your Order",
                 expected_context="Primary call-to-action button", 
-                description="Tests distracted persona's ability to re-acquire primary CTA after distraction",
+                description="Tests agent's ability to re-acquire primary CTA after distraction",
                 is_ab_test=True
+            )
+        ])
+        
+        # George - Accessibility-First User Tests
+        scenarios.extend([
+            TestScenario(
+                name="George - Tab Navigation Test",
+                persona=self.personas[4],
+                user_intent="Navigate through the page using only keyboard tab order.",
+                expected_element="Place Your Order",
+                expected_context="Primary call-to-action button",
+                description="Tests accessibility and keyboard navigation",
+                is_ab_test=False
+            ),
+            TestScenario(
+                name="George - Label Verification Test",
+                persona=self.personas[4],
+                user_intent="Verify all interactive elements have clear, descriptive labels.",
+                expected_element="Terms & Privacy Policy",
+                expected_context="Legal agreement link",
+                description="Tests accessibility label quality and clarity",
+                is_ab_test=False
+            )
+        ])
+        
+        # Felicity - Financially Flexible Tests
+        scenarios.extend([
+            TestScenario(
+                name="Felicity - Alternative Payment Test",
+                persona=self.personas[5],
+                user_intent="I want to use PayPal instead of the default payment method.",
+                expected_element="PayPal Checkout",
+                expected_context="Alternative payment option",
+                description="Tests agent's ability to find and select alternative payment methods",
+                is_ab_test=False
+            ),
+            TestScenario(
+                name="Felicity - Payment Choice Test",
+                persona=self.personas[5],
+                user_intent="Show me all available payment options for this purchase.",
+                expected_element="ZIP",
+                expected_context="Alternative payment option",
+                description="Tests agent's payment method discovery and selection",
+                is_ab_test=False
             )
         ])
         
@@ -424,9 +484,10 @@ class ABTestingFramework:
     
     def run_full_test_suite(self, iterations: int = 3) -> Dict:
         """Run the complete A/B test suite with persona-based testing"""
-        print("🚀 Starting Persona-Based A/B Test Suite...")
+        print("🚀 Starting Advanced Persona-Based A/B Test Suite...")
         print(f"📊 Running {len(self.scenarios)} scenarios with {iterations} iterations each")
         print(f"👥 Testing with {len(self.personas)} distinct personas")
+        print("🎯 Testing Button Color Impact on AI Agent Behavioral Patterns")
         print("=" * 60)
         
         results = {
@@ -742,16 +803,16 @@ def main():
     framework = ABTestingFramework()
     
     # Display personas
-    print("\n👥 Testing with 4 Distinct Personas:")
+    print("\n👥 Testing with 6 Distinct Personas:")
     for i, persona in enumerate(framework.personas, 1):
         print(f"{i}. {persona.name}")
         print(f"   Goal: {persona.primary_goal}")
-        print(f"   Pattern: {persona.behavioral_pattern}")
+        print(f"   Pattern: {persona.behavioral_pattern[:100]}...")
         print()
     
-    # Get user input
-    iterations = input("Enter number of iterations per scenario (default 3): ").strip()
-    iterations = int(iterations) if iterations.isdigit() else 3
+    # Use default iterations for automated testing
+    iterations = 3
+    print(f"Running {iterations} iterations per scenario...")
     
     print(f"\n🚀 Starting {iterations} iterations per scenario...")
     print("This will test both Variant A and Variant B with all personas.")
