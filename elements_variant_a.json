@@ -2,7 +2,6 @@
   {"text": "BEST BUY logo", "context": "Header navigation"},
   {"text": "Checkout", "context": "Header navigation"},
   {"text": "Return to Cart", "context": "Header navigation"},
-  {"text": "Help & Support", "context": "Header navigation"},
   {"text": "Back to Pickup & Delivery Options", "context": "Navigation breadcrumb"},
   {"text": "Payment Information", "context": "Left column section header"},
   {"text": "VISA card", "context": "Payment method selection"},
@@ -12,8 +11,6 @@
   {"text": "Other Payment Methods", "context": "Payment section header"},
   {"text": "PayPal Checkout", "context": "Alternative payment option"},
   {"text": "ZIP", "context": "Alternative payment option"},
-  {"text": "Apple Pay", "context": "Alternative payment option"},
-  {"text": "Google Pay", "context": "Alternative payment option"},
   {"text": "Add Gift Cards, Store Credit or Discount Code", "context": "Payment enhancement"},
   {"text": "Terms & Privacy Policy", "context": "Legal agreement link"},
   {"text": "Place Your Order", "context": "Primary call-to-action button"},
@@ -21,13 +18,11 @@
   {"text": "Store Pickup", "context": "Delivery method"},
   {"text": "Chelsea (23rd and 6th)", "context": "Pickup location"},
   {"text": "Ready for pickup today", "context": "Pickup availability"},
-  {"text": "Change pickup location", "context": "Pickup action"},
   {"text": "Insignia TV product", "context": "Product item"},
   {"text": "Remove item", "context": "Product action"},
   {"text": "Add a gift receipt", "context": "Product enhancement"},
   {"text": "Digital Delivery", "context": "Digital content section"},
   {"text": "jimmymcart@yahoo.com", "context": "Digital delivery email"},
-  {"text": "Change email", "context": "Digital delivery action"},
   {"text": "Apple TV+ offer", "context": "Promotional content"},
   {"text": "Remove Apple TV+", "context": "Promotional action"},
   {"text": "Fubo offer", "context": "Promotional content"},
@@ -42,6 +37,5 @@
   {"text": "Interest-Based Ads", "context": "Footer navigation"},
   {"text": "Returns & Exchanges", "context": "Footer navigation"},
   {"text": "Give Feedback", "context": "Footer navigation"},
-  {"text": "Mobile Site", "context": "Footer navigation"},
-  {"text": "Customer Support", "context": "Footer navigation"}
+  {"text": "Mobile Site", "context": "Footer navigation"}
 ] 
