@@ -1,0 +1,9 @@
+[
+  {"box_2d": [27, 567, 39, 626], "text": "Products", "element_type": "a"},
+  {"box_2d": [27, 663, 39, 737], "text": "Community", "element_type": "a"},
+  {"box_2d": [27, 756, 39, 793], "text": "About", "element_type": "a"},
+  {"box_2d": [20, 812, 43, 891], "text": "Sign in button", "element_type": "button"},
+  {"box_2d": [20, 894, 43, 969], "text": "Register button", "element_type": "button"},
+  {"box_2d": [221, 436, 244, 497], "text": "Learn button", "element_type": "button"},
+  {"box_2d": [221, 507, 244, 560], "text": "Shop button", "element_type": "button"}
+] 
