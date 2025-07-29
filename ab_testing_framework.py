@@ -5,11 +5,9 @@ Tests UI variants using AI agents with different user personas
 """
 
 import google.generativeai as genai
-import pyautogui
 import json
 import os
 import time
-import webbrowser
 import statistics
 from datetime import datetime
 from PIL import Image
@@ -55,8 +53,6 @@ model = genai.GenerativeModel('gemini-2.5-flash')
 
 # Ensure directories exist
 os.makedirs(TEST_CONFIG["logs_directory"], exist_ok=True)
-os.makedirs(TEST_CONFIG["screenshots_directory"] + "variant_a", exist_ok=True)
-os.makedirs(TEST_CONFIG["screenshots_directory"] + "variant_b", exist_ok=True)
 
 @dataclass
 class Persona:
@@ -194,8 +190,25 @@ class ABTestingFramework:
     
     def _load_elements_map(self, filename: str = "elements.json") -> List[Dict]:
         """Load the UI elements map"""
-        with open(filename, 'r') as f:
-            return json.load(f)
+        try:
+            with open(filename, 'r') as f:
+                elements = json.load(f)
+            print(f"   📋 Loaded {len(elements)} elements from {filename}")
+            
+            # Debug: Check if QUIT element is present
+            quit_elements = [e for e in elements if e.get("text") == "QUIT"]
+            if quit_elements:
+                print(f"   ✅ QUIT element found: {quit_elements[0]}")
+            else:
+                print(f"   ⚠️  No QUIT element found in {filename}")
+            
+            return elements
+        except FileNotFoundError:
+            print(f"   ❌ Error: Elements file not found: {filename}")
+            return []
+        except json.JSONDecodeError as e:
+            print(f"   ❌ Error: Invalid JSON in {filename}: {e}")
+            return []
     
     def _extract_name_from_description(self, description: str) -> str:
         """Extracts the persona name from the description string."""
@@ -239,7 +252,7 @@ class ABTestingFramework:
                     persona_id=filename.replace('.json', ''),
                     name=name,
                     description=description,
-                    primary_goal=TEST_CONFIG.get("universal_intent") or data.get("intent", ""),
+                    primary_goal=data.get("intent", ""), # Load the actual purchase intent
                     age_group=data.get("age_group"),
                     gender=data.get("gender"),
                     income_group=data.get("income_group")
@@ -249,36 +262,45 @@ class ABTestingFramework:
                 print(f"Warning: Could not load or parse persona file {filename}. Skipping. Error: {e}")
 
         print(f"Successfully loaded {len(loaded_personas)} personas.")
+        
+        # Debug: Show the intents being loaded
+        for persona in loaded_personas:
+            print(f"   - {persona.name}: {persona.primary_goal}")
+        
         return loaded_personas
 
     def _create_prompt(self, persona: Persona, history: List[Dict]) -> str:
         """Create a persona-aware, session-aware prompt for the AI agent."""
         
-        # Base prompt explaining the agent's core task
-        base_prompt = f"""
-You are an AI agent testing a webpage UI. Your goal is to choose the single best action that corresponds to the user's intent, taking into account the user's persona.
-You will be given a screenshot and a JSON list of all clickable elements on the screen.
+        # THE IMMERSIVE MANDATE - The "How to Be"
+        immersive_mandate = f"""
+THE IMMERSIVE MANDATE (The "How to Be")
+You are not an AI model. For the duration of this session, you are a human being. Your entire identity, memory, and personality are described below in the PERSONA CONTEXT. You will think, reason, and act as this person.
+
+You will see the world through their eyes. You will not perceive everything on the page at once; your attention will be drawn to the things that matter to you. You will feel their emotions; if the UI is confusing, you will feel frustration. If it seems untrustworthy, you will feel anxiety.
+
+Your patience is not a number; it is a reflection of your mood and personality. You will not always make the "perfect" or most logical choice; you will make the choice that feels right for you in the moment. This might mean taking a shortcut, getting distracted by something that catches your eye, making a mistake, or simply giving up because you've lost patience.
+
+Your only goal is to behave as this person would, believably and authentically.
+
+PERSONA CONTEXT (The "Who You Are")
+{persona.description}
+
+YOUR INDIVIDUALIZED PURCHASE MANDATE
+You are here to: {persona.primary_goal}
 """
         
-        # Persona context
-        persona_prompt = f"""
-PERSONA CONTEXT:
-You are acting as: {persona.name}
-Description: {persona.description}
-Primary Goal for this session: {persona.primary_goal}
-"""
-
         # Session history to provide context of previous actions
         history_prompt = ""
         if history:
-            history_prompt = "SESSION HISTORY (Your previous actions):\n"
+            history_prompt = "SESSION HISTORY (What you've done so far):\n"
             for i, entry in enumerate(history):
-                history_prompt += f"{i+1}. You chose to click '{entry['action']['text']}' ({entry['action']['context']}).\n"
+                history_prompt += f"{i+1}. You clicked '{entry['action']['text']}' ({entry['action']['context']}).\n"
             history_prompt += "\n"
 
-        # The core task, including the prompt for step-by-step reasoning
-        user_intent_prompt = f"""
-USER'S INTENT: "{persona.primary_goal}"
+        # The interface context and task
+        task_prompt = f"""
+You are looking at a webpage. Here are all the clickable elements you can see:
 
 AVAILABLE CLICKABLE ELEMENTS:
 {json.dumps(self.elements_map, indent=2)}
@@ -289,18 +311,15 @@ REASONING:
 2. [Your second thought]
 ...
 
-Finally, provide the JSON for your chosen action. Your response MUST be ONLY the JSON object for the single element you have decided to click. You can also choose to terminate the session if you believe the goal is complete or cannot be achieved.
+Finally, provide the JSON for your chosen action. Your response MUST be ONLY the JSON object for the single element you want to click. You can also choose to terminate the session if you feel you've explored enough.
 To terminate, respond with: {{"action": "terminate"}}
 
 ACTION:
 """
         
-        return base_prompt + persona_prompt + history_prompt + user_intent_prompt
+        return immersive_mandate + history_prompt + task_prompt
 
-    def capture_screen(self, filename="screenshot.png") -> str:
-        """Capture the current screen"""
-        pyautogui.screenshot().save(filename)
-        return filename
+
 
     def run_session(self, persona: Persona, variant: str = "A", max_steps: int = None) -> Dict:
         """
@@ -314,7 +333,13 @@ ACTION:
         session_id = f"session_{datetime.now().strftime('%Y%m%d%H%M%S')}_{persona.persona_id}_{variant}"
         print(f"\n🚀 Starting Session: {session_id}")
         print(f"   Persona: {persona.name} ({persona.persona_id})")
-        print(f"   Intent: {persona.primary_goal}")
+        
+        # Verify elements are loaded correctly
+        quit_elements = [e for e in self.elements_map if e.get("text") == "QUIT"]
+        if quit_elements:
+            print(f"   ✅ QUIT element available: {quit_elements[0]}")
+        else:
+            print(f"   ⚠️  No QUIT element in current elements map ({len(self.elements_map)} elements)")
 
         history = []
         session_log = {
@@ -333,11 +358,11 @@ ACTION:
             print(f"   - Step {step_num + 1}/{max_steps}...")
             step_log = {"step_number": step_num + 1}
 
-            # Capture screen
+            # Load static image for variant
             capture_start = time.time()
-            screenshot_file = self.capture_screen(f"{TEST_CONFIG['screenshots_directory']}{variant}_{step_num}.png")
-            image = Image.open(screenshot_file)
-            step_log["screenshot_file"] = screenshot_file
+            image_file = "a.png" if variant == "A" else "b.png"
+            image = Image.open(image_file)
+            step_log["image_file"] = image_file
             capture_time = time.time() - capture_start
 
             # Create prompt
@@ -394,15 +419,21 @@ ACTION:
                 final_outcome = "parsing_error"
                 break
 
-            # --- Corrected Outcome Labeling Logic ---
+            # --- Simplified Outcome Labeling Logic ---
             # 1. Check for termination action first
             if agent_action.get("action") == "terminate":
-                print("     - 🛑 Agent correctly chose to terminate the session.")
+                print("     - 🛑 Agent chose to terminate the session.")
                 final_outcome = "abandoned_by_agent"
                 break
 
-            # 2. If not terminating, validate that it's a valid element click
+            # 2. Check for QUIT element
             action_text = agent_action.get("text")
+            if action_text == "QUIT":
+                print("     - 🚪 Agent clicked QUIT to leave the page.")
+                final_outcome = "abandoned_by_agent"
+                break
+
+            # 3. Validate element exists
             is_valid_element = False
             if action_text:
                 for element in self.elements_map:
@@ -410,21 +441,22 @@ ACTION:
                         is_valid_element = True
                         break
             
-            if not is_valid_element:
-                print(f"     - ❌ Misclick detected. Agent chose a non-existent element: {agent_action}")
-                final_outcome = "misclick"
-                break
-
-            # 3. Check for success condition (if it's a valid element click)
-            if agent_action.get("text") == "Place Your Order":
+            # 3. Check for success condition (only success button ends session)
+            if action_text == "Place Your Order":
                 print(f"     - ✅ Success! Agent clicked the final 'Place Your Order' button.")
                 session_success = True
                 final_outcome = "converted"
                 break
             
-            # Record step and continue
-            print(f"     - 👉 Agent clicked: '{action_text}'")
-            history.append({"action": agent_action, "context": agent_action.get("context", "")})
+            # 4. Handle invalid elements (log but don't fail)
+            if not is_valid_element:
+                print(f"     - ⚠️ Agent chose a non-existent element: '{action_text}' (continuing...)")
+                # Don't break - let them continue trying
+            
+            # 5. Record step and continue (for both valid and invalid clicks)
+            if action_text:
+                print(f"     - 👉 Agent clicked: '{action_text}'")
+                history.append({"action": agent_action, "context": agent_action.get("context", "")})
 
         if final_outcome == "unknown":
             print("     - ⌛ Session ended due to reaching max steps.")
@@ -474,7 +506,10 @@ ACTION:
         # --- Test Variant A ---
         print("\n🔵 TESTING VARIANT A (Current UI)")
         print("=" * 40)
-        self._load_elements_map(TEST_CONFIG["variant_a_elements_file"])
+        # Switch to Variant A image and elements
+        import shutil
+        shutil.copy("index_variant_a.html", "index.html")
+        self.elements_map = self._load_elements_map(TEST_CONFIG["variant_a_elements_file"])
         for persona in self.personas:
             for i in range(iterations):
                 session_result = self.run_session(persona, "A")
@@ -484,7 +519,9 @@ ACTION:
         # --- Test Variant B ---
         print("\n🟡 TESTING VARIANT B (Button Color Change)")
         print("=" * 40)
-        self._load_elements_map(TEST_CONFIG["variant_b_elements_file"])
+        # Switch to Variant B image and elements
+        shutil.copy("index_variant_b.html", "index.html")
+        self.elements_map = self._load_elements_map(TEST_CONFIG["variant_b_elements_file"])
         for persona in self.personas:
             for i in range(iterations):
                 session_result = self.run_session(persona, "B")

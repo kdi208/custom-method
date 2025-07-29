@@ -1,4 +1,5 @@
 [
+  {"text": "QUIT", "context": "Exit page"},
   {"text": "BEST BUY logo", "context": "Header navigation"},
   {"text": "Checkout", "context": "Header navigation"},
   {"text": "Return to Cart", "context": "Header navigation"},
