@@ -18,10 +18,11 @@ Modify these values to change test parameters without touching the main code.
 
 TEST_CONFIG = {
     # Test Scale Configuration
-    "num_personas": 50,           # Number of personas to test
-    "iterations_per_persona": 2,  # Number of iterations per persona
+    "num_personas": 30,           # Number of personas to test
+    "iterations_per_persona": 1,  # Number of iterations per persona
     "max_steps_per_session": 5,   # Maximum steps per session
-    
+    "universal_intent": "complete the checkout", # Overrides individual persona intents
+
     # File Paths
     "variant_a_elements_file": "elements_variant_a.json",
     "variant_b_elements_file": "elements_variant_b.json",

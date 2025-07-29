@@ -40,7 +40,8 @@ except ImportError:
         "variant_b_elements_file": "elements_variant_b.json",
         "personas_directory": "data/example_data/personas/json/",
         "logs_directory": "logs/",
-        "screenshots_directory": "screenshots/"
+        "screenshots_directory": "screenshots/",
+        "universal_intent": "Place Your Order" # Added for consistency across personas
     }
 
 # =============================================================================
@@ -238,7 +239,7 @@ class ABTestingFramework:
                     persona_id=filename.replace('.json', ''),
                     name=name,
                     description=description,
-                    primary_goal=data.get("intent", ""),
+                    primary_goal=TEST_CONFIG.get("universal_intent") or data.get("intent", ""),
                     age_group=data.get("age_group"),
                     gender=data.get("gender"),
                     income_group=data.get("income_group")
@@ -376,6 +377,15 @@ ACTION:
                     prompt += "\n\nYour last response was not valid JSON. Please correct your thinking and provide the action in the correct format."
                     agent_action = None
                     step_log["error"] = f"Parsing failed on attempt {attempt + 1}: {e}"
+                except Exception as e:
+                    print(f"     - ⚠️ API error (Attempt {attempt + 1}/{parsing_attempts}). Error: {e}")
+                    if attempt < parsing_attempts - 1:
+                        print(f"     - 🔄 Retrying in 5 seconds...")
+                        time.sleep(5)
+                    else:
+                        print(f"     - ❌ API error after {parsing_attempts} attempts. Marking session as failed.")
+                        step_log["error"] = f"API error after {parsing_attempts} attempts: {e}"
+                        agent_action = None
 
             session_log["steps"].append(step_log)
             
@@ -614,6 +624,8 @@ def main():
     """Main function to run the persona-based A/B testing framework"""
     print("🔬 BLIND Persona-Based AI Agent UI A/B Testing Framework")
     print("🎯 Testing Button Color Impact on AI Agent Performance (No Bias)")
+    if TEST_CONFIG.get("universal_intent"):
+        print(f"🌍 Universal Intent for All Personas: '{TEST_CONFIG['universal_intent']}'")
     print("=" * 60)
     
     # Initialize framework
