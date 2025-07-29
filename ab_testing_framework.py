@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-A/B Testing Framework for AI Agent UI Evaluation
-Implements quantifiable metrics to measure UI effectiveness for AI agents
+Persona-Based AI Agent UI A/B Testing Framework
+Tests UI variants using AI agents with different user personas
 """
 
 import google.generativeai as genai
@@ -19,15 +19,43 @@ from typing import List, Dict, Optional
 import random
 import re
 
+# =============================================================================
+# CONFIGURATION SECTION - Central place for all test parameters
+# =============================================================================
+# 
+# Configuration is now loaded from test_config.py
+# To modify test parameters, edit test_config.py instead of this file
+#
+# =============================================================================
+
+try:
+    from test_config import TEST_CONFIG
+except ImportError:
+    # Fallback configuration if test_config.py is not found
+    TEST_CONFIG = {
+        "num_personas": 20,           # Number of personas to test
+        "iterations_per_persona": 2,  # Number of iterations per persona
+        "max_steps_per_session": 5,   # Maximum steps per session
+        "variant_a_elements_file": "elements_variant_a.json",
+        "variant_b_elements_file": "elements_variant_b.json",
+        "personas_directory": "data/example_data/personas/json/",
+        "logs_directory": "logs/",
+        "screenshots_directory": "screenshots/"
+    }
+
+# =============================================================================
+# END CONFIGURATION SECTION
+# =============================================================================
+
 # --- Configuration and Setup ---
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 model = genai.GenerativeModel('gemini-2.5-flash')
 
 # Ensure directories exist
-os.makedirs("logs", exist_ok=True)
-os.makedirs("screenshots/variant_a", exist_ok=True)
-os.makedirs("screenshots/variant_b", exist_ok=True)
+os.makedirs(TEST_CONFIG["logs_directory"], exist_ok=True)
+os.makedirs(TEST_CONFIG["screenshots_directory"] + "variant_a", exist_ok=True)
+os.makedirs(TEST_CONFIG["screenshots_directory"] + "variant_b", exist_ok=True)
 
 @dataclass
 class Persona:
@@ -153,7 +181,11 @@ class ABTestMetrics:
 class ABTestingFramework:
     """Main A/B testing framework for AI agent UI evaluation"""
     
-    def __init__(self, num_personas: int = 10):
+    def __init__(self, num_personas: int = None):
+        # Use default from config if not provided
+        if num_personas is None:
+            num_personas = TEST_CONFIG["num_personas"]
+            
         self.metrics_a = ABTestMetrics()
         self.metrics_b = ABTestMetrics()
         self.personas = self._load_personas(num_personas)
@@ -176,7 +208,7 @@ class ABTestingFramework:
 
     def _load_personas(self, num_personas: int) -> List[Persona]:
         """Load a random sample of personas from the data directory."""
-        persona_dir = "data/example_data/personas/json/"
+        persona_dir = TEST_CONFIG["personas_directory"]
         if not os.path.isdir(persona_dir):
             print(f"Error: Persona directory not found at {persona_dir}")
             return []
@@ -268,28 +300,16 @@ ACTION:
         """Capture the current screen"""
         pyautogui.screenshot().save(filename)
         return filename
-    
-    def _validate_action(self, agent_action: Dict) -> bool:
-        """Validates if the agent's chosen action exists in the elements map."""
-        if not agent_action or "text" not in agent_action:
-            return False # Invalid action format
 
-        action_text = agent_action.get("text")
-        
-        # Allow terminate action
-        if action_text == "terminate":
-            return True
-
-        for element in self.elements_map:
-            if element.get("text") == action_text:
-                return True
-        return False
-
-    def run_session(self, persona: Persona, variant: str = "A", max_steps: int = 5) -> Dict:
+    def run_session(self, persona: Persona, variant: str = "A", max_steps: int = None) -> Dict:
         """
         Run a multi-step session for a given persona.
         A session continues until the task is complete, abandoned, or an error occurs.
         """
+        # Use default max_steps if not provided
+        if max_steps is None:
+            max_steps = TEST_CONFIG["max_steps_per_session"]
+            
         session_id = f"session_{datetime.now().strftime('%Y%m%d%H%M%S')}_{persona.persona_id}_{variant}"
         print(f"\n🚀 Starting Session: {session_id}")
         print(f"   Persona: {persona.name} ({persona.persona_id})")
@@ -314,7 +334,7 @@ ACTION:
 
             # Capture screen
             capture_start = time.time()
-            screenshot_file = self.capture_screen(f"screenshots/{variant}_{step_num}.png")
+            screenshot_file = self.capture_screen(f"{TEST_CONFIG['screenshots_directory']}{variant}_{step_num}.png")
             image = Image.open(screenshot_file)
             step_log["screenshot_file"] = screenshot_file
             capture_time = time.time() - capture_start
@@ -364,20 +384,28 @@ ACTION:
                 final_outcome = "parsing_error"
                 break
 
-            # Validate action
-            is_misclick = not self._validate_action(agent_action)
-            if is_misclick:
-                print(f"     - ❌ Misclick detected. Agent chose non-existent element: {agent_action.get('text')}")
-                final_outcome = "misclick"
-                break
-            
-            # Check for termination by agent
+            # --- Corrected Outcome Labeling Logic ---
+            # 1. Check for termination action first
             if agent_action.get("action") == "terminate":
-                print(f"     - 🛑 Agent chose to terminate the session.")
+                print("     - 🛑 Agent correctly chose to terminate the session.")
                 final_outcome = "abandoned_by_agent"
                 break
 
-            # Universal success condition for a checkout page
+            # 2. If not terminating, validate that it's a valid element click
+            action_text = agent_action.get("text")
+            is_valid_element = False
+            if action_text:
+                for element in self.elements_map:
+                    if element.get("text") == action_text:
+                        is_valid_element = True
+                        break
+            
+            if not is_valid_element:
+                print(f"     - ❌ Misclick detected. Agent chose a non-existent element: {agent_action}")
+                final_outcome = "misclick"
+                break
+
+            # 3. Check for success condition (if it's a valid element click)
             if agent_action.get("text") == "Place Your Order":
                 print(f"     - ✅ Success! Agent clicked the final 'Place Your Order' button.")
                 session_success = True
@@ -385,6 +413,7 @@ ACTION:
                 break
             
             # Record step and continue
+            print(f"     - 👉 Agent clicked: '{action_text}'")
             history.append({"action": agent_action, "context": agent_action.get("context", "")})
 
         if final_outcome == "unknown":
@@ -394,7 +423,7 @@ ACTION:
         # Finalize and save log
         session_log["final_outcome"] = final_outcome
         session_log["success"] = session_success
-        log_filename = f"logs/{session_id}.json"
+        log_filename = f"{TEST_CONFIG['logs_directory']}{session_id}.json"
         with open(log_filename, 'w') as f:
             json.dump(session_log, f, indent=2)
         print(f"   - 💾 Log saved to {log_filename}")
@@ -409,8 +438,12 @@ ACTION:
             "total_hesitation": total_hesitation_steps,
         }
     
-    def run_full_test_suite(self, iterations: int = 1) -> Dict: # Reduced default for session-based testing
+    def run_full_test_suite(self, iterations: int = None) -> Dict:
         """Run the complete A/B test suite with persona-based testing"""
+        # Use default from config if not provided
+        if iterations is None:
+            iterations = TEST_CONFIG["iterations_per_persona"]
+            
         print("🚀 Starting Advanced Persona-Based A/B Test Suite...")
         print(f"📊 Running tests for {len(self.personas)} personas")
         print("=" * 60)
@@ -431,7 +464,7 @@ ACTION:
         # --- Test Variant A ---
         print("\n🔵 TESTING VARIANT A (Current UI)")
         print("=" * 40)
-        self._load_elements_map("elements_variant_a.json")
+        self._load_elements_map(TEST_CONFIG["variant_a_elements_file"])
         for persona in self.personas:
             for i in range(iterations):
                 session_result = self.run_session(persona, "A")
@@ -441,7 +474,7 @@ ACTION:
         # --- Test Variant B ---
         print("\n🟡 TESTING VARIANT B (Button Color Change)")
         print("=" * 40)
-        self._load_elements_map("elements_variant_b.json")
+        self._load_elements_map(TEST_CONFIG["variant_b_elements_file"])
         for persona in self.personas:
             for i in range(iterations):
                 session_result = self.run_session(persona, "B")
@@ -584,7 +617,7 @@ def main():
     print("=" * 60)
     
     # Initialize framework
-    framework = ABTestingFramework(num_personas=10) # Using 10 for a test run
+    framework = ABTestingFramework(num_personas=TEST_CONFIG["num_personas"])
     
     # Display personas
     print(f"\n👥 Testing with {len(framework.personas)} Distinct Personas:")
@@ -594,15 +627,13 @@ def main():
         print(f"   Description: {persona.description[:100].strip()}...")
         print()
     
-    # Use default iterations for automated testing
-    iterations = 1 # Keep this low for session-based testing
-    print(f"Running {iterations} iterations per persona...")
+    print(f"Running {TEST_CONFIG['iterations_per_persona']} iterations per persona...")
     
-    print(f"\n🚀 Starting {iterations} iterations per persona...")
+    print(f"\n🚀 Starting {TEST_CONFIG['iterations_per_persona']} iterations per persona...")
     print("This will test both Variant A and Variant B with all personas.")
     
     # Run tests
-    results = framework.run_full_test_suite(iterations)
+    results = framework.run_full_test_suite()
     
     # Generate and save report
     report = framework.generate_report(results)
