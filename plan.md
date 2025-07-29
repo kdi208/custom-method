@@ -199,15 +199,15 @@ This section maps the plan's requirements to specific files in the repository, o
 ### To Be Modified
 
 *   **`ab_testing_framework.py`**: This is the core file for the framework and will receive the most significant updates, covering all parts of the plan.
-    *   **Part 1 (Dynamic Personas):**
+    *   **Part 1 (Dynamic Personas):** **(COMPLETED)**
         *   The `Persona` dataclass will be modified to include demographic fields (`age_group`, `gender`, `income_group`).
         *   The `_load_personas` method will be completely rewritten to scan the `data/example_data/personas/json/` directory, randomly sample 100 files, and parse them into `Persona` objects.
-        *   The `_load_test_scenarios` method will be rewritten to create a static list of generic test scenarios, decoupled from specific personas.
-    *   **Part 2 (Enhanced Metrics):**
+        *   The `_load_test_scenarios` method will be **removed**. The test will be driven directly by persona intent.
+    *   **Part 2 (Enhanced Metrics):** **(COMPLETED)**
         *   The `ABTestMetrics` class will be expanded to include fields for abandonment, session length, hesitation, and parsing errors.
-        *   The main test execution method, `run_single_test`, will be fundamentally refactored into a session-based `run_session` method containing a `while` loop to manage multi-step interactions.
+        *   The main test execution method, `run_session`, will be modified to be driven by a `persona` object instead of a `scenario`. The success condition will be hardcoded to the primary CTA (e.g., "Place Your Order").
         *   The `generate_report` method will be updated to include demographic segmentation and all the new business and UX metrics.
-    *   **Part 3 (Robustness):**
+    *   **Part 3 (Robustness):** **(COMPLETED)**
         *   The `run_session` method will be enhanced with `try/except` blocks for graceful JSON parsing and a retry mechanism to handle malformed LLM responses.
         *   Logging logic will be integrated into `run_session` to write detailed session data to the new `logs/` directory.
 
