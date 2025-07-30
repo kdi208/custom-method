@@ -152,7 +152,11 @@
     "context": "Footer navigation"
   },
   {
-    "text": "QUIT",
+    "text": "Terminate",
     "context": "Exit page"
+  },
+  {
+    "text": "Become Distracted",
+    "context": "Distraction option"
   }
 ]

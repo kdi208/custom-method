@@ -18,10 +18,9 @@ Modify these values to change test parameters without touching the main code.
 
 TEST_CONFIG = {
     # Test Scale Configuration
-    "num_personas": 5,            # Number of personas for this exploratory test (using super personas)
+    "num_personas": 1,            # Number of personas for this exploratory test (using super personas)
     "iterations_per_persona": 1,  # Number of iterations per persona
     "max_steps_per_session": 5,   # Maximum steps per session
-    "universal_intent": "Your goal is to complete the purchase of the items in your cart.", # Universal intent for this test run
 
     # File Paths - Updated to use demo variants and super personas
     "variant_a_elements_file": "demo/elements_variant_a.json",
@@ -29,6 +28,12 @@ TEST_CONFIG = {
     "personas_directory": "data/example_data/super/",
     "logs_directory": "logs/",
     "screenshots_directory": "screenshots/"
+}
+
+# Distracted Condition Configuration
+DISTRACTED_CONFIG = {
+    "enabled": True,
+    "step": 2
 }
 
 # =============================================================================

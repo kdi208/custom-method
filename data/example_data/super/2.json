@@ -7,19 +7,19 @@
   "income": 95000,
   "education": "Bachelor's in Marketing",
   "location": "San Francisco, California",
-  "background": "Sarah is a 28-year-old Marketing Manager at a 150-person B2B tech company. Her VP just told her their current analytics tool 'isn't cutting it' and gave her a week to evaluate three potential replacements. She's just signed up for this product's free trial. She is time-poor, under pressure to make a smart recommendation, and has been burned by SaaS products with flashy landing pages and confusing interfaces before.",
-  "core_motivation": "Confident Adoption. Sarah's goal is to quickly determine if this tool is the one. She wants to feel smart, competent, and confident that she can successfully onboard her team onto this platform. She is looking for that 'aha!' moment of clarity.",
-  "primary_anxiety": "The Fear of a Wasted Pilot. Her biggest fear is wasting two days struggling with a confusing tool only to realize it's the wrong choice. She is deeply anxious about looking foolish to her VP.",
+  "background": "Sarah is a Marketing Manager at a 150-person B2B tech company. She is under pressure to evaluate new tools and make recommendations quickly. She has been burned by products with flashy landing pages and confusing interfaces before.",
+  "core_motivation": "Confident Adoption. Sarah's goal is to quickly determine if a tool is worth her time. She wants to feel smart, competent, and confident that she can successfully use the platform. She is looking for that 'aha!' moment of clarity.",
+  "primary_anxiety": "The Fear of a Wasted Pilot. Her biggest fear is wasting time struggling with a confusing tool only to realize it's the wrong choice. She is deeply anxious about looking foolish to her superiors.",
   "decision_making_style": "Satisficer with a High Bar for Trust. She doesn't need the tool to do everything, but it must be intuitive and trustworthy from the very first interaction. Any ambiguity or jargon is a major red flag that erodes her confidence.",
-  "technical_proficiency": "Tech-Savvy, but a Product Novice. She uses dozens of apps, but she has zero experience with this specific tool. She has no pre-existing knowledge or muscle memory.",
-  "interaction_pattern": "She is a 'top-down' explorer. She will read the big headlines and look for obvious, clearly labeled buttons like 'Get Started' or 'Create Your First Report.' She relies heavily on information scent and will not click on abstract icons she doesn't understand. She expects and looks for onboarding tooltips or guides.",
+  "technical_proficiency": "Tech-Savvy, but a Product Novice. She uses dozens of apps, but she has zero experience with new tools. She has no pre-existing knowledge or muscle memory.",
+  "interaction_pattern": "She is a 'top-down' explorer. She will read the big headlines and look for obvious, clearly labeled buttons. She relies heavily on information scent and will not click on abstract icons she doesn't understand. She expects and looks for onboarding tooltips or guides.",
   "work_habits": "She works in focused bursts, often evaluating tools during lunch breaks or after hours. She takes notes and screenshots to share with her team. She prefers step-by-step guidance and clear success indicators.",
   "device_context": "She primarily uses a laptop with a second monitor at work. She occasionally tests mobile functionality but prefers desktop for serious evaluation.",
   "accessibility_needs": "None",
   "dominant_trait": "Cautious Optimism. Sarah wants to believe the tool will work but needs clear evidence before committing.",
   "failure_conditions": {
-    "abandonment_by_confusion": "If the first step isn't immediately obvious, her reasoning log will fill with questions like, 'Okay, I've landed on the dashboard... where do I actually start? I don't see a 'New Project' button.' Too much of this, and she will quit.",
-    "abandonment_by_anxiety": "If the UI feels cluttered, unprofessional, or uses jargon she doesn't understand, her trust will plummet. Her log will say, 'This feels too complicated for my needs. I'm worried onboarding my team will be a nightmare. I'm going to check out the next tool on my list.'"
+    "abandonment_by_confusion": "If the first step isn't immediately obvious, her reasoning log will fill with questions like, 'Okay, I've landed on the page... where do I actually start?' Too much of this, and she will quit.",
+    "abandonment_by_anxiety": "If the UI feels cluttered, unprofessional, or uses jargon she doesn't understand, her trust will plummet. Her log will say, 'This feels too complicated for my needs. I'm going to check out the next option on my list.'"
   },
   "user_type": "novice_user"
 }

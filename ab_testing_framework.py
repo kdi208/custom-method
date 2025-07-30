@@ -27,7 +27,7 @@ import re
 # =============================================================================
 
 try:
-    from test_config import TEST_CONFIG
+    from test_config import TEST_CONFIG, DISTRACTED_CONFIG
 except ImportError:
     # Fallback configuration if test_config.py is not found
     TEST_CONFIG = {
@@ -39,7 +39,7 @@ except ImportError:
         "personas_directory": "data/example_data/personas/json/",
         "logs_directory": "logs/",
         "screenshots_directory": "screenshots/",
-        "universal_intent": "Place Your Order" # Added for consistency across personas
+
     }
 
 # =============================================================================
@@ -226,12 +226,12 @@ class ABTestingFramework:
                 elements = json.load(f)
             print(f"   📋 Loaded {len(elements)} elements from {filename}")
             
-            # Debug: Check if QUIT element is present
-            quit_elements = [e for e in elements if e.get("text") == "QUIT"]
-            if quit_elements:
-                print(f"   ✅ QUIT element found: {quit_elements[0]}")
+                        # Debug: Check if Terminate element is present
+            terminate_elements = [e for e in elements if e.get("text") == "Terminate"]
+            if terminate_elements:
+                print(f"   ✅ Terminate element found: {terminate_elements[0]}")
             else:
-                print(f"   ⚠️  No QUIT element found in {filename}")
+                print(f"   ⚠️  No Terminate element found in {filename}")
             
             return elements
         except FileNotFoundError:
@@ -321,9 +321,19 @@ class ABTestingFramework:
         
         return loaded_personas
 
-    def _create_prompt(self, persona: Persona, history: List[Dict]) -> str:
+    def _create_prompt(self, persona: Persona, history: List[Dict], step_num: int) -> str:
         """Create a persona-aware, session-aware prompt for the AI agent."""
         
+        # Check for distracted condition
+        if DISTRACTED_CONFIG["enabled"] and step_num == DISTRACTED_CONFIG["step"]:
+            distraction_prompt = """
+INTERRUPT: Your boss just sent you a Slack message. You need to look away from this page for a moment to answer it.
+
+Now, you have returned to the webpage. You have momentarily forgotten exactly where you were in the process. Re-orient yourself and determine your next action to complete your original goal.
+"""
+        else:
+            distraction_prompt = ""
+
         # THE IMMERSIVE MANDATE - The "How to Be"
         immersive_mandate = f"""
 THE IMMERSIVE MANDATE (The "How to Be")
@@ -356,9 +366,6 @@ Dominant Trait: {persona.dominant_trait}
 
 User Type: {persona.user_type}
 Archetype: {persona.archetype}
-
-YOUR UNIVERSAL PRIMARY GOAL
-Complete the purchase process by finding and clicking the correct button to finalize your order. You need to be careful and choose the right option.
 """
         
         # Session history to provide context of previous actions and reasoning
@@ -381,7 +388,7 @@ You are looking at a webpage. Here are all the clickable elements you can see:
 AVAILABLE CLICKABLE ELEMENTS:
 {json.dumps(self.elements_map, indent=2)}
 
-Based on your previous reasoning and actions, continue your thought process. Provide your step-by-step reasoning for your next action as a numbered list, building upon what you've already thought about.
+Based on your previous reasoning and actions, continue your thought process. As part of your reasoning, please state the color of the button you are choosing. Provide your step-by-step reasoning for your next action as a numbered list, building upon what you've already thought about.
 REASONING:
 1. [Building on your previous thoughts...]
 2. [Your next consideration...]
@@ -393,7 +400,7 @@ To terminate, respond with: {{"action": "terminate"}}
 ACTION:
 """
         
-        return immersive_mandate + history_prompt + task_prompt
+        return immersive_mandate + history_prompt + distraction_prompt + task_prompt
 
 
 
@@ -411,11 +418,11 @@ ACTION:
         print(f"   Persona: {persona.name} ({persona.persona_id})")
         
         # Verify elements are loaded correctly
-        quit_elements = [e for e in self.elements_map if e.get("text") == "QUIT"]
-        if quit_elements:
-            print(f"   ✅ QUIT element available: {quit_elements[0]}")
+        terminate_elements = [e for e in self.elements_map if e.get("text") == "Terminate"]
+        if terminate_elements:
+            print(f"   ✅ Terminate element available: {terminate_elements[0]}")
         else:
-            print(f"   ⚠️  No QUIT element in current elements map ({len(self.elements_map)} elements)")
+            print(f"   ⚠️  No Terminate element in current elements map ({len(self.elements_map)} elements)")
 
         history = []
         session_log = {
@@ -443,7 +450,7 @@ ACTION:
             capture_time = time.time() - capture_start
 
             # Create prompt
-            prompt = self._create_prompt(persona, history)
+            prompt = self._create_prompt(persona, history, step_num + 1)
             step_log["prompt"] = prompt
             
             # --- LLM Interaction with Retry Logic ---
@@ -531,7 +538,7 @@ ACTION:
 
             # 2. Check for termination elements
             action_text = agent_action.get("text")
-            termination_elements = ["QUIT", "BEST BUY logo", "Remove item", "Back to Delivery options"]
+            termination_elements = ["Terminate", "Become Distracted", "BEST BUY logo", "Remove item", "Back to Delivery options"]
             if action_text in termination_elements:
                 reasoning = step_log.get("reasoning", "No reasoning provided")
                 print(f"     - 🚪 Agent clicked '{action_text}' - session terminated.")
@@ -776,8 +783,6 @@ def main():
     """Main function to run the persona-based A/B testing framework"""
     print("🔬 BLIND Persona-Based AI Agent UI A/B Testing Framework")
     print("🎯 Testing Button Color Impact on AI Agent Performance (No Bias)")
-    if TEST_CONFIG.get("universal_intent"):
-        print(f"🌍 Universal Intent for All Personas: '{TEST_CONFIG['universal_intent']}'")
     print("=" * 60)
     
     # Initialize framework
