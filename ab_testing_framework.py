@@ -60,7 +60,28 @@ class Persona:
     name: str
     description: str
     
-    # --- New demographic fields ---
+    # --- Core persona fields ---
+    persona: str
+    archetype: str
+    age: int
+    profession: str
+    income: int
+    education: str
+    location: str
+    background: str
+    core_motivation: str
+    primary_anxiety: str
+    decision_making_style: str
+    technical_proficiency: str
+    interaction_pattern: str
+    work_habits: str
+    device_context: str
+    accessibility_needs: str
+    dominant_trait: str
+    failure_conditions: Dict
+    user_type: str
+    
+    # --- Legacy demographic fields (kept for compatibility) ---
     age_group: Optional[str] = None
     gender: Optional[str] = None
     income_group: Optional[str] = None
@@ -232,7 +253,8 @@ class ABTestingFramework:
 
     def _load_personas(self, num_personas: int) -> List[Persona]:
         """Load a random sample of personas from the data directory."""
-        persona_dir = TEST_CONFIG["personas_directory"]
+        # Use the new super personas directory
+        persona_dir = "data/example_data/super/"
         if not os.path.isdir(persona_dir):
             print(f"Error: Persona directory not found at {persona_dir}")
             return []
@@ -255,16 +277,37 @@ class ABTestingFramework:
                 with open(filepath, 'r') as f:
                     data = json.load(f)
                 
-                description = data.get("persona", "")
-                name = self._extract_name_from_description(description)
+                # Use the new field structure
+                persona_name = data.get("name", "Unknown")
+                persona_description = data.get("background", "")
                 
                 persona = Persona(
                     persona_id=filename.replace('.json', ''),
-                    name=name,
-                    description=description,
-                    age_group=data.get("age_group"),
-                    gender=data.get("gender"),
-                    income_group=data.get("income_group")
+                    name=persona_name,
+                    description=persona_description,
+                    persona=data.get("persona", ""),
+                    archetype=data.get("archetype", ""),
+                    age=data.get("age", 0),
+                    profession=data.get("profession", ""),
+                    income=data.get("income", 0),
+                    education=data.get("education", ""),
+                    location=data.get("location", ""),
+                    background=data.get("background", ""),
+                    core_motivation=data.get("core_motivation", ""),
+                    primary_anxiety=data.get("primary_anxiety", ""),
+                    decision_making_style=data.get("decision_making_style", ""),
+                    technical_proficiency=data.get("technical_proficiency", ""),
+                    interaction_pattern=data.get("interaction_pattern", ""),
+                    work_habits=data.get("work_habits", ""),
+                    device_context=data.get("device_context", ""),
+                    accessibility_needs=data.get("accessibility_needs", ""),
+                    dominant_trait=data.get("dominant_trait", ""),
+                    failure_conditions=data.get("failure_conditions", {}),
+                    user_type=data.get("user_type", ""),
+                    # Legacy fields for compatibility
+                    age_group=None,
+                    gender=None,
+                    income_group=None
                 )
                 loaded_personas.append(persona)
             except (json.JSONDecodeError, IOError) as e:
@@ -274,7 +317,7 @@ class ABTestingFramework:
         
         # Debug: Show the personas being loaded
         for persona in loaded_personas:
-            print(f"   - {persona.name}")
+            print(f"   - {persona.name} ({persona.archetype}) - {persona.user_type}")
         
         return loaded_personas
 
@@ -293,7 +336,26 @@ Your patience is not a number; it is a reflection of your mood and personality. 
 Your only goal is to behave as this person would, believably and authentically.
 
 PERSONA CONTEXT (The "Who You Are")
-{persona.description}
+Name: {persona.name}
+Age: {persona.age}
+Profession: {persona.profession}
+Location: {persona.location}
+Education: {persona.education}
+Income: ${persona.income:,}
+
+Background: {persona.background}
+
+Core Motivation: {persona.core_motivation}
+Primary Anxiety: {persona.primary_anxiety}
+Decision-Making Style: {persona.decision_making_style}
+Technical Proficiency: {persona.technical_proficiency}
+Interaction Pattern: {persona.interaction_pattern}
+Work Habits: {persona.work_habits}
+Device Context: {persona.device_context}
+Dominant Trait: {persona.dominant_trait}
+
+User Type: {persona.user_type}
+Archetype: {persona.archetype}
 
 YOUR UNIVERSAL PRIMARY GOAL
 Complete the purchase process by finding and clicking the correct button to finalize your order. You need to be careful and choose the right option.
@@ -486,9 +548,10 @@ ACTION:
                         is_valid_element = True
                         break
             
-            # 3. Check for success condition (only success button ends session)
-            if action_text == "Place Your Order":
-                print(f"     - ✅ Success! Agent clicked the final 'Place Your Order' button.")
+            # 3. Check for success condition (checkout/continue buttons end session)
+            success_elements = ["Checkout button", "Continue button", "Place Your Order"]
+            if action_text in success_elements:
+                print(f"     - ✅ Success! Agent clicked the '{action_text}' button.")
                 session_success = True
                 final_outcome = "converted"
                 break

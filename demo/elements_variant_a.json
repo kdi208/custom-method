@@ -1,0 +1,158 @@
+[
+  {
+    "text": "Best Buy logo",
+    "context": "Header navigation"
+  },
+  {
+    "text": "Menu button",
+    "context": "Header navigation"
+  },
+  {
+    "text": "Search Best Buy input field",
+    "context": "Header navigation"
+  },
+  {
+    "text": "Search button",
+    "context": "Header navigation"
+  },
+  {
+    "text": "Store location link 'Chelsea (23rd and 6th)'",
+    "context": "Header navigation"
+  },
+  {
+    "text": "Cart button",
+    "context": "Header navigation"
+  },
+  {
+    "text": "Account dropdown",
+    "context": "Header secondary navigation"
+  },
+  {
+    "text": "Recently Viewed dropdown",
+    "context": "Header secondary navigation"
+  },
+  {
+    "text": "Order Status link",
+    "context": "Header secondary navigation"
+  },
+  {
+    "text": "Saved Items link",
+    "context": "Header secondary navigation"
+  },
+  {
+    "text": "See all special offers link",
+    "context": "Special Offers banner"
+  },
+  {
+    "text": "Insignia 65-inch TV product link",
+    "context": "Main cart item"
+  },
+  {
+    "text": "Pickup at Chelsea radio button",
+    "context": "Main cart item delivery option"
+  },
+  {
+    "text": "Delivery to 10001 radio button",
+    "context": "Main cart item delivery option"
+  },
+  {
+    "text": "Quantity dropdown",
+    "context": "Main cart item action"
+  },
+  {
+    "text": "Save for later button",
+    "context": "Main cart item action"
+  },
+  {
+    "text": "Remove button",
+    "context": "Main cart item action"
+  },
+  {
+    "text": "Standard Geek Squad Protection link",
+    "context": "Protection Plans section"
+  },
+  {
+    "text": "See All Plans button",
+    "context": "Protection Plans section"
+  },
+  {
+    "text": "Set up and mounting services link",
+    "context": "Professional Services section"
+  },
+  {
+    "text": "Add services button",
+    "context": "Professional Services section"
+  },
+  {
+    "text": "Checkout button",
+    "context": "Primary call-to-action in Order Summary"
+  },
+  {
+    "text": "PayPal Checkout button",
+    "context": "Secondary call-to-action in Order Summary"
+  },
+  {
+    "text": "Sign in or create an account now link",
+    "context": "Order Summary"
+  },
+  {
+    "text": "Credit Card offer 'Show me how' link",
+    "context": "Order Summary"
+  },
+  {
+    "text": "Lease to own 'Learn more' link",
+    "context": "Order Summary"
+  },
+  {
+    "text": "Zip payment 'Learn more' link",
+    "context": "Order Summary"
+  },
+  {
+    "text": "Gifting options 'Learn more' link",
+    "context": "Order Summary"
+  },
+  {
+    "text": "Add to cart button for Full Motion TV Wall Mount",
+    "context": "'Customers often buy these together' section"
+  },
+  {
+    "text": "Add to cart button for Fixed TV Wall Mount",
+    "context": "'Customers often buy these together' section"
+  },
+  {
+    "text": "Add to cart button for Soundbar",
+    "context": "'Customers often buy these together' section"
+  },
+  {
+    "text": "Visit our Support Center link",
+    "context": "Footer support section"
+  },
+  {
+    "text": "Check your Order Status link",
+    "context": "Footer support section"
+  },
+  {
+    "text": "Enter email address input field",
+    "context": "Footer email signup"
+  },
+  {
+    "text": "Sign Up button",
+    "context": "Footer email signup"
+  },
+  {
+    "text": "Give feedback about our website link",
+    "context": "Footer feedback section"
+  },
+  {
+    "text": "Returns & Exchanges link",
+    "context": "Footer navigation"
+  },
+  {
+    "text": "Payment Options link",
+    "context": "Footer navigation"
+  },
+  {
+    "text": "QUIT",
+    "context": "Exit page"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "persona": "David, The Decisive Tech Enthusiast",
+  "name": "David Chen",
+  "age": 45,
+  "profession": "Software Developer",
+  "income": 120000,
+  "education": "Master's in Computer Science",
+  "location": "Seattle, Washington",
+  "background": "David is a 45-year-old software developer and a huge tech enthusiast. He is a Best Buy 'Totaltech' member and shops on the site 2-3 times a month. He knows exactly what he wants and has already spent 10 minutes researching the TV in his cart. He now considers the checkout process a 'task to be completed' as quickly as possible so he can get back to his other projects.",
+  "core_motivation": "Frictionless Completion. His goal is to get from the cart page to the 'Thank you for your order' screen in the minimum number of clicks and seconds.",
+  "primary_anxiety": "Wasted Time. He is intensely frustrated by unnecessary steps, confusing layouts, and ambiguous language. He hates being forced to slow down or re-think a process he has completed dozens of times before.",
+  "decision_making_style": "Path-Optimizer. His eyes will immediately snap to the area of the page where the primary CTA is usually located.",
+  "technical_proficiency": "Expert Online Shopper. He is highly experienced with e-commerce and Best Buy's processes, having completed many purchases before.",
+  "interaction_pattern": "He ignores almost everything else. He will not be distracted by promotional banners, 'you might also like' sections, or financing options because he has already made his decision.",
+  "work_habits": "He is focused and efficient, preferring to complete tasks quickly and move on to the next priority.",
+  "device_context": "He shops on his desktop computer, often with multiple tabs open for research and comparison.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Efficiency-Focused and Decisive. David approaches the purchase with speed and confidence, having already made his decision.",
+  "failure_conditions": {
+    "abandonment_by_friction": "He will terminate if the checkout process becomes unnecessarily complex or slow. His reasoning would be, 'This is taking too long. I'll come back later or try a different approach.'",
+    "abandonment_by_confusion": "He will terminate if the interface is confusing or doesn't follow expected patterns. His reasoning would be, 'This is broken. I don't have time to figure out a broken checkout process.'",
+    "abandonment_by_distraction": "He will terminate if the process tries to upsell him or add unnecessary steps after he's already decided."
+  },
+  "archetype": "decisive_tech_enthusiast",
+  "user_type": "expert_user"
+}
