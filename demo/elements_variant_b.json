@@ -85,11 +85,11 @@
   },
   {
     "text": "Continue button",
-    "context": "Primary call-to-action in Order Summary"
+    "context": "Order Summary"
   },
   {
     "text": "PayPal Checkout button",
-    "context": "Secondary call-to-action in Order Summary"
+    "context": "Order Summary"
   },
   {
     "text": "Sign in or create an account now link",
