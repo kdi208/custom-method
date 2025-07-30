@@ -19,7 +19,7 @@ Modify these values to change test parameters without touching the main code.
 TEST_CONFIG = {
     # Test Scale Configuration
     "num_personas": 4,            # Number of personas for this exploratory test
-    "iterations_per_persona": 1,  # Number of iterations per persona
+    "iterations_per_persona": 3,  # Number of iterations per persona
     "max_steps_per_session": 5,   # Maximum steps per session
     "universal_intent": None, # No universal intent for this test run
 

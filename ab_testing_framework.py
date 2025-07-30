@@ -59,7 +59,6 @@ class Persona:
     """Represents a specific user persona for testing."""
     name: str
     description: str
-    primary_goal: str  # This will now hold the 'intent'
     
     # --- New demographic fields ---
     age_group: Optional[str] = None
@@ -118,6 +117,7 @@ class ABTestMetrics:
         
         self.session_lengths.append(session_result.get("steps_taken", 0))
         self.hesitation_steps.append(session_result.get("total_hesitation", 0))
+        self.processing_times.append(session_result.get("total_processing_time", 0.0))
 
         # Update rates
         if self.total_tests > 0:
@@ -164,13 +164,23 @@ class ABTestMetrics:
             "misclick_errors": self.misclick_errors,
             "avg_session_length": round(statistics.mean(self.session_lengths), 2) if self.session_lengths else 0,
             "avg_hesitation_steps": round(statistics.mean(self.hesitation_steps), 2) if self.hesitation_steps else 0,
+            "avg_processing_time": round(statistics.mean(self.processing_times), 2) if self.processing_times else 0,
         }
         # Add old metrics for compatibility if they exist
         if self.processing_times:
             summary.update({
                 "avg_processing_time": round(statistics.mean(self.processing_times), 2),
+            })
+        if self.capture_times:
+            summary.update({
                 "avg_capture_time": round(statistics.mean(self.capture_times), 2),
+            })
+        if self.ai_processing_times:
+            summary.update({
                 "avg_ai_processing_time": round(statistics.mean(self.ai_processing_times), 2),
+            })
+        if self.parse_times:
+            summary.update({
                 "avg_parse_time": round(statistics.mean(self.parse_times), 2),
             })
         return summary
@@ -252,7 +262,6 @@ class ABTestingFramework:
                     persona_id=filename.replace('.json', ''),
                     name=name,
                     description=description,
-                    primary_goal=data.get("intent", ""), # Load the actual purchase intent
                     age_group=data.get("age_group"),
                     gender=data.get("gender"),
                     income_group=data.get("income_group")
@@ -263,9 +272,9 @@ class ABTestingFramework:
 
         print(f"Successfully loaded {len(loaded_personas)} personas.")
         
-        # Debug: Show the intents being loaded
+        # Debug: Show the personas being loaded
         for persona in loaded_personas:
-            print(f"   - {persona.name}: {persona.primary_goal}")
+            print(f"   - {persona.name}")
         
         return loaded_personas
 
@@ -286,16 +295,21 @@ Your only goal is to behave as this person would, believably and authentically.
 PERSONA CONTEXT (The "Who You Are")
 {persona.description}
 
-YOUR INDIVIDUALIZED PURCHASE MANDATE
-You are here to: {persona.primary_goal}
+YOUR UNIVERSAL PRIMARY GOAL
+Complete the purchase process by finding and clicking the correct button to finalize your order. You need to be careful and choose the right option.
 """
         
-        # Session history to provide context of previous actions
+        # Session history to provide context of previous actions and reasoning
         history_prompt = ""
         if history:
-            history_prompt = "SESSION HISTORY (What you've done so far):\n"
+            history_prompt = "SESSION HISTORY (Your previous reasoning and actions):\n"
             for i, entry in enumerate(history):
-                history_prompt += f"{i+1}. You clicked '{entry['action']['text']}' ({entry['action']['context']}).\n"
+                action_text = entry['action'].get('text', 'unknown')
+                action_context = entry['action'].get('context', 'unknown location')
+                reasoning = entry.get('reasoning', 'No reasoning provided')
+                history_prompt += f"Step {i+1}:\n"
+                history_prompt += f"Your reasoning: {reasoning}\n"
+                history_prompt += f"Your action: You clicked '{action_text}' ({action_context}).\n\n"
             history_prompt += "\n"
 
         # The interface context and task
@@ -305,13 +319,13 @@ You are looking at a webpage. Here are all the clickable elements you can see:
 AVAILABLE CLICKABLE ELEMENTS:
 {json.dumps(self.elements_map, indent=2)}
 
-First, provide your step-by-step reasoning for your next action as a numbered list. This is for analysis of your cognitive process.
+Based on your previous reasoning and actions, continue your thought process. Provide your step-by-step reasoning for your next action as a numbered list, building upon what you've already thought about.
 REASONING:
-1. [Your first thought]
-2. [Your second thought]
+1. [Building on your previous thoughts...]
+2. [Your next consideration...]
 ...
 
-Finally, provide the JSON for your chosen action. Your response MUST be ONLY the JSON object for the single element you want to click. You can also choose to terminate the session if you feel you've explored enough.
+Finally, provide the JSON for your chosen action. Your response MUST be ONLY the JSON object for the single element you want to click. Use this exact format: {{"text": "Element Name", "context": "Element Context"}}. You can also choose to terminate the session if you feel you've explored enough.
 To terminate, respond with: {{"action": "terminate"}}
 
 ACTION:
@@ -345,7 +359,6 @@ ACTION:
         session_log = {
             "session_id": session_id,
             "persona_id": persona.persona_id,
-            "intent": persona.primary_goal,
             "variant": variant,
             "steps": []
         }
@@ -353,6 +366,8 @@ ACTION:
         session_success = False
         final_outcome = "unknown"
         total_hesitation_steps = 0
+        abandonment_reasoning = None
+        total_processing_time = 0.0
         
         for step_num in range(max_steps):
             print(f"   - Step {step_num + 1}/{max_steps}...")
@@ -383,17 +398,34 @@ ACTION:
                     ai_processing_time = time.time() - ai_start
                     
                     # Extract Reasoning and Action
-                    action_json_str = re.search(r"ACTION:\s*(\{.*\})", raw_response, re.DOTALL)
+                    action_json_str = re.search(r"ACTION:\s*(\{.*?\})", raw_response, re.DOTALL)
                     if not action_json_str:
                         raise json.JSONDecodeError("Action block not found.", raw_response, 0)
                     
-                    agent_action = json.loads(action_json_str.group(1))
+                    # Clean up the JSON string
+                    json_str = action_json_str.group(1).strip()
+                    # Remove any trailing commas or extra characters
+                    json_str = re.sub(r',\s*}', '}', json_str)
+                    json_str = re.sub(r',\s*]', ']', json_str)
+                    
+                    try:
+                        agent_action = json.loads(json_str)
+                    except json.JSONDecodeError as json_err:
+                        # Try to fix common JSON issues
+                        json_str = re.sub(r'(["\w])\s*,\s*(["\w])', r'\1, \2', json_str)
+                        json_str = re.sub(r'(["\w])\s*:\s*(["\w])', r'\1: \2', json_str)
+                        agent_action = json.loads(json_str)
+                    
                     step_log["parsed_action"] = agent_action
 
                     reasoning_str = re.search(r"REASONING:(.*?)ACTION:", raw_response, re.DOTALL)
-                    hesitation_steps = len(re.findall(r"^\s*\d+\.\s", reasoning_str.group(1), re.MULTILINE)) if reasoning_str else 0
+                    reasoning = reasoning_str.group(1).strip() if reasoning_str else "No reasoning provided"
+                    hesitation_steps = len(re.findall(r"^\s*\d+\.\s", reasoning, re.MULTILINE)) if reasoning_str else 0
                     total_hesitation_steps += hesitation_steps
                     step_log["hesitation_steps"] = hesitation_steps
+                    step_log["reasoning"] = reasoning
+                    step_log["ai_processing_time"] = ai_processing_time
+                    total_processing_time += ai_processing_time
                     
                     break # Success, exit retry loop
                 except (json.JSONDecodeError, AttributeError) as e:
@@ -405,8 +437,14 @@ ACTION:
                 except Exception as e:
                     print(f"     - ⚠️ API error (Attempt {attempt + 1}/{parsing_attempts}). Error: {e}")
                     if attempt < parsing_attempts - 1:
-                        print(f"     - 🔄 Retrying in 5 seconds...")
-                        time.sleep(5)
+                        # Check if it's a rate limit error
+                        if "429" in str(e) or "quota" in str(e).lower():
+                            wait_time = 60  # Wait 1 minute for rate limits
+                            print(f"     - 🔄 Rate limit detected. Waiting {wait_time} seconds...")
+                        else:
+                            wait_time = 5  # Standard retry delay
+                            print(f"     - 🔄 Retrying in {wait_time} seconds...")
+                        time.sleep(wait_time)
                     else:
                         print(f"     - ❌ API error after {parsing_attempts} attempts. Marking session as failed.")
                         step_log["error"] = f"API error after {parsing_attempts} attempts: {e}"
@@ -422,15 +460,22 @@ ACTION:
             # --- Simplified Outcome Labeling Logic ---
             # 1. Check for termination action first
             if agent_action.get("action") == "terminate":
+                reasoning = step_log.get("reasoning", "No reasoning provided")
                 print("     - 🛑 Agent chose to terminate the session.")
+                print(f"     - 💭 Reasoning: {reasoning}")
                 final_outcome = "abandoned_by_agent"
+                abandonment_reasoning = reasoning
                 break
 
-            # 2. Check for QUIT element
+            # 2. Check for termination elements
             action_text = agent_action.get("text")
-            if action_text == "QUIT":
-                print("     - 🚪 Agent clicked QUIT to leave the page.")
+            termination_elements = ["QUIT", "BEST BUY logo", "Remove item", "Back to Delivery options"]
+            if action_text in termination_elements:
+                reasoning = step_log.get("reasoning", "No reasoning provided")
+                print(f"     - 🚪 Agent clicked '{action_text}' - session terminated.")
+                print(f"     - 💭 Reasoning: {reasoning}")
                 final_outcome = "abandoned_by_agent"
+                abandonment_reasoning = reasoning
                 break
 
             # 3. Validate element exists
@@ -456,7 +501,10 @@ ACTION:
             # 5. Record step and continue (for both valid and invalid clicks)
             if action_text:
                 print(f"     - 👉 Agent clicked: '{action_text}'")
-                history.append({"action": agent_action, "context": agent_action.get("context", "")})
+                history.append({
+                    "action": agent_action,
+                    "reasoning": step_log.get("reasoning", "No reasoning provided")
+                })
 
         if final_outcome == "unknown":
             print("     - ⌛ Session ended due to reaching max steps.")
@@ -465,6 +513,8 @@ ACTION:
         # Finalize and save log
         session_log["final_outcome"] = final_outcome
         session_log["success"] = session_success
+        if abandonment_reasoning:
+            session_log["abandonment_reasoning"] = abandonment_reasoning
         log_filename = f"{TEST_CONFIG['logs_directory']}{session_id}.json"
         with open(log_filename, 'w') as f:
             json.dump(session_log, f, indent=2)
@@ -478,6 +528,8 @@ ACTION:
             "outcome": final_outcome,
             "steps_taken": len(history) + 1,
             "total_hesitation": total_hesitation_steps,
+            "total_processing_time": total_processing_time,
+            "abandonment_reasoning": abandonment_reasoning,
         }
     
     def run_full_test_suite(self, iterations: int = None) -> Dict:
@@ -672,7 +724,7 @@ def main():
     print(f"\n👥 Testing with {len(framework.personas)} Distinct Personas:")
     for i, persona in enumerate(framework.personas, 1):
         print(f"{i}. {persona.name} ({persona.persona_id})")
-        print(f"   Goal: {persona.primary_goal}")
+
         print(f"   Description: {persona.description[:100].strip()}...")
         print()
     
@@ -701,13 +753,14 @@ def main():
     variant_a_metrics = results["overall_metrics"]["variant_a"]
     variant_b_metrics = results["overall_metrics"]["variant_b"]
     
-    print(f"🔵 Variant A (Current): {variant_a_metrics.get('task_success_rate', 0)}% success, {variant_a_metrics.get('avg_session_length', 0)} steps avg")
-    print(f"🟡 Variant B (Color Change): {variant_b_metrics.get('task_success_rate', 0)}% success, {variant_b_metrics.get('avg_session_length', 0)} steps avg")
+    print(f"🔵 Variant A (Current): {variant_a_metrics.get('task_success_rate', 0)}% success, {variant_a_metrics.get('avg_session_length', 0)} steps avg, {variant_a_metrics.get('avg_processing_time', 0):.2f}s processing")
+    print(f"🟡 Variant B (Color Change): {variant_b_metrics.get('task_success_rate', 0)}% success, {variant_b_metrics.get('avg_session_length', 0)} steps avg, {variant_b_metrics.get('avg_processing_time', 0):.2f}s processing")
     
     success_diff = variant_b_metrics.get('task_success_rate', 0) - variant_a_metrics.get('task_success_rate', 0)
-    time_diff = variant_b_metrics.get('avg_session_length', 0) - variant_a_metrics.get('avg_session_length', 0)
+    steps_diff = variant_b_metrics.get('avg_session_length', 0) - variant_a_metrics.get('avg_session_length', 0)
+    processing_diff = variant_b_metrics.get('avg_processing_time', 0) - variant_a_metrics.get('avg_processing_time', 0)
     
-    print(f"📊 UI Impact: {success_diff:+.1f}% success rate, {time_diff:+.2f} steps processing time")
+    print(f"📊 UI Impact: {success_diff:+.1f}% success rate, {steps_diff:+.2f} steps, {processing_diff:+.2f}s processing time")
     print(f"🎯 Total Sessions: {variant_a_metrics.get('total_sessions', 0) + variant_b_metrics.get('total_sessions', 0)}")
     
     # TODO: Update persona interaction comparison
