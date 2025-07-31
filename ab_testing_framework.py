@@ -57,12 +57,9 @@ os.makedirs(TEST_CONFIG["logs_directory"], exist_ok=True)
 @dataclass
 class Persona:
     """Represents a specific user persona for testing."""
-    name: str
-    description: str
-    
-    # --- Core persona fields ---
+    # --- All fields present in persona files ---
     persona: str
-    archetype: str
+    name: str
     age: int
     profession: str
     income: int
@@ -79,19 +76,12 @@ class Persona:
     accessibility_needs: str
     dominant_trait: str
     failure_conditions: Dict
+    archetype: str
     user_type: str
+    core_value: str
+    emotional_trigger: str
     
-    # --- Legacy demographic fields (kept for compatibility) ---
-    age_group: Optional[str] = None
-    gender: Optional[str] = None
-    income_group: Optional[str] = None
-    
-    # --- Deprecated fields, made optional ---
-    behavioral_pattern: Optional[str] = ""
-    core_test_question: Optional[str] = ""
-    expected_processing_time: Optional[str] = ""
-    
-    # --- Add persona ID for logging ---
+    # --- Utility field for logging ---
     persona_id: Optional[str] = None
 
 class ABTestMetrics:
@@ -241,15 +231,7 @@ class ABTestingFramework:
             print(f"   ❌ Error: Invalid JSON in {filename}: {e}")
             return []
     
-    def _extract_name_from_description(self, description: str) -> str:
-        """Extracts the persona name from the description string."""
-        if not description:
-            return "Unknown Persona"
-        first_line = description.split('\n')[0]
-        match = re.match(r"Persona: (.*)", first_line)
-        if match:
-            return match.group(1).strip()
-        return "Unknown Persona"
+
 
     def _load_personas(self, num_personas: int) -> List[Persona]:
         """Load a random sample of personas from the data directory."""
@@ -277,16 +259,11 @@ class ABTestingFramework:
                 with open(filepath, 'r') as f:
                     data = json.load(f)
                 
-                # Use the new field structure
-                persona_name = data.get("name", "Unknown")
-                persona_description = data.get("background", "")
-                
+                # Load all fields present in persona files
                 persona = Persona(
                     persona_id=filename.replace('.json', ''),
-                    name=persona_name,
-                    description=persona_description,
                     persona=data.get("persona", ""),
-                    archetype=data.get("archetype", ""),
+                    name=data.get("name", "Unknown"),
                     age=data.get("age", 0),
                     profession=data.get("profession", ""),
                     income=data.get("income", 0),
@@ -303,11 +280,10 @@ class ABTestingFramework:
                     accessibility_needs=data.get("accessibility_needs", ""),
                     dominant_trait=data.get("dominant_trait", ""),
                     failure_conditions=data.get("failure_conditions", {}),
+                    archetype=data.get("archetype", ""),
                     user_type=data.get("user_type", ""),
-                    # Legacy fields for compatibility
-                    age_group=None,
-                    gender=None,
-                    income_group=None
+                    core_value=data.get("core_value", ""),
+                    emotional_trigger=data.get("emotional_trigger", "")
                 )
                 loaded_personas.append(persona)
             except (json.JSONDecodeError, IOError) as e:
@@ -346,6 +322,7 @@ Your patience is not a number; it is a reflection of your mood and personality. 
 Your only goal is to behave as this person would, believably and authentically.
 
 PERSONA CONTEXT (The "Who You Are")
+Persona: {persona.persona}
 Name: {persona.name}
 Age: {persona.age}
 Profession: {persona.profession}
@@ -362,10 +339,16 @@ Technical Proficiency: {persona.technical_proficiency}
 Interaction Pattern: {persona.interaction_pattern}
 Work Habits: {persona.work_habits}
 Device Context: {persona.device_context}
+Accessibility Needs: {persona.accessibility_needs}
 Dominant Trait: {persona.dominant_trait}
 
 User Type: {persona.user_type}
 Archetype: {persona.archetype}
+Core Value: {persona.core_value}
+Emotional Trigger: {persona.emotional_trigger}
+
+Failure Conditions (What will make you abandon this task):
+{json.dumps(persona.failure_conditions, indent=2)}
 """
         
         # Session history to provide context of previous actions and reasoning
@@ -397,7 +380,7 @@ YOUR PRIMARY GOAL: {TEST_CONFIG.get("primary_goal_text", "")}
 AVAILABLE CLICKABLE ELEMENTS:
 {json.dumps(self.elements_map, indent=2)}
 
-Based on your previous reasoning and actions, continue your thought process. As part of your reasoning, please state the color of the button you are choosing. Provide your step-by-step reasoning for your next action as a numbered list, building upon what you've already thought about.
+Based on your previous reasoning and actions, continue your thought process. Provide your step-by-step reasoning for your next action as a numbered list, building upon what you've already thought about.
 REASONING:
 1. [Building on your previous thoughts...]
 2. [Your next consideration...]
@@ -748,8 +731,8 @@ ACTION:
                 avg_time_b = sum(s["avg_processing_time"] for s in persona_sessions_b) / len(persona_sessions_b)
                 
                 persona_analysis[persona_name] = {
-                    "description": persona.description,
-                    "primary_goal": persona.primary_goal,
+                    "background": persona.background,
+                    "core_motivation": persona.core_motivation,
                     "variant_a_performance": {
                         "avg_success_rate": round(avg_success_a, 2),
                         "avg_processing_time": round(avg_time_a, 2)
@@ -815,7 +798,7 @@ def main():
     for i, persona in enumerate(framework.personas, 1):
         print(f"{i}. {persona.name} ({persona.persona_id})")
 
-        print(f"   Description: {persona.description[:100].strip()}...")
+        print(f"   Background: {persona.background[:100].strip()}...")
         print()
     
     print(f"Running {TEST_CONFIG['iterations_per_persona']} iterations per persona...")
