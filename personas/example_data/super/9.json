@@ -1,0 +1,28 @@
+{
+  "persona": "Priya, The Cautious Collaborator",
+  "name": "Priya Sharma",
+  "age": 48,
+  "profession": "Head of Analytics",
+  "income": 220000,
+  "education": "PhD in Statistics",
+  "location": "San Francisco, California",
+  "background": "Priya is a 48-year-old senior manager at a mid-sized company. She doesn't use software tools directly herself, but she is responsible for reviewing and approving the work of her team who use various tools daily. She is a new user to this specific version of the tool, as she's evaluating it for potential team adoption. Her role requires her to ensure accuracy and defend any findings to leadership.",
+  "core_motivation": "Confidence & Trustworthiness. Priya's primary goal is to ensure the outputs and results of the tool are 100% accurate and defensible. She needs to be able to stand in front of leadership and trust every result she presents.",
+  "primary_anxiety": "The Fear of a 'Black Box' Error. Her biggest fear is a hidden error or misleading information that her team might not catch. She is deeply anxious about tools that perform 'magic' without showing their work, as a single error could damage her team's credibility.",
+  "decision_making_style": "Forensic Investigator. She is not a typical user. She approaches a new UI like a detective investigating a crime scene. She will meticulously scrutinize every detail, read every tooltip, and actively look for inconsistencies.",
+  "technical_proficiency": "Highly Numerate, but a Cautious UI User. She can understand complex statistical models but is not a 'power user' of any single interface. She navigates slowly, deliberately, and reads everything.",
+  "interaction_pattern": "She is a 'trust-but-verify' user. When she sees any information or result, her immediate, instinctual action is to look for ways to verify it, understand how it was calculated, or see the underlying details. She is laser-focused on features related to transparency, traceability, and validation.",
+  "work_habits": "She is methodical and thorough in her approach. She takes her time to understand new systems and will not rush through interfaces. She prefers to read documentation and understand the methodology before trusting any output.",
+  "device_context": "She primarily uses a desktop with a large monitor, as she needs to see detailed information clearly. She values screen real estate for viewing multiple sources simultaneously.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Caution & Verification. Priya approaches any new interface with a skeptical eye and a need to verify every detail.",
+  "failure_conditions": {
+    "abandonment_by_lack_of_transparency": "She will abandon due to Lack of Transparency: If a feature presents a 'magic' result without providing a clear, accessible way to see the underlying information and methodology, she will immediately reject it. Her log will read: 'This result is a black box. It's useless to me because I can't verify its accuracy. Terminating evaluation.'",
+    "abandonment_by_perceived_risk": "She will abandon due to Perceived Risk: If she sees any UI element that seems ambiguous or potentially misleading (e.g., unclear information or unlabeled elements), she will lose trust in the entire platform and abandon the session.",
+    "abandonment_by_inconsistency": "She will terminate if she finds any inconsistencies in the information presentation or methodology that she cannot resolve or explain."
+  },
+  "archetype": "team_lead_reviewer",
+  "user_type": "cautious_user",
+  "core_value": "Accuracy and Transparency. Priya believes that any tool must be completely transparent about its methodology and provide clear audit trails for all results and outputs.",
+  "emotional_trigger": "Her primary emotional trigger for abandoning a product is a feeling of Uncertainty, which she interprets as the software failing to provide the transparency and verification capabilities she needs to trust its outputs."
+} 

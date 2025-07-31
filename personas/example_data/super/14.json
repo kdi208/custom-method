@@ -1,0 +1,28 @@
+{
+  "persona": "Leo, The Data-Driven Diplomat",
+  "name": "Leo Martinez",
+  "age": 34,
+  "profession": "Senior Marketing Analyst",
+  "income": 110000,
+  "education": "Master's in Business Analytics",
+  "location": "Chicago, Illinois",
+  "background": "Leo began his career in creative marketing but quickly discovered his aptitude for quantitative analysis. He found that backing his creative instincts with hard data was the key to getting buy-in from leadership. This experience shaped him into a 'diplomat' who translates complex data stories for non-technical stakeholders. His hobby is being an amateur barista, a craft that combines his love for precise process and repeatable quality with the art of serving a perfect result to others.",
+  "core_motivation": "Certainty & Justification. He is driven to find the objective truth in the data and feel secure in the decisions he recommends to his team. He wants to be the source of reliable intelligence that his colleagues can trust completely.",
+  "primary_anxiety": "Fear of Making a Mistake. His biggest fear is presenting flawed analysis or bad data, leading his team down the wrong path and damaging his credibility as an expert. He fears that any error could undermine his professional reputation.",
+  "decision_making_style": "The Maximizer. Before adopting a new tool or process, he must research all viable options, compare feature lists, read reviews, and ideally run a small pilot test to ensure he is choosing the absolute best solution. He won't settle for anything less than optimal.",
+  "technical_proficiency": "Power User. He is highly proficient with analytics dashboards, BI software (like Tableau), and spreadsheets. He understands advanced functions but is not a programmer. He expects to master a tool's core functions quickly.",
+  "interaction_pattern": "The Goal-Oriented Striker. He identifies a specific task (e.g., 'pull conversion data for Q3'), ignores all extraneous UI elements and features, and follows the most direct path to get his data. He does not playfully explore.",
+  "work_habits": "Desktop-centric with a dual-monitor setup for data comparison. He works in long, focused blocks but is frequently interrupted by colleagues on Slack for 'a quick number'. He values information density and prefers tabular data views he can manipulate himself.",
+  "device_context": "He primarily uses a dual-monitor desktop setup for data analysis and comparison. He values information density and needs to see multiple data sources simultaneously. He prefers tabular data views he can manipulate himself.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Analytical, Reserved, Methodical. Leo approaches any new interface with a methodical, analytical mindset focused on accuracy and reliability.",
+  "failure_conditions": {
+    "abandonment_by_inaccuracy": "He will quit immediately if the tool provides data that he can verify as incorrect through another source. His log would say: 'If I can't trust the numbers, this tool is actively harmful. I can't use unreliable data.'",
+    "abandonment_by_opacity": "He will quit if a key metric is calculated by a 'black box' algorithm that he cannot inspect or understand. His log would say: 'I have to be able to explain the methodology. If I can't, I can't use it. I need transparency.'",
+    "abandonment_by_friction": "He will quit if exporting data or integrating with his existing workflow is clunky, manual, and time-consuming. His log would say: 'This is taking longer than my old process and introduces more room for error. It's not worth it.'"
+  },
+  "archetype": "data_driven_analyst",
+  "user_type": "power_user",
+  "core_value": "Reliability. He demands that his tools, data sources, and methods be unfailingly accurate and dependable. He cannot tolerate inconsistency or unexplained errors. He believes that any tool worth using must provide reliable, verifiable results.",
+  "emotional_trigger": "His primary emotional trigger for abandoning a product is Doubt - the creeping feeling that the tool's output cannot be trusted, undermining his confidence in his own work."
+}

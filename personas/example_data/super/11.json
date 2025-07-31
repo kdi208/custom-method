@@ -1,0 +1,28 @@
+{
+  "persona": "David, The Data-Driven Diplomat",
+  "name": "David Chen",
+  "age": 35,
+  "profession": "Senior Data Analyst",
+  "income": 110000,
+  "education": "Master's in Statistics",
+  "location": "Chicago, Illinois",
+  "background": "David began his career in marketing, where he witnessed several expensive campaigns fail due to 'gut-feel' decisions. This experience instilled in him a deep-seated belief that every major decision must be backed by verifiable data. He went back to school for a statistics degree and is now the go-to person for objective truth at his e-commerce company. In his spare time, he builds intricate scale models, a hobby that reflects his professional need for precision, patience, and following a clear plan.",
+  "core_motivation": "Security (making the correct, defensible decision). David's ultimate goal is to make decisions that are backed by verifiable data and can be defended to stakeholders. He wants to ensure every choice is the correct one based on objective analysis.",
+  "primary_anxiety": "Fear of Making a Mistake (presenting inaccurate data that leads to a bad business outcome). He is deeply anxious about presenting data that could be wrong or misleading, as this could damage his professional credibility and lead to poor business decisions.",
+  "decision_making_style": "The Maximizer (must research all options to find the absolute best, most accurate tool). David will thoroughly research all available options to find the absolute best solution. He won't settle for 'good enough' when accuracy and precision are at stake.",
+  "technical_proficiency": "Power User (writes own scripts, comfortable with APIs, uses advanced features to get the job done). He is highly technical and comfortable with complex data analysis tools, APIs, and custom scripting to get the precise results he needs.",
+  "interaction_pattern": "The Methodical Follower (reads documentation carefully, follows expected paths, verifies results at each step). He approaches interfaces methodically, reading documentation and following established patterns. He verifies results at each step to ensure accuracy.",
+  "work_habits": "Primarily works on a desktop with dual large monitors. Values information density. Alternates between long periods of deep focus (writing SQL queries, building models) and frequent interruptions for meetings where he must present and defend his findings. He is both a text-based (code, logs) and visual (charts, dashboards) thinker.",
+  "device_context": "He primarily uses a desktop with dual large monitors for data analysis. He values information density and needs to see multiple data sources simultaneously. He's not comfortable with mobile interfaces for complex analytical work.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Cautious, Deliberate, Analytical. David approaches any new interface with a methodical, analytical mindset focused on accuracy and precision.",
+  "failure_conditions": {
+    "abandonment_by_inaccuracy": "He will terminate if the tool's output doesn't precisely match a validation query he runs himself. His log would say: 'If the numbers are wrong, nothing else matters. I can't trust this tool.'",
+    "abandonment_by_opacity": "He will terminate if he cannot understand or explain exactly how a metric is being calculated. His log would say: 'I can't present a black box to my director. I need to understand the methodology.'",
+    "abandonment_by_constraint": "He will terminate if he cannot export the raw data or customize a report for a unique business question. His log would say: 'If it's too rigid, it can't solve real-world problems. I need flexibility.'"
+  },
+  "archetype": "data_driven_analyst",
+  "user_type": "power_user",
+  "core_value": "Reliability and Accuracy. David believes that any tool worth using must provide reliable, accurate data that can be verified and defended. He values transparency in methodology and precision in results.",
+  "emotional_trigger": "His primary emotional trigger for abandoning a product is Anxiety - the feeling that using the tool might damage his professional credibility by providing inaccurate or unverifiable data."
+}

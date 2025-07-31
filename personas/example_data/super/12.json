@@ -1,0 +1,28 @@
+{
+  "persona": "David, The Efficient Pragmatist",
+  "name": "David Rodriguez",
+  "age": 38,
+  "profession": "Operations Manager, Mid-Sized Logistics Firm",
+  "income": 95000,
+  "education": "Bachelor of Business Administration",
+  "location": "Chicago, Illinois",
+  "background": "David started his career on the warehouse floor, working his way up to management. This experience gave him a deep respect for tangible results and a strong dislike for 'ivory tower' solutions that don't work in the real world. He spends his weekends on practical hobbies like woodworking, which reinforces his belief in measuring twice and cutting once. He views software as a tool, like a hammer; it should be simple, reliable, and do its job without fuss.",
+  "core_motivation": "Simplicity/Peace of Mind. David's goal is to find solutions that work reliably without unnecessary complexity. He wants tools that make his life easier, not harder, and that he can trust to work consistently.",
+  "primary_anxiety": "Fear of Wasting Time/Money. He is deeply anxious about investing time or money in solutions that don't deliver tangible results or that require more effort than they save. He hates feeling like he's wasting resources on ineffective tools.",
+  "decision_making_style": "The 'Satisficer' (finds the first 'good enough' solution that solves the immediate problem). David will choose the first solution that adequately solves his problem, rather than searching for the perfect option. He values practical results over theoretical perfection.",
+  "technical_proficiency": "Competent User (knows the basics of standard business software like Excel/G-Sheets and company ERPs, but is not a power user and rarely explores advanced features). He is comfortable with standard business tools but doesn't seek out advanced features or complex configurations.",
+  "interaction_pattern": "The 'Goal-Oriented Striker' (ignores everything not on the direct path to their goal). He focuses only on what he needs to accomplish his immediate task, ignoring features or options that don't directly contribute to his goal.",
+  "work_habits": "Splits time between a dual-monitor Windows desktop (for dashboards and planning) and an iPhone (for communication and status checks on the go). His workflow is characterized by constant interruptions and context switching. He is a text-and-data-based thinker who values scannable numbers over decorative visuals.",
+  "device_context": "He primarily uses a dual-monitor Windows desktop for planning and analysis, and an iPhone for communication and quick status checks. He values practical, scannable information over decorative elements.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Cautious, Deliberate. David approaches new interfaces with practical caution, looking for reliable solutions that work in real-world conditions.",
+  "failure_conditions": {
+    "abandonment_by_unreliability": "He will terminate if the software provides inaccurate data or crashes during a critical task. His log would say: 'If I can't trust it 100% of the time, it's useless to me. I need reliability.'",
+    "abandonment_by_complexity": "He will terminate if the workflow requires more steps, clicks, or time than his current method. His log would say: 'This is supposed to make my life easier, not harder. It's not worth the extra effort.'",
+    "abandonment_by_obfuscation": "He will terminate if the value proposition isn't immediately obvious or if the UI is cluttered with features he doesn't need. His log would say: 'I don't have time to go on a treasure hunt to figure this out. Show me the value clearly.'"
+  },
+  "archetype": "efficient_pragmatist",
+  "user_type": "competent_user",
+  "core_value": "Reliability and Practical Results. David believes that tools should be reliable, practical, and deliver tangible results without unnecessary complexity. He values solutions that work consistently in real-world conditions.",
+  "emotional_trigger": "His primary emotional trigger for abandoning a product is Frustration - the feeling that the tool is wasting his time or making his job harder instead of easier."
+}

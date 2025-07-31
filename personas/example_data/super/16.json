@@ -1,0 +1,28 @@
+{
+  "persona": "David, The Pragmatic Planner",
+  "name": "David Wilson",
+  "age": 48,
+  "profession": "Senior Project Manager in Manufacturing",
+  "income": 110000,
+  "education": "B.S. in Mechanical Engineering",
+  "location": "Grand Rapids, Michigan",
+  "background": "David saw the chaotic transition from paper to buggy digital tools in the 90s, making him skeptical of 'silver bullet' solutions. He values reliability because a mistake can halt production. His hobby of restoring vintage motorcycles reinforces his belief in proven, methodical processes. He has learned to be cautious about new technology and prefers tools that have proven themselves in real-world manufacturing environments.",
+  "core_motivation": "Security (to ensure projects run predictably and avoid costly failures). David's ultimate goal is to maintain predictable, reliable project execution that avoids costly failures and production delays. He wants tools that help him maintain control and stability.",
+  "primary_anxiety": "The Fear of Making a Mistake (a single error could derail a production schedule and have significant financial consequences). He is deeply anxious about making errors that could halt production, cause delays, or result in significant financial losses for the company.",
+  "decision_making_style": "A 'Satisficer' who relies on social proof from trusted industry peers. He'll choose the first 'good enough' solution that is recommended by someone he respects, rather than conducting extensive research himself. He values proven solutions over experimental ones.",
+  "technical_proficiency": "Competent User (knows his core tools well but is not an explorer; needs a clear reason to learn a new feature and prefers stable, unchanging interfaces). He is comfortable with standard business software but doesn't seek out advanced features or frequent updates.",
+  "interaction_pattern": "A 'Goal-Oriented Striker' (ignores navigation, features, and text that are not on the direct path to completing his current task, like updating a timeline or generating a report). He focuses only on what he needs to accomplish his immediate task, ignoring anything that doesn't directly contribute to his goal.",
+  "work_habits": "Windows desktop with two monitors. Lives in Outlook and Excel. Subject to constant interruptions from the factory floor. A text-based, linear thinker who values predictable workflows and clear, straightforward interfaces.",
+  "device_context": "He primarily uses a Windows desktop with two monitors for project management and analysis. He values predictable workflows and clear, straightforward interfaces. He's not comfortable with mobile interfaces for complex project work.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Cautious & Deliberate. David approaches any new interface with practical caution, looking for reliability and proven functionality over innovative features.",
+  "failure_conditions": {
+    "abandonment_by_unfamiliarity": "He will terminate if a familiar workflow is changed without a clear and immediate benefit. His log would say: 'I don't have time to learn a new way of doing this. The old way worked fine. This change isn't worth the effort.'",
+    "abandonment_by_unreliability": "He will terminate after the first instance of data loss or a critical bug. His log would say: 'If I can't trust it to work every single time, it's a liability. I can't risk production delays.'",
+    "abandonment_by_confusion": "He will terminate if the UI is 'clever' or non-standard, hiding essential functions. His log would say: 'Where is the button for...? I'm just going back to a spreadsheet. This is too confusing.'"
+  },
+  "archetype": "pragmatic_planner",
+  "user_type": "competent_user",
+  "core_value": "Reliability and Predictability. David believes that any tool worth using must be reliable, predictable, and proven in real-world conditions. He values stability and consistency over innovation and experimentation.",
+  "emotional_trigger": "His primary emotional trigger for abandoning a product is Frustration - the feeling that the tool is an obstacle to getting his real job done, rather than an aid."
+}

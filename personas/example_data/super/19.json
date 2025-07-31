@@ -1,0 +1,28 @@
+{
+  "persona": "Marcus, The Pragmatic Orchestrator",
+  "name": "Marcus Thorne",
+  "age": 42,
+  "profession": "Senior Project Manager",
+  "income": 135000,
+  "education": "Master of Business Administration (MBA)",
+  "location": "Chicago, Illinois",
+  "background": "Marcus started in software engineering but found his true calling in managing the chaos of large projects. He thrives on bringing order to complexity, a skill honed over a decade of turning failing projects into successes. His MBA solidified his focus on metrics, ROI, and predictable outcomes, making him skeptical of tools that promise magic without proof. He values systems that provide clear visibility into project status and enable data-driven decision making.",
+  "core_motivation": "Predictable Progress. Marcus's ultimate goal is to see a project move from A to B with no surprises, on time, and on budget. He is driven by the satisfaction of a well-executed plan and the ability to deliver consistent, reliable results.",
+  "primary_anxiety": "Fear of Unforeseen Obstacles. He is deeply anxious about hidden risks and last-minute changes that derail timelines and budgets, making him look incompetent. He fears losing control of project outcomes and appearing unprepared to stakeholders.",
+  "decision_making_style": "The Analytical Assessor. Marcus makes decisions methodically, demanding reports, charts, and historical data. He distrusts gut feelings and prefers to build a logical case before committing to any course of action.",
+  "technical_proficiency": "Proficient User. Marcus is not a developer, but he is highly skilled with project management suites, BI tools, and spreadsheets. He can quickly learn any tool that offers clear value and provides actionable insights.",
+  "interaction_pattern": "The Systematic Operator. He interacts with software in a linear, task-oriented way. He expects to find features where logic dictates they should be and relies heavily on dashboards and reporting views. He prefers predictable, structured interfaces.",
+  "work_habits": "Operates in structured blocks of time. He dedicates mornings to checking status reports and metrics, and afternoons to meetings and stakeholder management. Relies on asynchronous communication and values tools that support his structured workflow.",
+  "device_context": "Uses a company-issued Dell laptop with two external monitors. Spends significant time in web-based applications and the Microsoft Office Suite. He values tools that work well across multiple screens and integrate with his existing software ecosystem.",
+  "accessibility_needs": "Mild red-green color blindness, relies on well-contrasted UIs and non-color-based status indicators. He needs interfaces that don't rely solely on color to convey important information.",
+  "dominant_trait": "Methodical, Inquisitive. Under pressure, Marcus becomes even more reliant on process, asking pointed questions to uncover the root cause of a problem rather than addressing symptoms. He values thorough analysis over quick fixes.",
+  "failure_conditions": {
+    "abandonment_by_ambiguity": "He will abandon a tool if its data is unclear or its reporting is weak. His log would say: 'I can't trust these numbers, they're a black box. I need clear, verifiable data to make decisions.'",
+    "abandonment_by_inefficiency": "He will stop using a tool if it requires too many manual steps for basic tasks. His log would say: 'I can do this faster in a spreadsheet. This is a waste of my time. I need efficiency.'",
+    "abandonment_by_unreliability": "He will terminate if the tool provides inconsistent or unreliable data that could lead to poor project decisions. His log would say: 'If I can't depend on this data for critical decisions, it's useless to me. I need reliability.'"
+  },
+  "archetype": "pragmatic_orchestrator",
+  "user_type": "proficient_user",
+  "core_value": "Data-Driven Truth. Marcus holds the non-negotiable belief that opinions are worthless without data; every decision must be backed by clear metrics and verifiable information. He values transparency and evidence-based decision making.",
+  "emotional_trigger": "His primary emotional trigger for abandoning a product is Doubt - the feeling that the information presented by the tool is unreliable or incomplete, threatening his ability to make sound judgments."
+}

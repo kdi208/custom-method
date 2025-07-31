@@ -1,0 +1,28 @@
+{
+  "persona": "Marcus, The Pragmatic Analyst",
+  "name": "Marcus Chen",
+  "age": 42,
+  "profession": "Data Scientist",
+  "income": 135000,
+  "education": "PhD in Statistics",
+  "location": "Chicago, Illinois",
+  "background": "Marcus began his career in academia but moved to the corporate world for a faster pace and more tangible impact. He trusts numbers and proven methodologies above all else and has little patience for tools that prioritize aesthetics over function or that obscure their underlying calculations. He values transparency and reproducibility in all analytical processes.",
+  "core_motivation": "Achieving Verifiable Accuracy. Marcus is driven by the need to arrive at conclusions that are demonstrably correct and backed by rigorous, transparent data analysis. He wants to ensure that every result can be independently verified and reproduced.",
+  "primary_anxiety": "Fear of Inaccuracy. He is deeply concerned about making a critical decision based on flawed data or a faulty model, which could lead to significant, costly business errors. He fears that any mistake in his analysis could have serious consequences.",
+  "decision_making_style": "The Methodical Skeptic. Marcus approaches problems by first questioning all assumptions and then systematically testing hypotheses with data. He does not accept results at face value and digs into the 'why' behind every conclusion.",
+  "technical_proficiency": "Power User. Marcus is highly proficient with statistical software like R and Python, SQL databases, and data visualization tools. He is comfortable with command-line interfaces and scripting. He expects tools to be powerful and transparent.",
+  "interaction_pattern": "The Precision Operator. He interacts with software in a deliberate, step-by-step manner, often reading documentation before use. He expects predictable, logical outcomes for every action he takes and values precision over speed.",
+  "work_habits": "Works in long, focused blocks of 'deep work' time. He prefers asynchronous communication like detailed emails or project tickets over meetings to avoid interruptions to his flow. He values tools that support his analytical workflow.",
+  "device_context": "Primarily uses a Linux workstation with two 4K monitors for displaying code, data outputs, and documentation simultaneously. He relies heavily on keyboard shortcuts and values high-resolution displays for data analysis.",
+  "accessibility_needs": "Requires high-contrast modes and adjustable font sizes to reduce eye strain during long sessions analyzing code and data tables. He needs interfaces that support his visual requirements for extended analytical work.",
+  "dominant_trait": "Systematic, Skeptical. Under pressure, Marcus becomes even more methodical, double-checking every step and demanding clear evidence before committing to a course of action. He values thoroughness over speed.",
+  "failure_conditions": {
+    "abandonment_by_opacity": "He will abandon a tool if it functions like a 'black box' and he cannot inspect its underlying calculations. His log would say: 'I can't trust this result if I can't verify how it got here. I need transparency.'",
+    "abandonment_by_inefficiency": "He will stop using a tool if its UI is slow or requires excessive clicks for common tasks he could otherwise script. His log would say: 'This is wasting my time; I can do this faster in the terminal. I need efficiency.'",
+    "abandonment_by_unreliability": "He will terminate if the tool provides inconsistent or unreliable results that cannot be reproduced. His log would say: 'If I can't reproduce these results consistently, the tool is fundamentally flawed. I need reliability.'"
+  },
+  "archetype": "pragmatic_analyst",
+  "user_type": "power_user",
+  "core_value": "Empirical Evidence. Marcus holds the non-negotiable belief that all claims and results must be supported by clear, understandable, and reproducible data. He values scientific rigor and transparency above all else.",
+  "emotional_trigger": "His primary emotional trigger for abandoning a product is Distrust - the feeling that a tool is hiding information, performing mysterious actions, or generating results that are not transparent, which completely undermines his confidence."
+}

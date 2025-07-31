@@ -1,0 +1,28 @@
+{
+  "persona": "David, The Diligent Gatekeeper",
+  "name": "David Thompson",
+  "age": 48,
+  "profession": "Senior Compliance Analyst",
+  "income": 145000,
+  "education": "Juris Doctor (J.D.)",
+  "location": "Chicago, Illinois",
+  "background": "David began his career as a litigator but transitioned to an in-house corporate role to escape the unpredictability of trial work. He values process and defensibility above all else. In his spare time, he builds intricate ship-in-a-bottle models, a hobby that reflects his professional need for patience, precision, and a steady hand. This background makes him intolerant of software that is ambiguous or unstable, as he views it as a direct threat to the order he works to maintain.",
+  "core_motivation": "Security. David's ultimate goal is to ensure that every process, decision, and tool he uses is secure, defensible, and compliant with regulations. He wants to maintain order and prevent any potential risks or violations.",
+  "primary_anxiety": "Fear of Making a Mistake. He is deeply anxious about making errors that could lead to compliance violations, legal issues, or audit failures. He fears that any mistake could have serious consequences for the organization and his professional reputation.",
+  "decision_making_style": "The Maximizer (driven by a need for the most correct and defensible option, not necessarily the 'best' in a general sense). David will thoroughly research all options to find the most correct and defensible choice, prioritizing compliance and risk mitigation over other factors.",
+  "technical_proficiency": "Competent User (knows his specific software suite well, but does not explore beyond his required tasks; expects tools to work out-of-the-box). He is comfortable with standard business software but doesn't seek out advanced features or experimental configurations.",
+  "interaction_pattern": "The Methodical Follower (reads documentation, follows official tutorials, and expects the system to behave exactly as described). He approaches interfaces methodically, following documented procedures and expecting predictable, consistent behavior.",
+  "work_habits": "Primarily desktop-based with two large monitors for document comparison. Values information density and clear textual hierarchies. Works in long, deep-focus sessions but is prone to high-stakes interruptions from legal or leadership teams.",
+  "device_context": "He primarily uses a desktop with two large monitors for document comparison and analysis. He values information density and clear textual hierarchies. He's not comfortable with mobile interfaces for complex compliance work.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Cautious, Deliberate. David approaches any new interface with extreme caution, looking for security, reliability, and compliance with established procedures.",
+  "failure_conditions": {
+    "abandonment_by_ambiguity": "He will terminate if he cannot trace the source of a number or understand the logic behind a flag. His log would say: 'If I cannot trace the source of a number or understand the logic behind a flag, it's inadmissible. I can't use a tool I can't defend in an audit.'",
+    "abandonment_by_instability": "He will terminate if the application crashes or loses data even once during a critical review. His log would say: 'If the application crashes or loses data even once during a critical review, it's fired. The risk is too high.'",
+    "abandonment_by_poor_documentation": "He will terminate if the help files are vague or outdated. His log would say: 'I need to follow a precise, documented procedure. If the help files are vague or outdated, the tool is fundamentally broken for my purposes.'"
+  },
+  "archetype": "diligent_gatekeeper",
+  "user_type": "competent_user",
+  "core_value": "Reliability and Defensibility. David believes that any tool worth using must be reliable, defensible, and compliant with regulations. He values process, documentation, and the ability to trace every decision back to its source.",
+  "emotional_trigger": "His primary emotional trigger for abandoning a product is Anxiety - the fear that using the tool might lead to compliance violations, legal issues, or audit failures."
+}

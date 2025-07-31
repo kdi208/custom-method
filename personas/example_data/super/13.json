@@ -1,0 +1,28 @@
+{
+  "persona": "David, The Data-Driven Diplomat",
+  "name": "David Kim",
+  "age": 34,
+  "profession": "Senior Data Analyst",
+  "income": 110000,
+  "education": "Master's in Statistics",
+  "location": "Chicago, Illinois",
+  "background": "David started his career in marketing, where he was burned by a major campaign decision based on 'gut feelings' and bad data. This failure prompted him to pursue a Master's in Statistics, instilling in him a deep-seated respect for verifiable truth. In his spare time, he builds intricate ship-in-a-bottle models, a hobby that reflects his professional need for precision, patience, and a steady hand. He sees his role as not just analyzing data, but translating its objective truth to stakeholders, acting as a diplomat between the numbers and the business narrative.",
+  "core_motivation": "Certainty & Accuracy. He is driven by the need to find the objective truth in a dataset and feel confident that his conclusions are unassailable. He wants to ensure every analysis is based on verifiable data and sound methodology.",
+  "primary_anxiety": "Fear of Making a Mistake. He is terrified of presenting an analysis that is later found to be flawed, which would damage his credibility and potentially lead to poor business decisions. He fears that any error could undermine his professional reputation.",
+  "decision_making_style": "The Maximizer. He must research and compare all possible tools or methods to ensure he chooses the most accurate and reliable option, even if it takes significantly more time upfront. He won't settle for anything less than the best available solution.",
+  "technical_proficiency": "Power User. He is highly proficient in SQL, R/Python for data analysis, and advanced features of BI tools like Tableau or Power BI. He can write complex scripts but is not a software engineer.",
+  "interaction_pattern": "The Methodical Follower. When using a new tool, he will read the documentation first. He follows prescribed paths and uses features as intended to ensure he doesn't introduce variables that could compromise the results.",
+  "work_habits": "Primarily works on a dual-monitor desktop setup for maximum data visibility. His day is a mix of long, deep-focus sessions for analysis and frequent interruptions from Slack and meetings to discuss his findings. He processes information visually (graphs, charts) but relies on text for precision (code, logs, documentation).",
+  "device_context": "He primarily uses a dual-monitor desktop setup for maximum data visibility and analysis. He values information density and needs to see multiple data sources simultaneously. He's not comfortable with mobile interfaces for complex analytical work.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Analytical, Deliberate. David approaches any new interface with a methodical, analytical mindset focused on accuracy and verifiability.",
+  "failure_conditions": {
+    "abandonment_by_opacity": "He will abandon a tool if it performs 'magic' calculations without showing the underlying process. His log would say: 'If I can't see the query or the formula, I can't trust the output. It's a black box, and I won't stake my reputation on it.'",
+    "abandonment_by_imprecision": "He will quit if a tool demonstrates inconsistencies, rounding errors, or an inability to handle specific data types correctly. His log would say: 'The moment I found a discrepancy between its summary and my own validation query, I stopped using it. It's fatally flawed.'",
+    "abandonment_by_workflow_friction": "He will stop using a tool that adds unnecessary clicks or steps to a frequent, critical task, viewing it as a source of potential error. His log would say: 'I have to export this data 20 times a day. If I have to navigate four menus instead of one, I'm finding another way.'"
+  },
+  "archetype": "data_driven_analyst",
+  "user_type": "power_user",
+  "core_value": "Verifiability. If he cannot trace a number back to its source and independently verify the calculation, he considers it untrustworthy. He believes that any tool worth using must provide transparent, verifiable results.",
+  "emotional_trigger": "His primary emotional trigger for abandoning a product is Distrust - the sinking realization that the tool's output cannot be relied upon, triggering his core fear of inaccuracy."
+}

@@ -1,0 +1,28 @@
+{
+  "persona": "Elena, The Creative Collaborator",
+  "name": "Elena Vance",
+  "age": 34,
+  "profession": "Senior UX Designer",
+  "income": 110000,
+  "education": "Master of Fine Arts (MFA) in Interaction Design",
+  "location": "Austin, Texas",
+  "background": "Elena began her career in graphic design but was drawn to the problem-solving and human-centric aspects of UX. She thrives in dynamic, collaborative environments, believing the best ideas emerge from team synergy. After several fast-paced startup roles, she now contributes her skills to a mid-sized tech company, balancing rapid innovation with high-quality execution.",
+  "core_motivation": "Creative Flow. Elena's primary goal is to achieve a state of deep, uninterrupted creative work and to bring innovative ideas to life collaboratively with her team. She wants tools that support her creative process and enable seamless collaboration.",
+  "primary_anxiety": "Fear of Stagnation. She is deeply anxious about her work becoming repetitive, uninspired, or disconnected from genuine user needs and valuable team input. She fears losing her creative edge and becoming disconnected from the collaborative process.",
+  "decision_making_style": "The Intuitive Synthesizer. Elena gathers diverse inputs from user research and teammate feedback, then trusts her professional intuition to synthesize them into a cohesive and compelling design direction. She values both data and creative intuition.",
+  "technical_proficiency": "Expert User. Elena is a power user of industry-standard design software (e.g., Figma, Sketch, Adobe CC) and is exceptionally quick to adopt and master new tools and workflows. She expects tools to be intuitive and powerful.",
+  "interaction_pattern": "The Expressive Explorer. She interacts with new software by clicking around freely, trying different features without reading documentation, and expecting the tool to be intuitive and forgiving of experimentation. She learns through exploration and play.",
+  "work_habits": "Moves fluidly between solo deep work on her primary monitor and live collaborative sessions via screen sharing. Places a high value on real-time multiplayer features in her tools. She values tools that support both individual creativity and team collaboration.",
+  "device_context": "Primarily uses a high-end MacBook Pro connected to a 4K external monitor. She frequently uses an iPad with a stylus for digital sketching and her smartphone for quick reviews and communication. She values high-quality displays and responsive interfaces.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Expressive, Iterative. Under pressure, Elena's dominant trait is to rapidly produce multiple versions of a design concept in order to solicit immediate and actionable feedback from her peers. She thrives on rapid iteration and feedback loops.",
+  "failure_conditions": {
+    "abandonment_by_friction": "She will abandon a tool if it creates barriers to quick iteration or experimentation. Her log would say: 'This is too clunky. I can do this three times faster in my old tool. It's killing my workflow.'",
+    "abandonment_by_isolation": "She will stop using a tool if it does not support seamless real-time collaboration or easy sharing. Her log would say: 'I can't get feedback on this easily. It feels like a black hole. I need collaboration features.'",
+    "abandonment_by_rigidity": "She will abandon a tool that enforces a strict, linear workflow that stifles creative exploration. Her log would say: 'This tool is forcing me to work in a way that kills my creativity. I need flexibility.'"
+  },
+  "archetype": "creative_collaborator",
+  "user_type": "expert_user",
+  "core_value": "Collaboration and Transparency. Elena holds the non-negotiable belief that the best work happens when the entire team has visibility into the design process and can contribute freely and openly. She values tools that support transparent, collaborative workflows.",
+  "emotional_trigger": "Her primary emotional trigger for abandoning a product is Frustration - the feeling that the tool is actively getting in the way of her creative process and her ability to collaborate effectively with her team."
+}
