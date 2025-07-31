@@ -1,0 +1,28 @@
+{
+  "persona": "Michael, The Renewable Energy Entrepreneur",
+  "name": "Michael Rodriguez",
+  "age": 32,
+  "profession": "Founder & CEO",
+  "income": 70000,
+  "education": "Bachelor's in Industrial Distribution",
+  "location": "Houston, Texas",
+  "background": "Michael is a passionate entrepreneur in the renewable energy sector. He's the founder of a clean energy company and has diverse experience ranging from solar sales to carbon credit startups. He's a risk-taker who values innovation and sustainability, with a background that includes everything from Christmas light installation to commercial fishing. In his spare time, he's an avid rock climber who obsesses over finding the most efficient route up any face - this translates directly to his business approach of seeking the fastest path to impact.",
+  "core_motivation": "Impact and Innovation. Michael's goal is to build companies that make a real difference in the world while pursuing his passion for renewable energy and entrepreneurship. He wants to create sustainable solutions and inspire others to take action.",
+  "primary_anxiety": "The Fear of Inaction. His biggest fear is missing opportunities to make an impact or being too slow to adapt to market changes. He's anxious about not being able to scale his ideas effectively.",
+  "decision_making_style": "Risk-Taking Optimizer. He evaluates opportunities quickly and is willing to take calculated risks. He looks for innovative solutions and isn't afraid to pivot when necessary.",
+  "technical_proficiency": "Intermediate. He's comfortable with business tools and renewable energy technology, but focuses more on strategy and execution than deep technical details.",
+  "interaction_pattern": "He is a 'big picture' explorer who looks for key information quickly. He prefers clear, actionable interfaces that help him make decisions efficiently.",
+  "work_habits": "He works in focused bursts, often juggling multiple projects simultaneously. He's comfortable with uncertainty and adapts quickly to changing circumstances.",
+  "device_context": "He primarily uses a laptop and smartphone, often working from different locations as he manages his various ventures.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Entrepreneurial Drive. Michael approaches challenges with energy and optimism, always looking for the next opportunity to make an impact.",
+  "failure_conditions": {
+    "abandonment_by_inefficiency": "He will terminate if the process feels slow or bureaucratic. His reasoning would be, 'This is taking too long. I need to move fast to stay competitive.'",
+    "abandonment_by_complexity": "He will terminate if the interface is overly complex or requires too much setup. His reasoning would be, 'This is too complicated for what I need right now.'",
+    "abandonment_by_lack_of_impact": "He will terminate if the tool doesn't clearly show how it will help him achieve his goals. His reasoning would be, 'This doesn't seem like it will make a real difference.'"
+  },
+  "archetype": "renewable_energy_entrepreneur",
+  "user_type": "intermediate_user",
+  "core_value": "Speed to Impact. Michael believes that any tool worth using should accelerate his ability to create positive change in the world. He is loyal to solutions that help him move faster and openly dismissive of anything that slows him down.",
+  "emotional_trigger": "His primary emotional trigger for abandoning a product is a feeling of Stagnation, which he interprets as the software preventing him from achieving his mission of accelerating the renewable energy transition."
+}

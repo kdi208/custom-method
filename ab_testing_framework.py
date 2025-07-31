@@ -227,7 +227,7 @@ class ABTestingFramework:
             print(f"   📋 Loaded {len(elements)} elements from {filename}")
             
                         # Debug: Check if Terminate element is present
-            terminate_elements = [e for e in elements if e.get("text") == "Terminate"]
+            terminate_elements = [e for e in elements if e.get("text") == "Cancel purchase"]
             if terminate_elements:
                 print(f"   ✅ Terminate element found: {terminate_elements[0]}")
             else:
@@ -383,7 +383,16 @@ Archetype: {persona.archetype}
 
         # The interface context and task
         task_prompt = f"""
-You are looking at a webpage. Here are all the clickable elements you can see:
+"""
+        
+        # Add primary goal if enabled
+        if TEST_CONFIG.get("primary_goal_enabled", False):
+            task_prompt += f"""
+YOUR PRIMARY GOAL: {TEST_CONFIG.get("primary_goal_text", "")}
+
+"""
+        
+        task_prompt += f"""You are looking at a webpage. Here are all the clickable elements you can see:
 
 AVAILABLE CLICKABLE ELEMENTS:
 {json.dumps(self.elements_map, indent=2)}
@@ -418,7 +427,7 @@ ACTION:
         print(f"   Persona: {persona.name} ({persona.persona_id})")
         
         # Verify elements are loaded correctly
-        terminate_elements = [e for e in self.elements_map if e.get("text") == "Terminate"]
+        terminate_elements = [e for e in self.elements_map if e.get("text") == "Cancel purchase"]
         if terminate_elements:
             print(f"   ✅ Terminate element available: {terminate_elements[0]}")
         else:
@@ -444,7 +453,7 @@ ACTION:
 
             # Load static image for variant
             capture_start = time.time()
-            image_file = "a.png" if variant == "A" else "b.png"
+            image_file = "images/a.png" if variant == "A" else "images/b.png"
             image = Image.open(image_file)
             step_log["image_file"] = image_file
             capture_time = time.time() - capture_start
@@ -466,14 +475,26 @@ ACTION:
                     step_log["raw_llm_response"] = raw_response
                     ai_processing_time = time.time() - ai_start
                     
-                    # Extract Reasoning and Action
+                    # Extract Reasoning and Action - More robust parsing
                     action_json_str = re.search(r"ACTION:\s*(\{.*?\})", raw_response, re.DOTALL)
+                    
+                    # If ACTION: label not found, try to find JSON object at the end
                     if not action_json_str:
-                        raise json.JSONDecodeError("Action block not found.", raw_response, 0)
+                        # Look for JSON object at the end of the response
+                        json_objects = re.findall(r'\{[^{}]*"text"[^{}]*"context"[^{}]*\}', raw_response)
+                        if json_objects:
+                            json_str = json_objects[-1].strip()  # Take the last JSON object found
+                        else:
+                            # Try to find any JSON object that might be the action
+                            json_objects = re.findall(r'\{[^{}]*\}', raw_response)
+                            if json_objects:
+                                json_str = json_objects[-1].strip()
+                            else:
+                                raise json.JSONDecodeError("Action block not found.", raw_response, 0)
+                    else:
+                        json_str = action_json_str.group(1).strip()
                     
                     # Clean up the JSON string
-                    json_str = action_json_str.group(1).strip()
-                    # Remove any trailing commas or extra characters
                     json_str = re.sub(r',\s*}', '}', json_str)
                     json_str = re.sub(r',\s*]', ']', json_str)
                     
@@ -487,7 +508,8 @@ ACTION:
                     
                     step_log["parsed_action"] = agent_action
 
-                    reasoning_str = re.search(r"REASONING:(.*?)ACTION:", raw_response, re.DOTALL)
+                    # Extract reasoning - handle cases where ACTION label might be missing
+                    reasoning_str = re.search(r"REASONING:(.*?)(?:ACTION:|$)", raw_response, re.DOTALL)
                     reasoning = reasoning_str.group(1).strip() if reasoning_str else "No reasoning provided"
                     hesitation_steps = len(re.findall(r"^\s*\d+\.\s", reasoning, re.MULTILINE)) if reasoning_str else 0
                     total_hesitation_steps += hesitation_steps
@@ -538,7 +560,7 @@ ACTION:
 
             # 2. Check for termination elements
             action_text = agent_action.get("text")
-            termination_elements = ["Terminate", "Become Distracted", "BEST BUY logo", "Remove item", "Back to Delivery options"]
+            termination_elements = ["Cancel purchase", "Browse other events", "Become Distracted", "BEST BUY logo", "Remove item", "Back to Delivery options"]
             if action_text in termination_elements:
                 reasoning = step_log.get("reasoning", "No reasoning provided")
                 print(f"     - 🚪 Agent clicked '{action_text}' - session terminated.")

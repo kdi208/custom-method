@@ -16,25 +16,61 @@ Modify these values to change test parameters without touching the main code.
 #
 # =============================================================================
 
-TEST_CONFIG = {
-    # Test Scale Configuration
-    "num_personas": 5,            # Number of personas for this exploratory test (using super personas)
-    "iterations_per_persona": 1,  # Number of iterations per persona
-    "max_steps_per_session": 5,   # Maximum steps per session
+import json
+import os
 
-    # File Paths - Updated to use demo variants and super personas
-    "variant_a_elements_file": "demo/elements_variant_a.json",
-    "variant_b_elements_file": "demo/elements_variant_b.json",
-    "personas_directory": "data/example_data/super/",
-    "logs_directory": "logs/",
-    "screenshots_directory": "screenshots/"
-}
+# Load configuration from images directory
+def load_config_from_images():
+    config_path = "images/test_config.json"
+    if os.path.exists(config_path):
+        with open(config_path, 'r') as f:
+            config = json.load(f)
+        return config
+    return None
+
+# Try to load from images directory first, fallback to defaults
+images_config = load_config_from_images()
+
+if images_config:
+    TEST_CONFIG = {
+        # Test Scale Configuration
+        "num_personas": images_config["test_parameters"]["num_personas"],
+        "iterations_per_persona": images_config["test_parameters"]["iterations_per_persona"],
+        "max_steps_per_session": images_config["test_parameters"]["max_steps_per_session"],
+        "primary_goal_enabled": images_config["test_parameters"]["primary_goal_enabled"],
+        "primary_goal_text": images_config["test_parameters"]["primary_goal_text"],
+
+        # File Paths - Updated to use images directory
+        "variant_a_elements_file": f"images/{images_config['file_paths']['variant_a_elements']}",
+        "variant_b_elements_file": f"images/{images_config['file_paths']['variant_b_elements']}",
+        "personas_directory": images_config["file_paths"]["personas_directory"],
+        "logs_directory": images_config["file_paths"]["logs_directory"]
+    }
+else:
+    # Fallback configuration
+    TEST_CONFIG = {
+        # Test Scale Configuration
+        "num_personas": 8,
+        "iterations_per_persona": 1,
+        "max_steps_per_session": 5,
+        "primary_goal_enabled": False,
+        "primary_goal_text": "Complete the ticket purchase for the St. Lucia event. You should aim to successfully purchase tickets through the checkout process.",
+
+        # File Paths - Updated to use images directory
+        "variant_a_elements_file": "images/elements_variant_a.json",
+        "variant_b_elements_file": "images/elements_variant_b.json",
+        "personas_directory": "data/example_data/super/",
+        "logs_directory": "logs/"
+    }
 
 # Distracted Condition Configuration
-DISTRACTED_CONFIG = {
-    "enabled": True,
-    "step": 2
-}
+if images_config:
+    DISTRACTED_CONFIG = images_config["distracted_config"]
+else:
+    DISTRACTED_CONFIG = {
+        "enabled": True,
+        "step": 2
+    }
 
 # =============================================================================
 # PRESET CONFIGURATIONS

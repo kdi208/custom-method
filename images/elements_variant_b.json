@@ -1,0 +1,98 @@
+[
+  {
+    "text": "Event information: St. Lucia, Jul 31, Rooftop at Elsewhere",
+    "context": "Header event details"
+  },
+  {
+    "text": "Scarcity warning: Only 2% of tickets left",
+    "context": "Header urgency message"
+  },
+  {
+    "text": "Information icon for ticket scarcity",
+    "context": "Header urgency message"
+  },
+  {
+    "text": "Currency selector (USD)",
+    "context": "Header language and currency settings"
+  },
+  {
+    "text": "Language selector (EN)",
+    "context": "Header language and currency settings"
+  },
+  {
+    "text": "Event details in main content",
+    "context": "Left column ticket details"
+  },
+  {
+    "text": "Ticket type: Section General Admission",
+    "context": "Left column ticket details"
+  },
+  {
+    "text": "View quality: Clear view",
+    "context": "Left column ticket details"
+  },
+  {
+    "text": "Information icon for 'tickets sold' box",
+    "context": "Left column social proof"
+  },
+  {
+    "text": "Social proof message: 3 tickets sold in last day",
+    "context": "Left column social proof"
+  },
+  {
+    "text": "Perk: Can resell if plans change",
+    "context": "Left column perks section"
+  },
+  {
+    "text": "Information icon for Fees",
+    "context": "Right column order summary cost breakdown"
+  },
+  {
+    "text": "Ticket quantity dropdown",
+    "context": "Right column purchase confirmation section"
+  },
+  {
+    "text": "Continue button",
+    "context": "Primary call-to-action"
+  },
+  {
+    "text": "100% Order Guarantee information",
+    "context": "Right column trust signal"
+  },
+  {
+    "text": "Resell Anytime information",
+    "context": "Right column secondary option"
+  },
+  {
+    "text": "Link to resell your tickets",
+    "context": "Right column secondary option"
+  },
+  {
+    "text": "Privacy - Terms button",
+    "context": "Floating privacy widget"
+  },
+  {
+    "text": "User Agreement link",
+    "context": "Footer navigation"
+  },
+  {
+    "text": "Privacy Notice link",
+    "context": "Footer navigation"
+  },
+  {
+    "text": "Cookie Notice link",
+    "context": "Footer navigation"
+  },
+  {
+    "text": "Guarantee message in footer",
+    "context": "Footer trust signal"
+  },
+  {
+    "text": "Cancel purchase",
+    "context": "Termination option"
+  },
+  {
+    "text": "Browse other events",
+    "context": "Distraction option"
+  }
+]

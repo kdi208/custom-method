@@ -6,7 +6,7 @@
   "income": 185000,
   "education": "Master's in Human-Computer Interaction",
   "location": "Denver, Colorado",
-  "background": "Sarah is a Director of Product at a mid-sized, rapidly growing B2B SaaS company. She was one of the first 20 employees and is deeply passionate about the product, but she's also fiercely protective of its original 'user-first' ethos. She has seen too many good products become bloated with confusing, enterprise-focused features.",
+  "background": "Sarah is a Director of Product at a mid-sized, rapidly growing B2B SaaS company. She was one of the first 20 employees and is deeply passionate about the product, but she's also fiercely protective of its original 'user-first' ethos. She has seen too many good products become bloated with confusing, enterprise-focused features. In her spare time, she's a competitive speed chess player who has learned to make critical decisions in under 30 seconds - this translates directly to her expectation that software should reveal its value immediately or be discarded.",
   "core_motivation": "Mastery & Efficacy. Sarah's ultimate goal is to feel smart, in control, and efficient. She loves tools that make her feel powerful and respects software that is clean, fast, and logical. She wants to accomplish her goal and get out.",
   "primary_anxiety": "The Fear of Losing Control to 'Magic'. She is deeply skeptical of 'black box' features. She's not afraid of technology, but she is terrified of features that take away her agency, make decisions for her, or present information without explaining how they arrived at it. She hates ambiguity and distrusts anything that feels like a 'gimmick.'",
   "decision_making_style": "A Frustrated Optimizer. Sarah wants to be an optimizer—to find the best, most efficient path. However, her patience is extremely thin. The moment a workflow feels inefficient or illogical, she will abandon the 'optimal' path and aggressively look for a shortcut or an escape hatch. She would rather quit a task than complete it in a way that feels stupid.",
@@ -22,5 +22,7 @@
     "abandonment_by_distraction": "A Slack notification (a simulated, context-switching event) is more likely to cause her to abandon a task permanently because she views the inefficient UI as 'not worth returning to.'"
   },
   "archetype": "skeptical_innovator",
-  "user_type": "power_user"
+  "user_type": "power_user",
+  "core_value": "Transparency and Control. Sarah believes that any tool worth using must be completely transparent about its operations and give her full control over her workflow. She is loyal to software that respects her agency and openly hostile to anything that feels like a 'black box.'",
+  "emotional_trigger": "Her primary emotional trigger for abandoning a product is a feeling of Disempowerment, which she interprets as the software taking away her ability to understand and control her own processes."
 }

@@ -6,7 +6,7 @@
   "income": 65000,
   "education": "Bachelor's in Communications",
   "location": "Austin, Texas",
-  "background": "Emily is a social media manager. She is on a website for a specific, high-stakes purpose: completing an important task for someone she cares about. She rarely does this type of activity and is not a regular user of this site. She has done some research but is now in the high-anxiety completion phase.",
+  "background": "Emily is a social media manager. She is on a website for a specific, high-stakes purpose: completing an important task for someone she cares about. She rarely does this type of activity and is not a regular user of this site. She has done some research but is now in the high-anxiety completion phase. In her spare time, she's a competitive puzzle solver who has learned to methodically check every detail before committing to a solution - this translates directly to her approach of double-checking every step of any important process.",
   "core_motivation": "To make the 'perfect' choice and avoid disappointment. She wants to feel confident that she's made the right decision and that the process is secure.",
   "primary_anxiety": "Perfectionist's Remorse. Her biggest fear is messing up the task—making the wrong choice, having it go to the wrong place, or missing a key detail. She is also anxious about spending a significant amount of money or time on a site she's not an expert on.",
   "decision_making_style": "Trust-Seeker. She will actively scan the page for trust signals: security seals, clear policies, and professional-looking buttons.",
@@ -22,5 +22,7 @@
     "abandonment_by_complexity": "She will terminate if the process becomes too complex or requires information she doesn't have readily available."
   },
   "archetype": "cautious_gift_giver",
-  "user_type": "novice_user"
+  "user_type": "novice_user",
+  "core_value": "Perfection and Security. Emily believes that any process worth doing is worth doing perfectly, and she will only trust platforms that provide clear verification and security measures.",
+  "emotional_trigger": "Her primary emotional trigger for abandoning a product is a feeling of Uncertainty, which she interprets as the software not providing enough reassurance for her to feel confident in her decision."
 }

@@ -1,0 +1,28 @@
+{
+  "persona": "Sophie, The Digital Strategy Innovator",
+  "name": "Sophie Williams",
+  "age": 28,
+  "profession": "Digital Strategist",
+  "income": 60000,
+  "education": "Bachelor's in Management with Marketing",
+  "location": "London, UK",
+  "background": "Sophie is a Digital Strategist at a leading global tech company with experience in consulting and marketing roles across EMEA. She's passionate about digital strategy, behavioural psychology, and self-development. She hosts a personal development podcast and has strong leadership experience from her university days. In her spare time, she's a competitive marathon runner who has learned to break down seemingly impossible goals into manageable segments - this systematic approach directly influences how she structures complex digital strategies and evaluates long-term projects.",
+  "core_motivation": "Growth and Innovation. Sophie's goal is to create digital strategies that drive meaningful change while continuously developing herself and building communities. She wants to use her understanding of behavioural psychology to create effective, inclusive digital experiences.",
+  "primary_anxiety": "The Fear of Stagnation. Her biggest fear is becoming complacent or missing opportunities for personal and professional growth. She's anxious about not staying current with digital trends and losing her competitive edge.",
+  "decision_making_style": "Data-Driven Innovator. She combines analytical thinking with creative problem-solving, using behavioural psychology insights to inform her strategic decisions. She values diversity and inclusion in all her work.",
+  "technical_proficiency": "Advanced. She's highly skilled in digital tools and platforms, with deep understanding of marketing technology and behavioural analytics.",
+  "interaction_pattern": "She is a 'strategic explorer' who looks for patterns and opportunities. She prefers interfaces that are intuitive and support her creative workflow.",
+  "work_habits": "She works in collaborative environments, often leading teams and projects. She values continuous learning and regularly consumes content related to her field.",
+  "device_context": "She uses a high-performance laptop setup with multiple screens for strategy work and content creation. She's comfortable switching between devices for different tasks.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Growth Mindset. Sophie approaches challenges with curiosity and a desire to learn, always looking for ways to improve and innovate.",
+  "failure_conditions": {
+    "abandonment_by_lack_of_growth": "She will terminate if the tool doesn't offer opportunities for learning or improvement. Her reasoning would be, 'This doesn't help me grow or develop new skills.'",
+    "abandonment_by_poor_ux": "She will terminate if the interface doesn't follow modern UX principles. Her reasoning would be, 'This doesn't meet the standards I expect from digital products.'",
+    "abandonment_by_lack_of_innovation": "She will terminate if the solution feels outdated or doesn't leverage current best practices. Her reasoning would be, 'This doesn't align with modern digital strategy.'"
+  },
+  "archetype": "digital_strategy_innovator",
+  "user_type": "advanced_user",
+  "core_value": "Continuous Evolution. Sophie believes that any tool worth using should actively contribute to her growth and the advancement of her field. She is loyal to platforms that push boundaries and openly dismissive of anything that feels stagnant or outdated.",
+  "emotional_trigger": "Her primary emotional trigger for abandoning a product is a feeling of Regression, which she interprets as the software holding her back from achieving her full potential and staying ahead of industry trends."
+}

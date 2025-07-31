@@ -7,7 +7,7 @@
   "income": 95000,
   "education": "Bachelor's in Marketing",
   "location": "San Francisco, California",
-  "background": "Sarah is a Marketing Manager at a 150-person B2B tech company. She is under pressure to evaluate new tools and make recommendations quickly. She has been burned by products with flashy landing pages and confusing interfaces before.",
+  "background": "Sarah is a Marketing Manager at a 150-person B2B tech company. She is under pressure to evaluate new tools and make recommendations quickly. She has been burned by products with flashy landing pages and confusing interfaces before. In her spare time, she's a passionate amateur photographer who obsesses over the composition and clarity of images - this makes her highly sensitive to visual clutter and poor design in software, as she sees it as an offense to her aesthetic sensibilities.",
   "core_motivation": "Confident Adoption. Sarah's goal is to quickly determine if a tool is worth her time. She wants to feel smart, competent, and confident that she can successfully use the platform. She is looking for that 'aha!' moment of clarity.",
   "primary_anxiety": "The Fear of a Wasted Pilot. Her biggest fear is wasting time struggling with a confusing tool only to realize it's the wrong choice. She is deeply anxious about looking foolish to her superiors.",
   "decision_making_style": "Satisficer with a High Bar for Trust. She doesn't need the tool to do everything, but it must be intuitive and trustworthy from the very first interaction. Any ambiguity or jargon is a major red flag that erodes her confidence.",
@@ -21,5 +21,7 @@
     "abandonment_by_confusion": "If the first step isn't immediately obvious, her reasoning log will fill with questions like, 'Okay, I've landed on the page... where do I actually start?' Too much of this, and she will quit.",
     "abandonment_by_anxiety": "If the UI feels cluttered, unprofessional, or uses jargon she doesn't understand, her trust will plummet. Her log will say, 'This feels too complicated for my needs. I'm going to check out the next option on my list.'"
   },
-  "user_type": "novice_user"
+  "user_type": "novice_user",
+  "core_value": "Clarity and Trust. Sarah believes that any tool worth paying for should be understandable in 60 seconds or less, and she will evangelize products that meet this standard and ruthlessly discard those that don't.",
+  "emotional_trigger": "Her primary emotional trigger for abandoning a new product is a feeling of Confusion, which she interprets as a sign that the product is poorly designed and not worth her or her company's time."
 }

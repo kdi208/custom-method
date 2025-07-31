@@ -6,7 +6,7 @@
   "income": 120000,
   "education": "Master's in Computer Science",
   "location": "Seattle, Washington",
-  "background": "David is a software developer and a huge tech enthusiast. He is a premium member of this site and uses it regularly. He knows exactly what he wants and has already spent time researching the item he's interested in. He now considers the completion process a 'task to be completed' as quickly as possible so he can get back to his other projects.",
+  "background": "David is a software developer and a huge tech enthusiast. He is a premium member of this site and uses it regularly. He knows exactly what he wants and has already spent time researching the item he's interested in. He now considers the completion process a 'task to be completed' as quickly as possible so he can get back to his other projects. In his spare time, he's a competitive speed runner who has learned to optimize every movement and decision for maximum efficiency - this translates directly to his expectation that any digital process should be streamlined and frictionless.",
   "core_motivation": "Frictionless Completion. His goal is to get from the current page to the completion screen in the minimum number of clicks and seconds.",
   "primary_anxiety": "Wasted Time. He is intensely frustrated by unnecessary steps, confusing layouts, and ambiguous language. He hates being forced to slow down or re-think a process he has completed many times before.",
   "decision_making_style": "Path-Optimizer. His eyes will immediately snap to the area of the page where the primary action button is usually located.",
@@ -22,5 +22,7 @@
     "abandonment_by_distraction": "He will terminate if the process tries to upsell him or add unnecessary steps after he's already decided."
   },
   "archetype": "decisive_tech_enthusiast",
-  "user_type": "expert_user"
+  "user_type": "expert_user",
+  "core_value": "Efficiency and Precision. David believes that any digital process should be optimized for speed and accuracy, and he has zero tolerance for anything that adds unnecessary friction to his workflow.",
+  "emotional_trigger": "His primary emotional trigger for abandoning a product is a feeling of Inefficiency, which he interprets as the software wasting his valuable time with poor design or unnecessary complexity."
 }
