@@ -50,7 +50,7 @@ python3 test_config.py
 | `variant_a_elements_file` | UI elements for Variant A | `elements_variant_a.json` | - |
 | `variant_b_elements_file` | UI elements for Variant B | `elements_variant_b.json` | - |
 | `personas_directory` | Directory with persona JSON files | `data/example_data/personas/json/` | - |
-| `logs_directory` | Directory for session logs | `logs/` | - |
+| `logs_directory` | Directory for session logs | `results/` | - |
 | `screenshots_directory` | Directory for screenshots | `screenshots/` | - |
 
 ## Running Tests

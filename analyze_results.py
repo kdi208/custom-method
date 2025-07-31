@@ -10,7 +10,7 @@ import statistics
 from collections import defaultdict
 from datetime import datetime
 
-def load_session_logs(logs_dir="logs"):
+def load_session_logs(logs_dir="results"):
     """Load all session logs from the logs directory"""
     sessions = []
     for filename in os.listdir(logs_dir):

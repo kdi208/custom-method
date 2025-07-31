@@ -60,7 +60,7 @@ else:
         "variant_a_elements_file": "images/elements_variant_a.json",
         "variant_b_elements_file": "images/elements_variant_b.json",
         "personas_directory": "data/example_data/super/",
-        "logs_directory": "logs/"
+        "logs_directory": "results/"
     }
 
 # Distracted Condition Configuration
@@ -85,7 +85,7 @@ else:
 #     "variant_a_elements_file": "elements_variant_a.json",
 #     "variant_b_elements_file": "elements_variant_b.json",
 #     "personas_directory": "data/example_data/personas/json/",
-#     "logs_directory": "logs/",
+#     "logs_directory": "results/",
 #     "screenshots_directory": "screenshots/"
 # }
 
@@ -97,7 +97,7 @@ else:
 #     "variant_a_elements_file": "elements_variant_a.json",
 #     "variant_b_elements_file": "elements_variant_b.json",
 #     "personas_directory": "data/example_data/personas/json/",
-#     "logs_directory": "logs/",
+#     "logs_directory": "results/",
 #     "screenshots_directory": "screenshots/"
 # }
 
@@ -109,7 +109,7 @@ else:
 #     "variant_a_elements_file": "elements_variant_a.json",
 #     "variant_b_elements_file": "elements_variant_b.json",
 #     "personas_directory": "data/example_data/personas/json/",
-#     "logs_directory": "logs/",
+#     "logs_directory": "results/",
 #     "screenshots_directory": "screenshots/"
 # }
 

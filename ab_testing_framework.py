@@ -37,7 +37,7 @@ except ImportError:
         "variant_a_elements_file": "elements_variant_a.json",
         "variant_b_elements_file": "elements_variant_b.json",
         "personas_directory": "data/example_data/personas/json/",
-        "logs_directory": "logs/",
+        "logs_directory": "results/",
         "screenshots_directory": "screenshots/",
 
     }
@@ -831,7 +831,9 @@ def main():
     
     # Save report to file
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    report_filename = f"persona_ab_test_report_{timestamp}.md"
+    report_filename = f"results/persona_ab_test_report_{timestamp}.md"
+    # Ensure results directory exists
+    os.makedirs("results", exist_ok=True)
     with open(report_filename, 'w') as f:
         f.write(report)
     
