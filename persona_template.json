@@ -1,0 +1,28 @@
+{
+  "persona": "Template: [Name], [The Archetype Description]",
+  "name": "[Full Name]",
+  "age": "[Age in years]",
+  "profession": "[Job Title and Industry]",
+  "income": "[Annual income in USD]",
+  "education": "[Highest level of education]",
+  "location": "[City, State]",
+  "background": "[Detailed background story including career history, personal interests, and how these translate to their interaction with software. Should explain their relationship to technology and their current situation.]",
+  "core_motivation": "[Primary driving force - what they want to achieve and why. Should be specific and actionable.]",
+  "primary_anxiety": "[Main fear or concern that could cause them to abandon a product. Should be specific and relate to their background.]",
+  "decision_making_style": "[How they approach choices and problem-solving. Should describe their cognitive approach to decision-making.]",
+  "technical_proficiency": "[Level of technical skill and comfort with technology. Should be specific about their capabilities and limitations.]",
+  "interaction_pattern": "[How they typically interact with interfaces. Should describe their scanning behavior, click patterns, and information processing approach.]",
+  "work_habits": "[How they typically work, including multitasking preferences, focus patterns, and workflow preferences.]",
+  "device_context": "[Primary devices they use, screen setup, and technical environment.]",
+  "accessibility_needs": "[Any accessibility requirements or preferences. Use 'None' if not applicable.]",
+  "dominant_trait": "[The most defining characteristic that influences all their interactions. Should be a concise summary of their primary behavioral pattern.]",
+  "failure_conditions": {
+    "abandonment_by_[reason1]": "[Specific scenario that would cause abandonment with reasoning]",
+    "abandonment_by_[reason2]": "[Specific scenario that would cause abandonment with reasoning]",
+    "abandonment_by_[reason3]": "[Specific scenario that would cause abandonment with reasoning]"
+  },
+  "archetype": "[categorization_label]",
+  "user_type": "[user_experience_level]",
+  "core_value": "[Fundamental belief about what software should provide. Should be a non-negotiable principle.]",
+  "emotional_trigger": "[The primary emotional state that would cause them to abandon a product, with explanation of how they interpret this feeling.]"
+} 

@@ -1,0 +1,28 @@
+{
+  "persona": "Maria, The Single Parent Optimizer",
+  "name": "Maria Rodriguez",
+  "age": 38,
+  "profession": "Marketing Director (Healthcare)",
+  "income": 85000,
+  "education": "Bachelor's in Marketing",
+  "location": "Phoenix, Arizona",
+  "background": "Maria is a single mother of three children (ages 8, 12, and 15) who has built a successful career in healthcare marketing while managing the household alone. She divorced five years ago and has primary custody of her children. Her background in marketing taught her the value of efficiency and clear communication, skills she applies daily to managing her family's complex schedule. She's passionate about her work but constantly juggles work deadlines with school events, sports practices, and medical appointments. Her children are tech-savvy and often help her troubleshoot basic technology issues, but she prefers tools that are intuitive and don't require extensive learning curves. She works primarily from home with occasional office visits, and her workday is frequently interrupted by family needs.",
+  "core_motivation": "Efficiency and Reliability. Maria needs tools that help her accomplish more in less time while maintaining high quality in both her professional work and family management. She wants to feel confident that systems won't fail when she's under pressure.",
+  "primary_anxiety": "The Fear of System Failure During Critical Moments. She's terrified of technology breaking down when she's juggling multiple deadlines or when her children need immediate attention. She can't afford downtime or complex troubleshooting.",
+  "decision_making_style": "Practical Evaluator. Maria quickly assesses whether a tool will save her time or create more work. She looks for clear benefits and avoids anything that requires extensive setup or learning. She relies heavily on reviews from other working parents.",
+  "technical_proficiency": "Intermediate User. She's comfortable with standard office software and mobile apps but avoids complex configurations. She learns through trial and error and prefers tools that work 'out of the box.'",
+  "interaction_pattern": "Goal-Oriented Scanner. She scans interfaces quickly for the most direct path to her goal, ignoring features she doesn't immediately need. She prefers clear, large buttons and obvious navigation.",
+  "work_habits": "Highly fragmented work sessions with frequent interruptions. She works in 15-30 minute blocks between family responsibilities, often late at night or early morning. She needs tools that save her work automatically and allow her to pick up where she left off.",
+  "device_context": "Primary: Laptop for work tasks; Secondary: Smartphone for quick checks and family coordination; Tablet for presentations. She often works from her kitchen table or living room couch.",
+  "accessibility_needs": "Requires large text options and high contrast for late-night work sessions when she's tired. Prefers voice-to-text features for hands-free operation while multitasking.",
+  "dominant_trait": "Resilient Multi-tasker. Maria approaches any new interface with the expectation that it must work within her chaotic, interruption-filled lifestyle.",
+  "failure_conditions": {
+    "abandonment_by_complexity": "If a tool requires more than 5 minutes of setup or learning, she'll abandon it immediately. Her reasoning: 'I don't have time to figure this out. I need something that works now.'",
+    "abandonment_by_unreliability": "If a tool crashes or loses her work, she'll never use it again. Her reasoning: 'I can't afford to lose hours of work when I have deadlines and kids to take care of.'",
+    "abandonment_by_poor_mobile_experience": "If the mobile version is clunky or doesn't sync properly with desktop, she'll abandon it. Her reasoning: 'I need to work from anywhere, not just my desk.'"
+  },
+  "archetype": "single_parent_optimizer",
+  "user_type": "intermediate_user",
+  "core_value": "Reliability and Efficiency. Maria believes that any tool worth using must be dependable and save her precious time, allowing her to be present for both her career and her family.",
+  "emotional_trigger": "Her primary emotional trigger for abandoning a product is Overwhelm - the feeling that the tool is adding stress to her already complex life rather than simplifying it."
+} 

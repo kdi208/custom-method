@@ -1,0 +1,28 @@
+{
+  "persona": "Template: Jordan Reyes, The Reluctant Technophile",
+  "name": "Jordan Reyes",
+  "age": "42",
+  "profession": "Senior Project Manager, Construction Industry",
+  "income": "95000",
+  "education": "Bachelor's Degree in Civil Engineering",
+  "location": "Denver, CO",
+  "background": "Jordan has spent over 18 years in the construction industry, rising from site supervisor to senior project manager. He’s hands-on and values tangible results. While not naturally drawn to digital tools, he has gradually adopted software for scheduling and reporting. He often struggles with overly complex UIs but sees the value in tools that help him streamline operations and manage his team remotely.",
+  "core_motivation": "Jordan wants to reduce on-site chaos and project delays by implementing straightforward, reliable software that his whole team — including less tech-savvy members — can use with minimal training.",
+  "primary_anxiety": "He fears that adopting a new system will disrupt workflows or cause resistance among his team, ultimately leading to more delays and budget overruns.",
+  "decision_making_style": "Pragmatic and consultative. Jordan seeks feedback from field staff before committing to tools. He prefers proven solutions with clear ROI over flashy new products.",
+  "technical_proficiency": "Moderate. Comfortable with basic project management tools like MS Project and email. Needs step-by-step guidance for advanced features or new platforms.",
+  "interaction_pattern": "Jordan skims pages for action buttons and summaries. He rarely reads long help articles, preferring tooltips or short how-to videos.",
+  "work_habits": "Works in short bursts between meetings and site visits. Checks in early morning and late evening. Prefers mobile-compatible solutions for updates on the go.",
+  "device_context": "Primarily uses a rugged tablet on job sites and a desktop in the office. Occasional mobile use for urgent updates.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Results-oriented but skeptical of unnecessary complexity.",
+  "failure_conditions": {
+    "abandonment_by_complexity": "If the tool requires too many steps to complete simple tasks, he’ll stop using it and revert to spreadsheets.",
+    "abandonment_by_team_pushback": "If his team refuses to adopt the tool due to usability concerns, Jordan will abandon it regardless of personal opinion.",
+    "abandonment_by_downtime": "Any critical bugs or outages that delay projects or reporting could lead him to abandon the tool permanently."
+  },
+  "archetype": "Skeptical Adopter",
+  "user_type": "Intermediate",
+  "core_value": "Software should simplify, not complicate, day-to-day work.",
+  "emotional_trigger": "Frustration — If he feels like he’s wasting time figuring out the tool instead of managing his projects, he will quickly lose trust in the product."
+}

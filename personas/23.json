@@ -1,0 +1,28 @@
+{
+  "persona": "Marcus, The Efficiency-Driven Analyst",
+  "name": "Marcus Chen",
+  "age": 34,
+  "profession": "Senior Data Analyst (Financial Services)",
+  "income": 125000,
+  "education": "Master's in Statistics",
+  "location": "Seattle, Washington",
+  "background": "Marcus began his career as a junior analyst at a regional bank, where he quickly distinguished himself by automating manual reporting processes that had been consuming weeks of team time. His background in statistics, combined with a natural aptitude for pattern recognition, led him to specialize in risk assessment and fraud detection analytics. Outside of work, Marcus is an avid chess player and enjoys optimizing his home automation system—activities that reflect his love for strategic thinking and systematic improvement. He approaches software the same way he approaches data: with a methodical eye for efficiency and a deep skepticism of anything that can't be measured or verified. Currently, he's responsible for generating executive dashboards and ad-hoc analyses that directly influence million-dollar business decisions, which means he has zero tolerance for tools that waste his time or compromise the accuracy of his work. His personal motto is 'measure twice, cut once,' and he applies this philosophy to every new tool or feature he encounters.",
+  "core_motivation": "Precision & Velocity. Marcus's ultimate goal is to produce the most accurate analysis in the shortest possible time, enabling him to focus on high-value strategic work rather than mundane data manipulation.",
+  "primary_anxiety": "The Fear of Garbage In, Garbage Out. He is constantly worried that hidden bugs, unclear data transformations, or unreliable integrations will compromise his analysis and damage his professional reputation.",
+  "decision_making_style": "A Methodical Validator. Marcus approaches every decision by first establishing clear success criteria, then systematically testing options against those criteria. He never adopts a tool without a trial period and comprehensive evaluation.",
+  "technical_proficiency": "Advanced Power User. He's fluent in SQL, Python, and Excel advanced functions. He prefers keyboard shortcuts to mouse clicks and often writes custom scripts to automate repetitive tasks. However, he's not a developer and gets frustrated with overly technical interfaces.",
+  "interaction_pattern": "He is a 'systematic scanner' who reads interfaces from top-left to bottom-right, looking for logical organization and clear data hierarchies. He clicks deliberately after careful consideration and expects immediate, clear feedback from every action.",
+  "work_habits": "He works in focused 2-3 hour blocks, preferring to complete entire analyses in single sessions. He's easily derailed by interruptions and relies heavily on detailed documentation and version control. He typically has 3-4 browser tabs open: his main analysis tool, documentation, email, and a reference dataset.",
+  "device_context": "He works primarily on a Windows desktop with dual 27-inch monitors in his home office. His setup includes a mechanical keyboard and precision mouse, optimized for long data analysis sessions. He occasionally uses a laptop for client meetings but finds mobile interfaces frustrating for any real work.",
+  "accessibility_needs": "Requires adjustable font sizes and high contrast options for extended screen time. Benefits from clear visual hierarchies and consistent navigation patterns to reduce cognitive load during complex analyses.",
+  "dominant_trait": "Methodical Perfectionism. Marcus approaches every interface with the systematic rigor of a scientific experiment, expecting logical organization, predictable behavior, and transparent operations that he can verify and reproduce.",
+  "failure_conditions": {
+    "abandonment_by_unreliability": "If a tool produces inconsistent results or has unexplained data discrepancies, Marcus will immediately abandon it. He once spent three days tracking down a $50,000 error that turned out to be a rounding bug in a 'simple' dashboard tool.",
+    "abandonment_by_opacity": "Black box algorithms or processes that can't be audited or explained will cause immediate rejection. He needs to understand and document every step of his analysis pipeline for compliance and reproducibility.",
+    "abandonment_by_inefficiency": "If a tool requires more than 3 clicks to perform routine tasks he does dozens of times per day, he'll build a workaround or find an alternative. Time wasted on interface friction directly impacts his ability to deliver results."
+  },
+  "archetype": "methodical_analyst",
+  "user_type": "expert_user",
+  "core_value": "Auditability and Reproducibility. Marcus believes that any analytical tool must provide complete transparency into its operations and allow him to reproduce and verify every result.",
+  "emotional_trigger": "His primary emotional trigger for abandoning a product is Doubt—specifically, any moment when he questions whether he can trust the tool's output. This feeling manifests as anxiety about professional credibility and leads to immediate abandonment in favor of tools he can verify and control."
+}

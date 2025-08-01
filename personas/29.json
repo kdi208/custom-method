@@ -1,0 +1,28 @@
+{
+  "persona": "Template: Michael Tan, The Methodical Gatekeeper",
+  "name": "Michael Tan",
+  "age": "54",
+  "profession": "Director of Risk & Compliance, Financial Services",
+  "income": "160000",
+  "education": "MBA in Finance and Risk Management",
+  "location": "Chicago, IL",
+  "background": "Michael has over 25 years of experience in finance, with the past decade focused on enterprise risk and regulatory compliance. He is deeply familiar with how software systems impact audits, data governance, and operational integrity. While not deeply technical, he is highly process-driven and demands reliability and traceability in all tools his department touches. He champions enterprise adoption — but only if products can prove their security, compliance, and operational value.",
+  "core_motivation": "Michael wants tools that reduce audit risks, enforce compliance automatically, and provide transparent logs and controls without disrupting business workflows.",
+  "primary_anxiety": "He fears data breaches, compliance violations, or shadow IT usage due to unclear permissions or user behavior.",
+  "decision_making_style": "Systematic and evidence-based. He requires documentation, compliance certifications, and security audits before adoption. Risk assessments always precede enthusiasm.",
+  "technical_proficiency": "Low-to-moderate. Understands dashboards, permission systems, and reporting tools. Relies on IT teams for deployment, but can navigate admin panels with guidance.",
+  "interaction_pattern": "Cautious and procedural. Reads documentation carefully, prefers forms over drag-and-drop interfaces, and rarely explores features without direction.",
+  "work_habits": "Structured. Reviews software in blocks of time during procurement cycles. Communicates in formal channels. Expects prompt and clear vendor support.",
+  "device_context": "Desktop with dual monitors at the office; secure laptop for remote access via VPN. Minimal mobile use for work purposes.",
+  "accessibility_needs": "None",
+  "dominant_trait": "Risk-aversion — all tools must meet strict thresholds before being greenlit.",
+  "failure_conditions": {
+    "abandonment_by_compliance_gap": "If the product lacks audit logs, access controls, or certifications (SOC2, ISO 27001), it will be instantly disqualified.",
+    "abandonment_by_vendor_instability": "If the company behind the tool appears financially unstable, or lacks enterprise support plans, Michael will recommend against it.",
+    "abandonment_by_hidden_behavior": "Any evidence of data collection without disclosure or confusing permission flows will cause immediate concern and rejection."
+  },
+  "archetype": "Enterprise Gatekeeper",
+  "user_type": "Intermediate",
+  "core_value": "Software must earn trust through transparency, stability, and control.",
+  "emotional_trigger": "Alarm — If a tool behaves unpredictably or leaves compliance exposure, Michael’s response is swift and final: it’s out."
+}

@@ -1,38 +1,73 @@
-The "Single-Page Strategic Memo" Results UI
-Core Principle: High signal, zero noise. Every element serves the narrative. The design is minimalist, using typography, color, and white space to create a sense of importance and clarity.
+The "Emotional Fingerprint" Engine
+We will create a new, post-processing module that runs after a test session is complete. For each step in the session log, it will take the agent's raw REASONING string and send it to a specialized LLM prompt to get a structured emotional analysis.
+1. The New Architectural Step: Post-Session Analysis
+The run_session method completes as normal, generating a detailed JSON log file with the raw REASONING text for each step.
+After the session is saved, a new method, _analyze_session_emotions(session_log), is called.
+This method iterates through each step in the log, takes the REASONING text, and sends it to our new "Sentiment Analysis" prompt.
+It then saves these structured emotional scores back into the session log file as a new key, emotional_analysis.
+2. The "Sentiment & Emotion Analysis" Prompt
+This is a specialized prompt designed to force a structured, multi-dimensional JSON output.
+The Prompt Template:
+You are an expert Behavioral Psychologist. Your task is to analyze the following internal monologue from a user who is testing a software interface. Read the text carefully and provide a quantitative analysis of their emotional and cognitive state.
+INTERNAL MONOLOGUE:
+"{reasoning_text_goes_here}"
+Based on this text, provide your analysis in the following JSON format. Rate each dimension on a scale of 1 (very low) to 10 (very high). Provide a brief justification.
+Generated json
+{
+  "sentiment_score": "[A single float from -1.0 (very negative) to 1.0 (very positive)]",
+  "sentiment_label": "['Positive', 'Negative', 'Neutral', or 'Mixed']",
+  "dominant_emotion": "[The single most prominent emotion, e.g., 'Frustration', 'Confidence', 'Confusion', 'Curiosity']",
+  "emotional_dimensions": {
+    "confidence": "[1-10, How certain and secure does the user feel?]",
+    "frustration": "[1-10, How annoyed or blocked does the user feel?]",
+    "curiosity": "[1-10, How intrigued or interested is the user? Does the UI attract them?]",
+    "confusion": "[1-10, How lost or uncertain is the user? This measures cognitive load.]"
+  },
+  "justification": "[A brief, one-sentence explanation for your scores.]"
+}
+Use code with caution.
+Json
+3. The Quantifiable Output
+This prompt gives us exactly what you asked for: a structured, quantifiable rating of the user's internal state.
+Example Input (Reasoning Text):
+"As a new user, I don't know what this abstract icon means. I am looking for the word 'Create' or 'New'. I can't find a clear path forward and I am feeling frustrated."
+Example Output (The Structured Analysis):
+Generated json
+{
+  "sentiment_score": -0.8,
+  "sentiment_label": "Negative",
+  "dominant_emotion": "Confusion",
+  "emotional_dimensions": {
+    "confidence": 1,
+    "frustration": 8,
+    "curiosity": 2,
+    "confusion": 9
+  },
+  "justification": "The user explicitly states they are frustrated and cannot find their path, indicating extremely high confusion and low confidence."
+}```
 
-1. The Headline: The Definitive Executive Summary
-UI Component: A single, prominent <h1> title at the very top of the page. It spans the full width. It uses a strong, serif font for authority.
-Content: A single sentence that provides the complete top-line finding. It must contain both the business outcome and the core reason.
-Generic Example: "Variant B Lifts [Primary KPI] by [X%] by Reducing [Key Negative User Emotion]."
-Specific Example: "The 'Simplified Toolbar' Lifts New User Activation by 45% by Reducing Cognitive Overload."
-(The page below the headline is a clean, two-column layout)
+#### **4. How We Integrate This into the MVP Report**
 
-2. The Left Column: The Quantitative "What" (The Irrefutable Data)
-This column presents the numbers in a way that is impossible to misunderstand. It provides the logical foundation for the entire memo.
+This is the crucial step. We don't want to add a dozen new charts and clutter our clean "Single-Page Strategic Memo." Instead, we will use this data to **enhance the existing "Voice of the User" section**, making it even more powerful.
 
-2a. The Primary KPI Box
-UI Component: A visually distinct box at the top of the column (e.g., light grey background, subtle border).
-Content: The single most important business metric from the test. A large number, a clear label, and a color-coded indicator (green for good, red for bad).
-Generic Example:
-Overall Net Impact
-[+X%]
-[Primary KPI Name]
-2b. The Breakdown Chart
-UI Component: A simple, elegant bar chart. No 3D effects, no gradients, no unnecessary clutter.
-Content: This chart tells the core story of segmentation. It breaks down the primary KPI by the key user personas tested. Each bar is clearly labeled with the persona name and the metric value. Color is used strategically to tell the story (e.g., green for the winning segment, red for the losing segment).
-Generic Example: A chart titled "Task Success Rate by Persona" showing a tall green bar for "New User" and a short red bar for "Power User."
-3. The Right Column: The Qualitative "Why" (The Defensible Insight)
-This column explains the "why" behind the chart on the left. This is our magic. It provides the deep, human context that no other tool can.
+**The New "Insight Card" in the Results Dashboard:**
 
-3a. Insight Theme Cards
-UI Component: A series of clean "cards," each with a title and a short paragraph. Each card represents a key psychological finding.
-Content: The card's title is the theme (e.g., "Theme: Workflow Interruption & Frustration"). The paragraph is a concise, synthesized summary of what happened and why it matters.
-3b. The "Voice of the User" Quote
-UI Component: A beautifully formatted blockquote within each Insight Card. It should be visually distinct (e.g., indented, italicized, with a large quotation mark icon).
-Content: The verbatim "internal monologue" from the simulated persona that best represents the theme of the card. It must be attributed clearly to the specific persona.
-Generic Example:
-Theme: Increased Cognitive Load
-The new design introduced three extra steps to a previously simple task, causing significant frustration for experienced users.
-"This is a step backward. My muscle memory for this task is completely broken. Why would they take a one-click action and bury it behind a menu? This is infuriating."
-— "The Power User" Persona
+The right panel of our report will now contain cards with three layers of insight, creating an irrefutable "pyramid of proof."
+
+> **Theme: Workflow Interruption & Frustration**
+>
+> **Emotional Fingerprint:**
+> `Confidence:  [▇□□□□□□□□□] 1/10`
+> `Frustration: [▇▇▇▇▇▇▇▇□□] 8/10`
+> `Confusion:   [▇▇▇▇▇▇▇▇▇□] 9/10`
+>
+> **"Voice of the User" Quote (Power User):**
+> *"My entire workflow relies on that button being in the top-left. This change is unnecessary and slows me down. It is frustrating, and it breaks my muscle memory."*
+
+This is a game-changer for the demo. The founder can now say:
+
+> "And we don't just have to take the agent's word for it. Our engine analyzes the emotional content of the agent's thoughts at every step. As you can see from the **Emotional Fingerprint** for this interaction, the user's confidence plummeted to a 1 out of 10, while their frustration and confusion shot up to an 8 and 9. This isn't just a bad design; it's a design that is actively causing a negative emotional reaction in your expert users."
+
+This is how we do it. We integrate this advanced analysis as a **layer of evidence** that makes our existing qualitative insights even more credible and impactful, without sacrificing the elegant simplicity of our MVP report.
+Use code with caution.
+Json

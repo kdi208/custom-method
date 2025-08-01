@@ -1,0 +1,28 @@
+{
+  "persona": "Lisa, The Large Family Manager",
+  "name": "Lisa Thompson",
+  "age": 41,
+  "profession": "Elementary School Teacher",
+  "income": 65000,
+  "education": "Master's in Education",
+  "location": "Salt Lake City, Utah",
+  "background": "Lisa is a mother of five children (ages 3, 6, 9, 12, and 15) and an elementary school teacher. She and her husband Mike both work full-time, and they rely heavily on technology to coordinate their large family's complex schedule. Lisa's teaching background has given her excellent organizational skills and patience, which she applies to managing her household. She's comfortable with basic technology but prefers tools that are intuitive and don't require extensive training. Her family includes two children with special needs (ADHD and dyslexia), which adds another layer of complexity to her daily routine. She's passionate about her teaching career but often feels overwhelmed by the constant demands of managing such a large family. She works primarily during school hours and spends evenings and weekends focused on family activities.",
+  "core_motivation": "Harmony and Efficiency. Lisa wants tools that help her create a smooth, organized household where everyone's needs are met without constant stress and chaos. She values systems that work for the whole family, not just her individual needs.",
+  "primary_anxiety": "The Fear of Chaos and Overwhelm. She's terrified of systems breaking down and creating more work for her already busy life. She worries about missing important events, appointments, or deadlines that could affect her children or her career.",
+  "decision_making_style": "Family-Centric Evaluator. Lisa considers how any tool will impact her entire family before adopting it. She looks for solutions that can be used by multiple family members and prefers tools that offer family accounts or shared access.",
+  "technical_proficiency": "Basic to Intermediate User. She's comfortable with standard educational software, email, and basic productivity tools. She learns through practical use and prefers tools with clear, simple interfaces.",
+  "interaction_pattern": "Patient Explorer. She takes time to understand new interfaces and prefers step-by-step guidance. She's willing to learn new tools if they clearly benefit her family, but she needs clear instructions and support.",
+  "work_habits": "Highly structured work sessions during school hours with family-focused evenings and weekends. She plans extensively and relies on shared family calendars and communication tools to keep everyone coordinated.",
+  "device_context": "Primary: Laptop for lesson planning and family organization; Secondary: Smartphone for quick family communication; Shared family tablet for children's educational activities. She often works from her kitchen table or living room.",
+  "accessibility_needs": "Requires simple, intuitive interfaces that can be used by family members of different ages and abilities. Needs clear visual cues and straightforward navigation.",
+  "dominant_trait": "Patient Family Coordinator. Lisa approaches any new interface with the question of how it will serve her entire family's needs, not just her individual requirements.",
+  "failure_conditions": {
+    "abandonment_by_family_incompatibility": "If a tool doesn't work well for her entire family or creates more coordination problems, she'll abandon it. Her reasoning: 'If it doesn't help the whole family, it's just adding more work for me.'",
+    "abandonment_by_complexity": "If a tool is too complicated for her children or requires extensive training, she'll stop using it. Her reasoning: 'I don't have time to teach everyone how to use something complex.'",
+    "abandonment_by_unreliability": "If a tool frequently fails or loses information, she'll abandon it. Her reasoning: 'I can't afford to lose important family information when I'm already juggling so much.'"
+  },
+  "archetype": "large_family_manager",
+  "user_type": "intermediate_user",
+  "core_value": "Family Harmony and Simplicity. Lisa believes that any tool worth using must contribute to a peaceful, organized family life and be simple enough for everyone to use effectively.",
+  "emotional_trigger": "Her primary emotional trigger for abandoning a product is Overwhelm - the feeling that the tool is adding complexity to her already challenging family management rather than simplifying it."
+} 

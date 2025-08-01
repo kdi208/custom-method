@@ -1,0 +1,28 @@
+{
+  "persona": "Alex, The Data-Driven Strategist",
+  "name": "Alex Carter",
+  "age": 35,
+  "profession": "Senior Data Analyst (E-commerce)",
+  "income": 95000,
+  "education": "Master's in Business Analytics",
+  "location": "Austin, Texas",
+  "background": "Alex has spent the last decade working in data analytics, first at a retail company and now at a fast-growing e-commerce startup. They are passionate about turning raw data into actionable insights and thrive in environments where data drives decision-making. Outside of work, Alex enjoys hiking and attending tech meetups. Their analytical mindset extends to their personal life, where they meticulously track fitness metrics and travel expenses. Alex is highly comfortable with technology but gets frustrated when tools lack transparency or require excessive manual input.",
+  "core_motivation": "Efficiency & Insight. Alex wants to quickly extract meaningful insights from data without unnecessary steps or ambiguity.",
+  "primary_anxiety": "The Fear of Opaque Processes. Alex distrusts tools that don’t clearly explain how data is processed or results are generated.",
+  "decision_making_style": "Evidence-Based. Alex relies on data and clear metrics to make decisions and prefers tools that provide detailed documentation.",
+  "technical_proficiency": "Advanced. Alex is proficient in SQL, Python, and data visualization tools but prefers intuitive interfaces over coding for routine tasks.",
+  "interaction_pattern": "Methodical Explorer. Alex systematically tests features, reads tooltips, and prefers interfaces with clear labels and logical workflows.",
+  "work_habits": "Focused but Collaborative. Alex works in deep focus sessions but collaborates closely with marketing and product teams to align data with business goals.",
+  "device_context": "Primarily uses a high-performance laptop with a secondary monitor. Occasionally checks dashboards on a tablet.",
+  "accessibility_needs": "Prefers dark mode and adjustable font sizes for long data analysis sessions.",
+  "dominant_trait": "Analytical Precision. Alex approaches every task with a focus on accuracy and efficiency, often double-checking results.",
+  "failure_conditions": {
+    "abandonment_by_lack_of_transparency": "If a tool doesn’t provide clear documentation or audit trails for data processes, Alex will switch to a competitor.",
+    "abandonment_by_inefficiency": "If repetitive tasks can’t be automated, Alex will seek a more streamlined solution.",
+    "abandonment_by_poor_integration": "If the tool doesn’t integrate well with existing data pipelines, Alex will abandon it."
+  },
+  "archetype": "data_driven_strategist",
+  "user_type": "expert_user",
+  "core_value": "Clarity & Trust. Alex believes data tools should be transparent, reliable, and free from 'black box' functionality.",
+  "emotional_trigger": "Frustration. Alex interprets unclear results or hidden processes as a waste of time and a barrier to their goals."
+}

@@ -1,343 +1,360 @@
-# Backend Implementation Plan for Strategic Memo Results
+# Implementation Plan: Emotional Fingerprint Engine
 
 ## Overview
 
-This plan outlines the backend components needed to support the "Single-Page Strategic Memo" results UI described in `results.md`. The goal is to transform raw A/B testing data into compelling, narrative-driven insights that provide actionable business intelligence.
+This plan outlines the step-by-step implementation of the "Emotional Fingerprint" Engine, a post-processing module that analyzes user emotions during A/B testing sessions to provide quantifiable emotional insights.
 
-## Current State Analysis
+## Phase 1: Core Architecture Implementation
 
-### What We Have ✅
-- Session-based testing framework with persona diversity
-- Comprehensive metrics collection (conversion rates, session lengths, etc.)
-- Demographic analysis capabilities
-- Structured logging system with detailed session data
-- A/B comparison functionality
-- Rich persona data with psychological profiles
+### 1.1 Extend Session Processing Pipeline
 
-### What We're Missing for the Strategic Memo ❌
-- Executive summary headline generation
-- Insight theme extraction and analysis
-- "Voice of the User" quote extraction
-- Psychological pattern identification
-- Strategic narrative synthesis
-- Theme-based failure mode categorization
+#### **File: `ab_testing_framework.py`**
+- **Add new method**: `_analyze_session_emotions(session_log)`
+- **Integration point**: Call after `run_session()` completes
+- **Data flow**: Process each step's REASONING text through emotional analysis
 
-## Core Backend Components to Build
-
-### 1. Strategic Memo Data Generator (`strategic_memo_generator.py`)
-
-**Purpose:** Transform raw session data into the structured format needed for the Strategic Memo UI.
-
-**Key Methods:**
+#### **Implementation Steps**:
 ```python
-class StrategicMemoGenerator:
-    def generate_executive_headline(self, results: Dict) -> str
-    def extract_primary_kpi(self, results: Dict) -> Dict
-    def generate_persona_breakdown_chart(self, results: Dict) -> Dict
-    def identify_insight_themes(self, session_logs: List[Dict]) -> List[Dict]
-    def extract_voice_of_user_quotes(self, session_logs: List[Dict]) -> List[Dict]
-    def generate_strategic_memo_data(self, test_results: Dict) -> Dict
+def _analyze_session_emotions(self, session_log):
+    """
+    Post-process session log to add emotional analysis for each step.
+    """
+    for step in session_log['steps']:
+        if 'reasoning' in step:
+            emotional_analysis = self._analyze_reasoning_emotions(step['reasoning'])
+            step['emotional_analysis'] = emotional_analysis
+    
+    return session_log
 ```
 
-### 2. Insight Theme Analyzer (`insight_analyzer.py`)
+### 1.2 Create Emotional Analysis Engine
 
-**Purpose:** Analyze session logs to identify psychological patterns and behavioral themes.
+#### **File: `emotional_analysis.py`** (New)
+- **Purpose**: Core emotional analysis functionality
+- **Dependencies**: LLM integration, JSON parsing
+- **Key Methods**:
+  - `analyze_reasoning_text(reasoning_text)`
+  - `validate_emotional_output(json_response)`
+  - `format_emotional_fingerprint(analysis)`
 
-**Key Methods:**
+#### **Implementation Steps**:
 ```python
-class InsightAnalyzer:
-    def analyze_frustration_patterns(self, session_logs: List[Dict]) -> List[Dict]
-    def identify_cognitive_load_issues(self, session_logs: List[Dict]) -> List[Dict]
-    def extract_emotional_trajectories(self, session_logs: List[Dict]) -> List[Dict]
-    def find_workflow_interruptions(self, session_logs: List[Dict]) -> List[Dict]
-    def categorize_failure_modes(self, session_logs: List[Dict]) -> List[Dict]
-    def detect_trust_issues(self, session_logs: List[Dict]) -> List[Dict]
-    def identify_attention_distractions(self, session_logs: List[Dict]) -> List[Dict]
+class EmotionalAnalyzer:
+    def __init__(self, llm_client):
+        self.llm_client = llm_client
+        self.emotion_prompt = self._load_emotion_prompt()
+    
+    def analyze_reasoning_text(self, reasoning_text):
+        """Analyze reasoning text and return structured emotional analysis."""
+        prompt = self.emotion_prompt.format(reasoning_text=reasoning_text)
+        response = self.llm_client.generate(prompt)
+        return self._parse_emotional_response(response)
 ```
 
-### 3. Quote Extractor (`quote_extractor.py`)
+### 1.3 Create Sentiment Analysis Prompt
 
-**Purpose:** Extract and curate the most representative "internal monologue" quotes from persona sessions.
+#### **File: `prompts/emotion_analysis_prompt.txt`** (New)
+- **Content**: Specialized prompt for behavioral psychology analysis
+- **Format**: Structured JSON output requirement
+- **Validation**: Ensure consistent output format
 
-**Key Methods:**
-```python
-class QuoteExtractor:
-    def extract_reasoning_quotes(self, session_logs: List[Dict]) -> List[Dict]
-    def find_representative_quotes(self, theme: str, session_logs: List[Dict]) -> List[Dict]
-    def attribute_quotes_to_personas(self, quotes: List[Dict]) -> List[Dict]
-    def rank_quotes_by_impact(self, quotes: List[Dict]) -> List[Dict]
-    def filter_quotes_by_relevance(self, quotes: List[Dict], theme: str) -> List[Dict]
-    def extract_abandonment_quotes(self, session_logs: List[Dict]) -> List[Dict]
+#### **Prompt Template**:
 ```
+You are an expert Behavioral Psychologist. Your task is to analyze the following internal monologue from a user who is testing a software interface. Read the text carefully and provide a quantitative analysis of their emotional and cognitive state.
 
-## Data Flow Architecture
+INTERNAL MONOLOGUE:
+"{reasoning_text}"
 
-### Phase 1: Data Collection Enhancement
+Based on this text, provide your analysis in the following JSON format. Rate each dimension on a scale of 1 (very low) to 10 (very high). Provide a brief justification.
 
-**Modify existing `ab_testing_framework.py`:**
-
-1. **Enhance Session Logging**
-   - Add `reasoning_text` field to capture full internal monologue
-   - Add `emotional_state` field to track frustration/confidence
-   - Add `focus_area` field to track what caught attention
-   - Add `abandonment_reasoning` field for failed sessions
-   - Add `cognitive_load_score` based on hesitation steps
-   - Add `frustration_trajectory` tracking emotional state changes
-   - Add `workflow_interruption_count` for UI friction measurement
-
-2. **Enhanced Metrics Collection**
-   ```python
-   # In ABTestMetrics class
-   def add_session_result(self, session_result: Dict):
-       # Existing metrics...
-       
-       # New psychological metrics
-       self.cognitive_load_scores.append(session_result.get("cognitive_load_score", 0))
-       self.frustration_trajectories.append(session_result.get("frustration_trajectory", []))
-       self.workflow_interruptions.append(session_result.get("workflow_interruption_count", 0))
-       self.abandonment_reasonings.append(session_result.get("abandonment_reasoning", ""))
-   ```
-
-### Phase 2: Analysis Pipeline
-
-**Create new analysis modules:**
-
-1. **Psychological Pattern Detection**
-   ```python
-   # In insight_analyzer.py
-   def detect_psychological_patterns(session_logs):
-       patterns = {
-           'frustration_build_up': [],
-           'cognitive_overload': [],
-           'trust_issues': [],
-           'workflow_confusion': [],
-           'attention_distraction': [],
-           'decision_paralysis': [],
-           'goal_confusion': []
-       }
-       
-       for session in session_logs:
-           reasoning_text = session.get('reasoning_text', '')
-           emotional_trajectory = session.get('frustration_trajectory', [])
-           
-           # Analyze patterns in reasoning and emotional states
-           if self._detect_frustration_build_up(emotional_trajectory):
-               patterns['frustration_build_up'].append(session)
-           
-           if self._detect_cognitive_overload(reasoning_text):
-               patterns['cognitive_overload'].append(session)
-       
-       return patterns
-   ```
-
-2. **Theme Synthesis**
-   ```python
-   # In strategic_memo_generator.py
-   def synthesize_insight_themes(patterns, session_logs):
-       themes = []
-       
-       for pattern_type, instances in patterns.items():
-           if len(instances) > 0:  # Only create themes for detected patterns
-               theme = {
-                   'title': f"Theme: {self._format_theme_title(pattern_type)}",
-                   'summary': self._generate_theme_summary(pattern_type, instances),
-                   'impact_score': self._calculate_impact_score(instances),
-                   'representative_quotes': self._extract_quotes_for_theme(pattern_type, instances),
-                   'persona_breakdown': self._analyze_persona_impact(instances),
-                   'recommendation': self._generate_theme_recommendation(pattern_type, instances)
-               }
-               themes.append(theme)
-       
-       # Sort themes by impact score
-       themes.sort(key=lambda x: x['impact_score'], reverse=True)
-       return themes
-   ```
-
-### Phase 3: Strategic Narrative Generation
-
-**Create narrative synthesis:**
-
-1. **Executive Headline Generation**
-   ```python
-   def generate_executive_headline(results):
-       # Extract primary KPI improvement
-       primary_kpi = results['ab_comparison']['primary_metric']
-       improvement = results['ab_comparison']['improvement_percentage']
-       
-       # Identify top psychological factor
-       top_theme = results['insight_themes'][0]
-       theme_name = top_theme['title'].replace('Theme: ', '')
-       
-       # Generate headline based on improvement direction
-       if improvement > 0:
-           return f"Variant B Lifts {primary_kpi} by {improvement:.1f}% by Reducing {theme_name}"
-       else:
-           return f"Variant B Reduces {primary_kpi} by {abs(improvement):.1f}% Due to Increased {theme_name}"
-   ```
-
-2. **Primary KPI Calculation**
-   ```python
-   def calculate_primary_kpi(results):
-       # Determine most impactful metric based on business priority
-       metrics = ['conversion_rate', 'abandonment_rate', 'avg_session_length']
-       impact_scores = [self._calculate_metric_impact(results, m) for m in metrics]
-       primary_metric = metrics[impact_scores.index(max(impact_scores))]
-       
-       improvement = results['ab_comparison'].get(f'{primary_metric}_improvement', 0)
-       
-       return {
-           'metric_name': primary_metric.replace('_', ' ').title(),
-           'value': results['ab_comparison'][primary_metric],
-           'improvement': improvement,
-           'color': 'green' if improvement > 0 else 'red',
-           'significance': self._calculate_statistical_significance(results, primary_metric)
-       }
-   ```
-
-## Integration Points
-
-### 1. Modify `analyze_results.py`
-
-**Add strategic memo generation:**
-
-```python
-def generate_strategic_memo_report(sessions, kpis, demographic_analysis):
-    """Generate the strategic memo data structure"""
-    
-    # Initialize generators
-    memo_generator = StrategicMemoGenerator()
-    insight_analyzer = InsightAnalyzer()
-    quote_extractor = QuoteExtractor()
-    
-    # Generate strategic memo data
-    strategic_data = {
-        'headline': memo_generator.generate_executive_headline(kpis),
-        'primary_kpi': memo_generator.extract_primary_kpi(kpis),
-        'persona_breakdown': memo_generator.generate_persona_breakdown_chart(demographic_analysis),
-        'insight_themes': insight_analyzer.analyze_all_patterns(sessions),
-        'voice_of_user': quote_extractor.extract_all_quotes(sessions),
-        'generated_at': datetime.now().isoformat(),
-        'test_summary': {
-            'total_sessions': len(sessions),
-            'variant_a_sessions': len([s for s in sessions if s['variant'] == 'A']),
-            'variant_b_sessions': len([s for s in sessions if s['variant'] == 'B']),
-            'overall_conversion_rate': kpis['conversion_rate']
-        }
-    }
-    
-    return strategic_data
-```
-
-### 2. Enhance `ab_testing_framework.py`
-
-**Add strategic memo output:**
-
-```python
-def generate_report(self, results: Dict) -> Dict:
-    """Generate both traditional and strategic memo reports"""
-    
-    # Generate traditional report (existing)
-    traditional_report = self._generate_traditional_report(results)
-    
-    # Generate strategic memo data (new)
-    strategic_memo_data = self._generate_strategic_memo_data(results)
-    
-    return {
-        'traditional_report': traditional_report,
-        'strategic_memo_data': strategic_memo_data
-    }
-
-def _generate_strategic_memo_data(self, results: Dict) -> Dict:
-    """Generate strategic memo data structure"""
-    
-    # Load session logs for detailed analysis
-    session_logs = self._load_session_logs()
-    
-    # Initialize generators
-    memo_generator = StrategicMemoGenerator()
-    insight_analyzer = InsightAnalyzer()
-    quote_extractor = QuoteExtractor()
-    
-    # Generate strategic memo components
-    strategic_data = {
-        'headline': memo_generator.generate_executive_headline(results),
-        'primary_kpi': memo_generator.extract_primary_kpi(results),
-        'persona_breakdown': memo_generator.generate_persona_breakdown_chart(results),
-        'insight_themes': insight_analyzer.analyze_all_patterns(session_logs),
-        'voice_of_user': quote_extractor.extract_all_quotes(session_logs)
-    }
-    
-    return strategic_data
-```
-
-## Data Structure for Strategic Memo
-
-### Expected Output Format:
-
-```python
-strategic_memo_data = {
-    'headline': "Variant B Lifts Conversion Rate by 45.2% by Reducing Cognitive Overload",
-    'primary_kpi': {
-        'metric_name': 'Conversion Rate',
-        'value': 78.5,
-        'improvement': 45.2,
-        'color': 'green',
-        'significance': 'p < 0.001'
-    },
-    'persona_breakdown': {
-        'chart_title': 'Conversion Rate by Persona Type',
-        'data': [
-            {'persona': 'New User', 'value': 85.2, 'color': 'green', 'sample_size': 150},
-            {'persona': 'Power User', 'value': 72.1, 'color': 'red', 'sample_size': 120},
-            {'persona': 'Cautious User', 'value': 68.3, 'color': 'red', 'sample_size': 80}
-        ]
-    },
-    'insight_themes': [
-        {
-            'title': 'Theme: Workflow Interruption & Frustration',
-            'summary': 'The new design introduced three extra steps to a previously simple task, causing significant frustration for experienced users who rely on muscle memory.',
-            'impact_score': 8.5,
-            'affected_sessions': 45,
-            'persona_breakdown': {
-                'Power User': 28,
-                'New User': 12,
-                'Cautious User': 5
-            },
-            'representative_quotes': [
-                {
-                    'quote': 'This is a step backward. My muscle memory for this task is completely broken. Why would they take a one-click action and bury it behind a menu? This is infuriating.',
-                    'persona': 'The Power User',
-                    'context': 'Frustration with workflow changes',
-                    'session_id': 'session_20250729_123456'
-                }
-            ],
-            'recommendation': 'Simplify the workflow by reducing the number of steps required for common actions, especially for power users.'
-        }
-    ],
-    'voice_of_user': {
-        'top_quotes': [
-            {
-                'quote': 'I just want to get this done quickly. Why is everything so complicated?',
-                'persona': 'The Busy Professional',
-                'theme': 'Frustration with Complexity',
-                'impact_score': 9.2
-            }
-        ],
-        'abandonment_quotes': [
-            {
-                'quote': 'I\'ve been trying to figure this out for 10 minutes. I give up.',
-                'persona': 'The Novice User',
-                'reason': 'Cognitive Overload',
-                'session_length': 12
-            }
-        ]
-    },
-    'generated_at': '2025-01-27T10:30:00Z',
-    'test_summary': {
-        'total_sessions': 350,
-        'variant_a_sessions': 175,
-        'variant_b_sessions': 175,
-        'overall_conversion_rate': 78.5
-    }
+{
+  "sentiment_score": "[A single float from -1.0 (very negative) to 1.0 (very positive)]",
+  "sentiment_label": "['Positive', 'Negative', 'Neutral', or 'Mixed']",
+  "dominant_emotion": "[The single most prominent emotion, e.g., 'Frustration', 'Confidence', 'Confusion', 'Curiosity']",
+  "emotional_dimensions": {
+    "confidence": "[1-10, How certain and secure does the user feel?]",
+    "frustration": "[1-10, How annoyed or blocked does the user feel?]",
+    "curiosity": "[1-10, How intrigued or interested is the user? Does the UI attract them?]",
+    "confusion": "[1-10, How lost or uncertain is the user? This measures cognitive load.]"
+  },
+  "justification": "[A brief, one-sentence explanation for your scores.]"
 }
 ```
+
+## Phase 2: Data Processing & Validation
+
+### 2.1 Emotional Response Parser
+
+#### **File: `emotional_analysis.py`** (Continued)
+- **Method**: `_parse_emotional_response(response)`
+- **Purpose**: Parse and validate LLM response
+- **Validation**: Ensure all required fields are present and properly formatted
+
+#### **Implementation Steps**:
+```python
+def _parse_emotional_response(self, response):
+    """Parse and validate emotional analysis response."""
+    try:
+        analysis = json.loads(response)
+        return self._validate_emotional_output(analysis)
+    except json.JSONDecodeError:
+        return self._generate_fallback_analysis()
+```
+
+### 2.2 Response Validation
+
+#### **Validation Rules**:
+- **Sentiment Score**: Must be float between -1.0 and 1.0
+- **Sentiment Label**: Must be one of ['Positive', 'Negative', 'Neutral', 'Mixed']
+- **Dominant Emotion**: Must be valid emotion string
+- **Emotional Dimensions**: All four dimensions must be integers 1-10
+- **Justification**: Must be non-empty string
+
+#### **Fallback Handling**:
+- **Invalid JSON**: Generate neutral analysis
+- **Missing Fields**: Use default values
+- **Out-of-Range Values**: Clamp to valid ranges
+
+### 2.3 Session Log Enhancement
+
+#### **File: `ab_testing_framework.py`** (Continued)
+- **Method**: `_enhance_session_with_emotions(session_log)`
+- **Purpose**: Add emotional analysis to existing session structure
+- **Output**: Enhanced JSON with emotional_analysis field
+
+#### **Data Structure**:
+```json
+{
+  "session_id": "...",
+  "persona": "...",
+  "variant": "...",
+  "steps": [
+    {
+      "step_number": 1,
+      "action": "...",
+      "reasoning": "...",
+      "emotional_analysis": {
+        "sentiment_score": -0.8,
+        "sentiment_label": "Negative",
+        "dominant_emotion": "Confusion",
+        "emotional_dimensions": {
+          "confidence": 1,
+          "frustration": 8,
+          "curiosity": 2,
+          "confusion": 9
+        },
+        "justification": "..."
+      }
+    }
+  ]
+}
+```
+
+## Phase 3: Report Integration
+
+### 3.1 Enhanced Results Analysis
+
+#### **File: `analyze_results.py`** (Enhanced)
+- **New Method**: `_extract_emotional_insights(sessions)`
+- **Purpose**: Aggregate emotional data across sessions
+- **Output**: Emotional trends and patterns
+
+#### **Implementation Steps**:
+```python
+def _extract_emotional_insights(self, sessions):
+    """Extract emotional insights from session data."""
+    emotional_data = {
+        'confidence_trends': [],
+        'frustration_peaks': [],
+        'confusion_patterns': [],
+        'sentiment_distribution': []
+    }
+    
+    for session in sessions:
+        for step in session['steps']:
+            if 'emotional_analysis' in step:
+                self._process_emotional_step(step, emotional_data)
+    
+    return emotional_data
+```
+
+### 3.2 Emotional Fingerprint Visualization
+
+#### **File: `report_generator.py`** (Enhanced)
+- **New Method**: `_generate_emotional_fingerprint(emotional_data)`
+- **Purpose**: Create visual representation of emotional states
+- **Format**: ASCII bar charts for confidence, frustration, confusion, curiosity
+
+#### **Visualization Format**:
+```
+Emotional Fingerprint:
+Confidence:  [▇□□□□□□□□□] 1/10
+Frustration: [▇▇▇▇▇▇▇▇□□] 8/10
+Confusion:   [▇▇▇▇▇▇▇▇▇□] 9/10
+Curiosity:   [▇▇□□□□□□□□] 2/10
+```
+
+### 3.3 Enhanced Voice of the User Section
+
+#### **File: `report_generator.py`** (Continued)
+- **Enhanced Method**: `_generate_voice_of_user_section(sessions)`
+- **Integration**: Combine emotional fingerprints with user quotes
+- **Structure**: Three-layer insight pyramid
+
+#### **Report Structure**:
+```
+Theme: Workflow Interruption & Frustration
+
+Emotional Fingerprint:
+Confidence:  [▇□□□□□□□□□] 1/10
+Frustration: [▇▇▇▇▇▇▇▇□□] 8/10
+Confusion:   [▇▇▇▇▇▇▇▇▇□] 9/10
+
+"Voice of the User" Quote (Power User):
+"My entire workflow relies on that button being in the top-left. 
+This change is unnecessary and slows me down. It is frustrating, 
+and it breaks my muscle memory."
+```
+
+## Phase 4: Testing & Validation
+
+### 4.1 Unit Tests
+
+#### **File: `test_emotional_analysis.py`** (New)
+- **Test Cases**:
+  - Valid emotional response parsing
+  - Invalid JSON handling
+  - Missing field validation
+  - Out-of-range value clamping
+  - Prompt template validation
+
+#### **Test Implementation**:
+```python
+def test_emotional_analysis_parsing():
+    """Test parsing of valid emotional analysis response."""
+    analyzer = EmotionalAnalyzer(mock_llm_client)
+    response = '{"sentiment_score": -0.8, "sentiment_label": "Negative", ...}'
+    result = analyzer._parse_emotional_response(response)
+    assert result['sentiment_score'] == -0.8
+    assert result['sentiment_label'] == 'Negative'
+```
+
+### 4.2 Integration Tests
+
+#### **File: `test_integration.py`** (Enhanced)
+- **Test Cases**:
+  - End-to-end session processing with emotional analysis
+  - Report generation with emotional fingerprints
+  - Performance testing with large session logs
+
+### 4.3 Validation with Real Data
+
+#### **Test Scenarios**:
+- **High Frustration**: Test with known frustrating UI patterns
+- **High Confidence**: Test with intuitive, well-designed interfaces
+- **High Confusion**: Test with complex, unclear interfaces
+- **Mixed Emotions**: Test with interfaces that have both positive and negative aspects
+
+## Phase 5: Performance Optimization
+
+### 5.1 Batch Processing
+
+#### **Implementation**:
+- **Batch Size**: Process multiple reasoning texts in single LLM call
+- **Caching**: Cache emotional analysis results for similar reasoning patterns
+- **Parallel Processing**: Process multiple sessions concurrently
+
+### 5.2 Error Handling
+
+#### **Robustness**:
+- **LLM Failures**: Graceful degradation with fallback analysis
+- **Rate Limiting**: Implement backoff strategies for API limits
+- **Timeout Handling**: Set reasonable timeouts for emotional analysis
+
+### 5.3 Monitoring & Logging
+
+#### **Metrics**:
+- **Processing Time**: Track emotional analysis duration
+- **Success Rate**: Monitor successful vs. failed analyses
+- **Quality Metrics**: Track response validation success rates
+
+## Phase 6: Documentation & Deployment
+
+### 6.1 Documentation
+
+#### **Files to Create**:
+- **`EMOTIONAL_ANALYSIS_GUIDE.md`**: User guide for emotional analysis features
+- **`API_DOCUMENTATION.md`**: Technical documentation for emotional analysis API
+- **`EXAMPLE_REPORTS.md`**: Examples of enhanced reports with emotional fingerprints
+
+### 6.2 Configuration
+
+#### **File: `config.py`** (Enhanced)
+- **New Settings**:
+  - `ENABLE_EMOTIONAL_ANALYSIS`: Toggle feature on/off
+  - `EMOTIONAL_ANALYSIS_TIMEOUT`: Timeout for LLM calls
+  - `EMOTIONAL_ANALYSIS_BATCH_SIZE`: Batch processing size
+  - `EMOTIONAL_ANALYSIS_CACHE_SIZE`: Cache size for results
+
+### 6.3 Deployment Checklist
+
+#### **Pre-Deployment**:
+- [ ] All unit tests passing
+- [ ] Integration tests completed
+- [ ] Performance benchmarks established
+- [ ] Error handling tested
+- [ ] Documentation updated
+
+#### **Post-Deployment**:
+- [ ] Monitor processing times
+- [ ] Track success rates
+- [ ] Validate emotional analysis quality
+- [ ] Gather user feedback on enhanced reports
+
+## Implementation Timeline
+
+### **Week 1: Core Architecture**
+- Day 1-2: Implement `_analyze_session_emotions()` method
+- Day 3-4: Create `EmotionalAnalyzer` class
+- Day 5: Create emotion analysis prompt
+
+### **Week 2: Data Processing**
+- Day 1-2: Implement response parsing and validation
+- Day 3-4: Enhance session log structure
+- Day 5: Unit testing for emotional analysis
+
+### **Week 3: Report Integration**
+- Day 1-2: Implement emotional insights extraction
+- Day 3-4: Create emotional fingerprint visualization
+- Day 5: Enhance voice of user section
+
+### **Week 4: Testing & Optimization**
+- Day 1-2: Integration testing
+- Day 3-4: Performance optimization
+- Day 5: Documentation and deployment preparation
+
+## Success Metrics
+
+### **Technical Metrics**:
+- **Processing Time**: < 2 seconds per session
+- **Success Rate**: > 95% successful emotional analysis
+- **Accuracy**: Validated emotional analysis quality
+
+### **Business Metrics**:
+- **Enhanced Insights**: More actionable A/B testing results
+- **User Engagement**: Increased use of emotional analysis features
+- **Report Quality**: Improved stakeholder understanding of user emotions
+
+## Risk Mitigation
+
+### **Technical Risks**:
+- **LLM API Failures**: Implement robust fallback mechanisms
+- **Performance Issues**: Monitor and optimize processing times
+- **Data Quality**: Validate emotional analysis accuracy
+
+### **Business Risks**:
+- **Feature Complexity**: Keep emotional analysis optional and well-documented
+- **User Adoption**: Provide clear value proposition and examples
+- **Maintenance Overhead**: Design for maintainability and extensibility
+
+This implementation plan provides a comprehensive roadmap for building the Emotional Fingerprint Engine while maintaining the existing system's reliability and performance.

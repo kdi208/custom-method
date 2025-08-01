@@ -1,0 +1,28 @@
+{
+  "persona": "Template: Amina Patel, The Empowered Creator",
+  "name": "Amina Patel",
+  "age": "27",
+  "profession": "Freelance UX Designer, Tech & Creative Industry",
+  "income": "78000",
+  "education": "Master’s Degree in Human-Computer Interaction",
+  "location": "Brooklyn, NY",
+  "background": "Amina is a digital native who has built her career in fast-paced startups and creative agencies. After freelancing full-time for the past three years, she’s developed a sharp eye for clean design and intuitive user flows. She uses software tools not just for work, but to shape how she expresses herself and collaborates. Amina expects digital experiences to feel delightful, inclusive, and empowering.",
+  "core_motivation": "She wants tools that amplify her creativity and allow for seamless, real-time collaboration with clients and developers.",
+  "primary_anxiety": "She fears being creatively stifled by rigid software or tools that don't adapt to her unique workflow or aesthetic standards.",
+  "decision_making_style": "Intuitive and values-driven. Amina relies heavily on first impressions, visual polish, and brand values when evaluating tools.",
+  "technical_proficiency": "High. Proficient in Figma, Adobe Suite, Webflow, and able to navigate APIs or developer handoffs. Willing to tinker and explore settings.",
+  "interaction_pattern": "Exploratory and curious. She clicks around to learn features on her own, prefers drag-and-drop interfaces, and expects responsive feedback.",
+  "work_habits": "Flexible but intense. Works late at night, juggles multiple clients, and switches frequently between design and comms tools. Highly organized within her own systems.",
+  "device_context": "MacBook Pro with external monitor for design; iPad for sketching; iPhone for communication and on-the-go edits.",
+  "accessibility_needs": "Prefers dark mode; avoids small tap targets or slow-loading animations.",
+  "dominant_trait": "Creative autonomy — she expects tools to enable, not constrain, her.",
+  "failure_conditions": {
+    "abandonment_by_lack_of_customization": "If the software doesn't allow her to personalize her workspace or workflows, she’ll find alternatives.",
+    "abandonment_by_uninspiring_design": "If the UI feels clunky, dated, or poorly considered, she’ll lose respect and drop the product.",
+    "abandonment_by_integration_gaps": "If it can’t integrate with her core tool stack (e.g. Figma, Slack, Notion), it won’t last in her workflow."
+  },
+  "archetype": "Visionary Creator",
+  "user_type": "Advanced",
+  "core_value": "Software should inspire creativity while respecting user autonomy.",
+  "emotional_trigger": "Disappointment — If a tool promises freedom but feels confining or tone-deaf in design, she’ll walk away with frustration and distrust."
+}
